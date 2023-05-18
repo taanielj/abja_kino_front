@@ -1,10 +1,19 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/login">Logi Sisse</router-link>
+    <router-link to="/">Kava</router-link> |
+    <router-link to="//movie/:id">Filmid</router-link> |
+    <router-link v-if="userId === null" to="/login">Logi Sisse</router-link>
+      <template v-else>
+          <router-link to="/tickets">Piletid</router-link>
+          |
+          <template v-if="roleName === 'admin'">
+              <router-link to="/adminRoute">Admin</router-link>
+          </template>
+          <router-link to="#" @click="handleLogout">Logi välja</router-link>
+      </template>
+
   </nav>
-  <router-view/>
+  <router-view @event-update-nav-menu="updateNavMenu"/>
 
 
 </template>
