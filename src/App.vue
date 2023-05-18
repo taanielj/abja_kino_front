@@ -1,19 +1,34 @@
-<template id="app">
-    <nav class="">
-        <router-link to="/">Home</router-link>
-        |
-        <router-link to="/about">About</router-link>
-        |
-        <router-link to="/login">Logi Sisse</router-link>
-        |
-        <router-link to="/admin">Admin</router-link>
-    </nav>
-    <div class="content">
-        <router-view/>
-    </div>
+<template>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link> |
+    <router-link to="/login">Logi Sisse</router-link>
+  </nav>
+  <router-view/>
 
 
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            userId: sessionStorage.getItem('userId'),
+            roleName: sessionStorage.getItem('roleName')
+        }
+    },
+    methods: {
+        updateNavMenu() {
+            this.userId = sessionStorage.getItem('userId')
+            this.roleName = sessionStorage.getItem('roleName')
+        },
+
+        handleLogout() {
+        },
+    }
+
+}
+</script>
 
 <style>
 #app {

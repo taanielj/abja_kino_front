@@ -32,7 +32,7 @@ export default {
             loginResponse: {
                 userId: 0,
                 roleName: ""
-            },
+            }
         };
     },
     methods: {
@@ -48,8 +48,7 @@ export default {
         sendLoginRequest() {
 
 
-
-            this.$http.get("/login",{
+            this.$http.get("/user/login", {
                 params: {
                     username: this.username,
                     password: this.password
@@ -61,10 +60,16 @@ export default {
                 sessionStorage.setItem("userId", this.loginResponse.userId);
                 sessionStorage.setItem("roleName", this.loginResponse.roleName);
                 this.$emit('event-update-nav-menu')
-                router.push({name: 'ScheduleRoute'})})
-            }
+                router.push({name: 'ScheduleRoute'})
+            }).catch(error => {
+                if (error.response.data.errorCode === 401) {
+                    this.message = error.response.data.message;
+                } else {
+                    router.push({name: 'errorRoute'})
+                }
+            })
         },
+    }
 }
-
 </script>
 

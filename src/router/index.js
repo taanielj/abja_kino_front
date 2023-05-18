@@ -6,8 +6,54 @@ import MovieView from "@/views/MovieView.vue";
 import AdminView from "@/views/admin/AdminView.vue";
 import AddMovieView from "@/views/admin/AddMovieView.vue";
 import SeanceView from "@/views/SeanceView.vue";
+import ErrorView from "@/views/ErrorView.vue";
+import SeanceView from "@/views/SeanceView.vue";
 
 const routes = [
+
+  {
+    path: '/seance/:id',
+    name: 'SeanceRoute',
+    component: SeanceView,
+    props: true
+  },
+  {
+    path: '/admin/add-movie',
+    name: 'AddMovieRoute',
+    component: AddMovieView
+  },
+  {
+    path: '/',
+    name: 'ScheduleRoute',
+    component: ScheduleView
+  },
+  {
+    path: '/login',
+    name: 'loginRoute',
+    component: LoginView
+  },
+  {
+    path: '/register',
+    name: 'registerRoute',
+    component: RegisterView
+  },
+  {
+    path: '/movie/:id',
+    name: 'MovieRoute',
+    component: MovieView,
+    props: true
+  },
+  {
+    path: '/admin',
+    name: 'AdminRoute',
+    component: AdminView
+  },
+  {
+    path: '/error',
+    name: 'errorRoute',
+    component: ErrorView
+  }
+
     {
         path: '/seance/:id',
         name: 'SeanceRoute',
