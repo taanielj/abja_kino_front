@@ -1,6 +1,15 @@
 <template>
-<SeanceCardFull :seanceInfo="seanceInfo" :movieInfo="movieInfo"/>
+    <div class="container">
 
+        <div class="row justify-content-center">
+            <div class="col col-10">
+                <SeanceCardFull :movie-info="movieInfo" :seance-info="seanceInfo"/>
+            </div>
+        </div>
+
+
+
+    </div>
 </template>
 
 <script>
@@ -30,7 +39,6 @@ export default defineComponent({
     },
 })
 </script>
-
 
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container bg-dark text-light">
+    <div class="bg-dark text-light">
         <div class="row">
             <div class="col col-3">
                 <div class="row">
