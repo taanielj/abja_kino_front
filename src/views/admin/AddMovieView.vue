@@ -5,12 +5,11 @@
         </div>
         <div class="row justify-content-center">
             <div class="col col-4">
-                <div class="row">
+                <div class="row mb-2">
                     <PosterImage/>
                 </div>
-                <div class="row">
-                    selectimage.vue
-
+                <div class="row justify-content-lg-center">
+                    <ImageInput ref="imageInputRef" @event-emit-base64="emitBase64"/>
                 </div>
             </div>
             <div class="col col-4">
@@ -18,7 +17,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            nuppud
+
         </div>
     </div>
 
@@ -28,10 +27,23 @@
 <script>
 import PosterImage from "@/components/PosterImage.vue";
 import MovieDetailsInput from "@/components/admin/MovieDetailsInput.vue";
+import ImageInput from "@/components/admin/ImageInput.vue";
 
 export default {
     name: "AddMovieView",
-    components: {MovieDetailsInput, PosterImage}
+    components: {ImageInput, MovieDetailsInput, PosterImage},
+    data() {
+        return {
+            movieInfo: {
+
+            }
+        }
+    }
+    methods: {
+        emitBase64(pictureDataBase64) {
+            this.$emit('event-emit-base64', pictureDataBase64)
+        }
+    }
 }
 </script>
 
