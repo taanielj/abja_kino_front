@@ -6,6 +6,9 @@
       <template v-else>
           <router-link to="/tickets">Piletid</router-link>
           |
+          <template v-if="roleName === 'admin'">
+              <router-link to="/adminRoute">Admin</router-link>
+          </template>
           <router-link to="#" @click="handleLogout">Logi välja</router-link>
       </template>
 
