@@ -1,11 +1,8 @@
 <template>
     <div class="container text-center">
         <div class="row">
-
-
             <label for="title" class="form-label">Pealkiri*</label>
             <input v-model="title" type="text" class="form-control" id="title">
-
         </div>
         <div class="row mb-3">
             <label for="length" class="form-label">Pikkus*</label>
