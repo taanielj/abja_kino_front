@@ -33,7 +33,21 @@ export default defineComponent({
     name: "SeanceCard",
     data() {
         return {
-
+            seanceInfo: {
+                id: this.$route.params.id,
+                title: "Pealkiri",
+                poster: "",
+                timeStamp: "Kellaaeg",
+                language: "Keel",
+                subtitles: "Subtiitrid",
+                freeSeats: 10,
+                totalSeats: 10
+            },
+            movieInfo: {
+                title: "Pealkiri",
+                poster: "",
+                timeStamp: "Kellaaeg"
+            }
         }
     },
 })
