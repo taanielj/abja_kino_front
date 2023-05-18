@@ -9,7 +9,7 @@
 
 <script>
 
-import genreTable from "@/components/admin/GenreTable.vue";
+
 
 export default {
     name: "GenreDropdown",
