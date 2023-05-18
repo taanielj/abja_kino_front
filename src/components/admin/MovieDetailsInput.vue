@@ -1,41 +1,25 @@
 <template>
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-                <label for="title" class="form-label">Pealkiri*</label>
-                <label for="length" class="form-label">Pikkus*</label>
-                <label for="author" class="form-label">Režissöör*</label>
-                <label for="youtube" class="form-label">Youtube*</label>
-
-            </div>
-            <div class="col">
-                <input v-model="title" type="text" class="form-control" id="title">
-                <input v-model="length" type="text" class="form-control" id="title">
-                <input v-model="author" type="text" class="form-control" id="author">
-                <input v-model="youtube" type="text" class="form-control" id="youtube">
-
-            </div>
-
-
-        </div>
+    <div class="container text-start">
         <div class="row mb-3">
-            <label for="length" class="form-label">Pikkus*</label>
-            <input v-model="length" type="text" class="form-control" id="title">
+            <div class="col col-3">
+                <label for="title" class="form-label">Pealkiri</label>
+                <label for="runtime" class="form-label">Pikkus</label>
+                <label for="director" class="form-label">Režissöör</label>
+                <label for="youtube" class="form-label">Youtube link</label>
+                <label for="genre" class="form-label">Žanr</label>
+            </div>
+            <div class="col col-9 mb-3">
+                <input v-model="movieInfo.title" type="text" class="form-control mb-2" id="title">
+                <input v-model="movieInfo.runtime" type="text" class="form-control mb-2" id="runtime">
+                <input v-model="movieInfo.director" type="text" class="form-control mb-2" id="director">
+                <input v-model="movieInfo.youtube" type="text" class="form-control mb-2" id="youtube">
+                <GenreDropdown :genre="movieInfo.genreId" @event-emit-selected-genre-id="updateGenreId"/>
+            </div>
         </div>
-        <div class="mb-3">
-
-
-        </div>
-        <div class="mb-3">
-
-
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Sisesta filmi kirjeldus</label>
-            <input v-model="description" type="text" class="form-control" id="description">
-        </div>
-        <div>
-            <GenreDropdown/>
+        <div class="row mb-3 text-start">
+            <label for="description" class="form-label">Sisesta filmi kirjeldus:</label>
+            <textarea v-model="movieInfo.description" type="text" class="form-control" id="description"
+                      rows="9"></textarea>
         </div>
     </div>
 
@@ -52,16 +36,29 @@ export default {
         return {
             movieInfo: {
                 title: "",
-                length: "",
-                author: "",
+                runtime: "",
+                director: "",
                 youtube: "",
                 description: "",
+                genreId: 0
             }
+        }
+    },
+    watch: {
+        movieInfo: {
+            handler() {
+                this.emitMovieInfo();
+            },
+            deep: true
+        }
+    },
+    methods: {
+        updateGenreId(genreId) {
+            this.movieInfo.genreId = genreId;
+        },
+        emitMovieInfo() {
+            this.$emit('event-emit-movie-info', this.movieInfo)
         }
     }
 }
 </script>
-
-<style scoped>
-
-</style>
