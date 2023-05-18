@@ -32,10 +32,6 @@ export default {
             loginResponse: {
                 userId: 0,
                 roleName: ""
-            },
-            errorResponse: {
-                message: "",
-                errorCode: 0
             }
         };
     },
@@ -52,7 +48,7 @@ export default {
         sendLoginRequest() {
 
 
-            this.$http.get("/login", {
+            this.$http.get("/user/login", {
                 params: {
                     username: this.username,
                     password: this.password
@@ -66,9 +62,8 @@ export default {
                 this.$emit('event-update-nav-menu')
                 router.push({name: 'ScheduleRoute'})
             }).catch(error => {
-                this.message = error.response.data.message;
-                if (this.errorResponse.errorCode === 111) {
-                    this.message = "Vale kasutajanimi või salasõna"
+                if (error.response.data.errorCode === 401) {
+                    this.message = error.response.data.message;
                 } else {
                     router.push({name: 'errorRoute'})
                 }

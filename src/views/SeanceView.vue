@@ -1,5 +1,5 @@
 <template>
-<SeanceCardFull :seanceInfo="seanceInfo" :movieInfo="movieInfo"/>
+    <SeanceCardFull :seanceInfo="seanceInfo" :movieInfo="movieInfo"/>
 
 </template>
 
@@ -30,7 +30,6 @@ export default defineComponent({
     },
 })
 </script>
-
 
 
 <style scoped>
