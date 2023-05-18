@@ -33,6 +33,10 @@ export default {
                 userId: 0,
                 roleName: ""
             },
+            errorResponse: {
+                message: "",
+                errorCode: 0
+            }
         };
     },
     methods: {
@@ -48,8 +52,7 @@ export default {
         sendLoginRequest() {
 
 
-
-            this.$http.get("/login",{
+            this.$http.get("/login", {
                 params: {
                     username: this.username,
                     password: this.password
@@ -61,10 +64,17 @@ export default {
                 sessionStorage.setItem("userId", this.loginResponse.userId);
                 sessionStorage.setItem("roleName", this.loginResponse.roleName);
                 this.$emit('event-update-nav-menu')
-                router.push({name: 'ScheduleRoute'})})
-            }
+                router.push({name: 'ScheduleRoute'})
+            }).catch(error => {
+                this.message = error.response.data.message;
+                if (this.errorResponse.errorCode === 111) {
+                    this.message = "Vale kasutajanimi või salasõna"
+                } else {
+                    router.push({name: 'errorRoute'})
+                }
+            })
         },
+    }
 }
-
 </script>
 

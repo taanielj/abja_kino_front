@@ -5,10 +5,16 @@ import ScheduleView from "@/views/ScheduleView.vue";
 import MovieView from "@/views/MovieView.vue";
 import AdminView from "@/views/admin/AdminView.vue";
 import AddMovieView from "@/views/admin/AddMovieView.vue";
+import ErrorView from "@/views/ErrorView.vue";
 
 const routes = [
 
 
+  {
+    path: '/',
+    name: 'ScheduleRoute',
+    component: ScheduleView
+  },
   {
     path: '/login',
     name: 'loginRoute',
@@ -25,23 +31,16 @@ const routes = [
     props: true
   },
   {
-    path: '/',
-    name: 'ScheduleRoute',
-    component: ScheduleView
-  },
-  {
     path: '/admin',
     name: 'AdminRoute',
     component: AdminView
   },
   {
-    path: '/about',
-    name: 'about',
-
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }
+    path: '/error',
+    name: 'errorRoute',
+    component: ErrorView
   }
+
 ]
 
 const router = createRouter({
