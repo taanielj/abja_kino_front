@@ -24,6 +24,7 @@
                 <div class="row justify-content-center">
                     <div class="">
                          <button @click="navigateBack" type="submit" class="btn btn-outline-success">Tagasi</button>
+                        <span style="margin-left: 50px"></span>
                          <button @click="registerNewClient" type="submit" class="btn btn-outline-success">Registreeri</button>
                     </div>
                 </div>
