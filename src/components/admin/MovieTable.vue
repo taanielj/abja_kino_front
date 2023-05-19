@@ -2,15 +2,17 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Pileti valik</th>
-            <th scope="col">Hind</th>
+            <th scope="col">Film</th>
+            <th scope="col">Žanr</th>
+            <th scope="col">Seansside arv</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="ticketType in ticketTypes">
-            <td>{{ticketType.name}}</td>
-            <td>{{ticketType.price}}</td>
+        <tr v-for="movie in movies">
+            <td>{{movie.title}}</td>
+            <td>{{movie.genreName}}</td>
+            <td>{{movie.numberOfSeances}}</td>
             <td>
                 <font-awesome-icon @click="navigateToEditAtmLocation(atmLocation.locationId)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
@@ -23,25 +25,28 @@
 </template>
 
 <script>
+
+
 export default {
-    name: "TicketTypeTable",
+    name: "MovieTable",
     data() {
         return {
-            ticketTypes: [
+            movies: [
                 {
                     id: 0,
-                    name: "",
-                    price: 0,
+                    title: "default",
+                    genreName: "default",
+                    numberOfSeances: 0,
+
                 }
             ]
         }
     },
-
     methods: {
-        getTicketTypes: function () {
-            this.$http.get("/ticket/types")
+        getAllMovies() {
+            this.$http.get("/movie/admin-summary")
                 .then(response => {
-                    this.ticketTypes = response.data
+                    this.movies = response.data
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
@@ -49,8 +54,9 @@ export default {
         },
     },
     beforeMount() {
-        this.getTicketTypes()
+        this.getAllMovies()
     }
+
 }
 </script>
 

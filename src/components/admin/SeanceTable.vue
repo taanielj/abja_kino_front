@@ -2,15 +2,17 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Pileti valik</th>
-            <th scope="col">Hind</th>
+            <th scope="col">Seansi aeg</th>
+            <th scope="col">Film</th>
+            <th scope="col">Saal</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="ticketType in ticketTypes">
-            <td>{{ticketType.name}}</td>
-            <td>{{ticketType.price}}</td>
+        <tr v-for="seance in seances">
+            <td>{{ seance.timeStamp }}</td>
+            <td>{{ seance.movieTitle }}</td>
+            <td>{{ seance.room }}</td>
             <td>
                 <font-awesome-icon @click="navigateToEditAtmLocation(atmLocation.locationId)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
@@ -23,33 +25,32 @@
 </template>
 
 <script>
+
+
 export default {
-    name: "TicketTypeTable",
+    name: "SeanceTable",
     data() {
         return {
-            ticketTypes: [
+            seances: [
                 {
                     id: 0,
-                    name: "",
-                    price: 0,
+                    timeStamp: "kellaaeg",
+                    movieTitle: "pealkiri",
+                    room: "Marss"
                 }
             ]
         }
     },
-
     methods: {
-        getTicketTypes: function () {
-            this.$http.get("/ticket/types")
+        getAllSeances: function () {
+            this.$http.get("/seance/all")
                 .then(response => {
-                    this.ticketTypes = response.data
+                    this.seances = response.data
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
                 })
         },
-    },
-    beforeMount() {
-        this.getTicketTypes()
     }
 }
 </script>

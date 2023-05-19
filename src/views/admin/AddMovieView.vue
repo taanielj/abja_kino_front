@@ -90,7 +90,7 @@ export default {
                 this.errorMessage = "Täida kõik väljad!";
                 return;
             }
-
+            this.movieInfo.posterImage = this.posterImage;
             this.$http.post("/movie/add", this.movieInfo
             ).then(response => {
                 this.successMessage = "Film lisatud!";

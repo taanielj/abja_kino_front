@@ -2,15 +2,15 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Pileti valik</th>
-            <th scope="col">Hind</th>
+            <th scope="col">Saal</th>
+            <th scope="col">Seansside arv</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="ticketType in ticketTypes">
-            <td>{{ticketType.name}}</td>
-            <td>{{ticketType.price}}</td>
+        <tr v-for="room in rooms">
+            <td>{{ room.name }}</td>
+            <td>{{ room.numberOfSeances}}</td>
             <td>
                 <font-awesome-icon @click="navigateToEditAtmLocation(atmLocation.locationId)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
@@ -24,32 +24,28 @@
 
 <script>
 export default {
-    name: "TicketTypeTable",
+    name: "RoomTable",
     data() {
         return {
-            ticketTypes: [
+            rooms: [
                 {
                     id: 0,
-                    name: "",
-                    price: 0,
+                    name: "Marss",
+                    numberOfSeances: 0,
                 }
             ]
         }
     },
-
     methods: {
-        getTicketTypes: function () {
-            this.$http.get("/ticket/types")
+        getAllRooms: function () {
+            this.$http.get("/room/all")
                 .then(response => {
-                    this.ticketTypes = response.data
+                    this.rooms = response.data
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
                 })
         },
-    },
-    beforeMount() {
-        this.getTicketTypes()
     }
 }
 </script>
