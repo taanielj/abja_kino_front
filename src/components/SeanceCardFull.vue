@@ -11,10 +11,10 @@
                 <div class="row text-lg-start">
                     <h1>{{ movieInfo.title }}</h1>
                     <p>
-                        {{movieInfo.genre}} | {{movieInfo.runtime}}
+                        {{ movieInfo.genre }} | {{ movieInfo.runtime }}
                     </p>
                     <p>
-                        {{seanceInfo.timeStamp}} | {{seanceInfo.room}}
+                        {{ seanceInfo.timeStamp }} | {{ seanceInfo.room }}
                     </p>
 
                 </div>
@@ -37,15 +37,66 @@ export default defineComponent({
     name: "SeanceCardFull",
     components: {PosterImage, MovieCard},
     props: {
-        seanceInfo: {
-            type: Object,
-            required: true
+        movieId: {
+            type: Number,
+            default: 0
         },
-        movieInfo: {
-            type: Object,
-            required: true
+        seanceId: {
+            type: Number,
+            default: 0
+        },
+
+    },
+    data() {
+        return {
+            seanceInfo: {
+                id: this.seanceId,
+                title: "Pealkiri",
+                poster: "",
+                timeStamp: "Kellaaeg",
+                room: "Saal 1",
+            },
+            movieInfo: {
+                title: "Kiired ja vihased X",
+                poster: "",
+                genre: "Action",
+                runtime: "2h 21min"
+            }
+        }
+
+    },
+    methods: {
+        getMovie() {
+            this.$http.get("/movie/", {
+                    params: {
+
+                    }
+                }
+            ).then(response => {
+                this.movieInfo = response.data
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+        getSeance() {
+            this.$http.get("/seance/", {
+                    params: {
+                        id: this.seanceId
+                    }
+                }
+            ).then(response => {
+                this.seanceInfo = response.data
+            }).catch(error => {
+                console.log(error)
+            })
         }
     },
+    beforeMount() {
+        this.getMovie()
+        this.getSeance()
+    }
+
+
 })
 </script>
 

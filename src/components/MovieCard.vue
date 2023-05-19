@@ -1,24 +1,25 @@
 <template>
-    <div class="container">
+    <div class="bg-dark text-light">
         <div class="row">
-            <div class="col">
-                <div class="row" @click="gotoMovie(movieInfo.id)">
-
-                    {{ movieInfo.title }}
-
-
-                </div>
-                <div class=" row" @click="gotoMovie(movieInfo.id)">
+            <div class="col col-3">
+                <div class="row">
                     <PosterImage :image-data-base64="movieInfo.poster"/>
                 </div>
 
             </div>
-            <div class="col">
-                <div class="row">
-                    {{ movieInfo.timeStamp }}
+            <div class="col col-8">
+                <div class="row text-lg-start">
+                    <h1>
+                        Kiired ja vihased X
+                    </h1>
+                    <p>
+                        genre | runtime: 2h 21min
+                    </p>
+
+
                 </div>
                 <div class="row">
-                    Nupp, ValiPilet
+                    description
                 </div>
             </div>
 
@@ -30,7 +31,6 @@
 import {defineComponent} from 'vue'
 import PosterImage from "@/components/PosterImage.vue";
 import router from "@/router";
-import {useRoute} from "vue-router";
 
 export default defineComponent({
     name: "MovieCard",
@@ -55,7 +55,8 @@ export default defineComponent({
     methods: {
         gotoMovie(id) {
             router.push({name: 'MovieRoute', params: {id: id}})
-        }
+        },
+
 
     }
 

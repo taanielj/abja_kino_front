@@ -104,8 +104,8 @@ export default {
 
         },
         handleRegistrationError(error) {
-            if (error.response.status === 409) {
-                this.errorMessage = error.response.data.message
+            if (error.response.status === 409 || error.response.status === 400) {
+                this.errorMessage = error.response.data.message;
             } else {
                 router.push({path: '/error'})
             }
