@@ -6,8 +6,8 @@
       <template v-else>
           <router-link to="/tickets">Piletid</router-link>
           |
-          <template v-if="roleName === 'admin'">
-              <router-link to="/adminRoute">Admin</router-link>
+          <template v-if="roleName === 'ROLE_ADMIN'">
+              <router-link to="/admin">Admin</router-link>
           |
           </template>
 
