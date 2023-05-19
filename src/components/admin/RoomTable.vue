@@ -2,13 +2,15 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Žanr</th>
+            <th scope="col">Saal</th>
+            <th scope="col">Seansside arv</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="genre in genres">
-            <td>{{genre.name}}</td>
+        <tr v-for="room in rooms">
+            <td>{{ room.name }}</td>
+            <td>{{ room.numberOfSeances}}</td>
             <td>
                 <font-awesome-icon @click="navigateToEditAtmLocation(atmLocation.locationId)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
@@ -22,30 +24,28 @@
 
 <script>
 export default {
-    name: "GenreTable",
+    name: "RoomTable",
     data() {
         return {
-            genres: [
+            rooms: [
                 {
                     id: 0,
-                    name: "",
+                    name: "Marss",
+                    numberOfSeances: 0,
                 }
             ]
         }
     },
     methods: {
-        getGenres: function () {
-            this.$http.get("/genre/all")
+        getAllRooms: function () {
+            this.$http.get("/room/all")
                 .then(response => {
-                    this.genres = response.data
+                    this.rooms = response.data
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
                 })
         },
-    },
-    beforeMount() {
-        this.getGenres()
     }
 }
 </script>

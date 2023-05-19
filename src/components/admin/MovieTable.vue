@@ -2,13 +2,17 @@
     <table class="table">
         <thead>
         <tr>
+            <th scope="col">Film</th>
             <th scope="col">Žanr</th>
+            <th scope="col">Seansside arv</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="genre in genres">
-            <td>{{genre.name}}</td>
+        <tr v-for="movie in movies">
+            <td>{{movie.title}}</td>
+            <td>{{movie.genreName}}</td>
+            <td>{{movie.numberOfSeances}}</td>
             <td>
                 <font-awesome-icon @click="navigateToEditAtmLocation(atmLocation.locationId)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
@@ -21,23 +25,28 @@
 </template>
 
 <script>
+
+
 export default {
-    name: "GenreTable",
+    name: "MovieTable",
     data() {
         return {
-            genres: [
+            movies: [
                 {
                     id: 0,
-                    name: "",
+                    title: "default",
+                    genreName: "default",
+                    numberOfSeances: 0,
+
                 }
             ]
         }
     },
     methods: {
-        getGenres: function () {
-            this.$http.get("/genre/all")
+        getAllMovies() {
+            this.$http.get("/movie/admin-summary")
                 .then(response => {
-                    this.genres = response.data
+                    this.movies = response.data
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
@@ -45,8 +54,9 @@ export default {
         },
     },
     beforeMount() {
-        this.getGenres()
+        this.getAllMovies()
     }
+
 }
 </script>
 

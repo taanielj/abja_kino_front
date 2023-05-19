@@ -2,13 +2,17 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Žanr</th>
+            <th scope="col">Seansi aeg</th>
+            <th scope="col">Film</th>
+            <th scope="col">Saal</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="genre in genres">
-            <td>{{genre.name}}</td>
+        <tr v-for="seance in seances">
+            <td>{{ seance.timeStamp }}</td>
+            <td>{{ seance.movieTitle }}</td>
+            <td>{{ seance.room }}</td>
             <td>
                 <font-awesome-icon @click="navigateToEditAtmLocation(atmLocation.locationId)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
@@ -21,31 +25,32 @@
 </template>
 
 <script>
+
+
 export default {
-    name: "GenreTable",
+    name: "SeanceTable",
     data() {
         return {
-            genres: [
+            seances: [
                 {
                     id: 0,
-                    name: "",
+                    timeStamp: "kellaaeg",
+                    movieTitle: "pealkiri",
+                    room: "Marss"
                 }
             ]
         }
     },
     methods: {
-        getGenres: function () {
-            this.$http.get("/genre/all")
+        getAllSeances: function () {
+            this.$http.get("/seance/all")
                 .then(response => {
-                    this.genres = response.data
+                    this.seances = response.data
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
                 })
         },
-    },
-    beforeMount() {
-        this.getGenres()
     }
 }
 </script>

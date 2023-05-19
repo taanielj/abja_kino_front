@@ -2,9 +2,9 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Ticket Type</th>
+            <th scope="col">Pileti valik</th>
             <th scope="col">Hind</th>
-            <th scope="col">Action</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
