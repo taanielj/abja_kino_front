@@ -83,18 +83,18 @@ export default {
         },
         postNewClient() {
             this.$http.post('/user/register', this.registrationRequest
-                ).then(response => {
-                    this.successMessage = 'Kasutaja loodud' + response.data
-                    this.router.push('/')
+                ).then(() => {
+                    this.successMessage = 'Kasutaja loodud'
+                    this.navigateBack()
                 })
                 .catch(error => {
-                    this.errorResponse = error.response.data
-                    this.handleRegistrationError();
+
+                    this.handleRegistrationError(error);
                 })
 
         },
-        handleRegistrationError() {
-            if (this.errorResponse.code === 400) {
+        handleRegistrationError(error) {
+            if (error.response.status === 400) {
                 this.message = "Kasutajanimi on juba kasutusel"
             } else {
                 this.message = "Serveri viga"
