@@ -8,18 +8,23 @@
           |
           <template v-if="roleName === 'admin'">
               <router-link to="/adminRoute">Admin</router-link>
+          |
           </template>
+
           <router-link to="#" @click="handleLogout">Logi välja</router-link>
       </template>
-
   </nav>
+  <LogoutModal ref="logoutModalRef" @event-update-nav-menu="updateNavMenu"/>
   <router-view @event-update-nav-menu="updateNavMenu"/>
 
 
 </template>
 
 <script>
+import LogoutModal from "@/components/modal/LogoutModal.vue";
+import Modal from "@/components/modal/Modal.vue";
 export default {
+    components: {LogoutModal, Modal},
     data() {
         return {
             userId: sessionStorage.getItem('userId'),
