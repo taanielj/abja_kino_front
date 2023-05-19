@@ -79,10 +79,23 @@ export default {
                     const errorResponseBody = error.response.data
                 })
         },
-        addGenre() {
-            if (this.showInput && this.newGenre.trim() !== "") {
+        postGenre: function () {
+            this.$http.post("/genre/add", null, {
+                    params: {
+                        genreName: this.newGenre
+                    }
+                }
+            ).then(() => {
                 this.genres.push({id: this.genres.length, name: this.newGenre, editing: false});
                 this.newGenre = "";
+            }).catch(error => {
+                const errorResponseBody = error.response.data
+            })
+        },
+
+        addGenre() {
+            if (this.showInput && this.newGenre.trim() !== "") {
+                this.postGenre();
             }
             this.showInput = false;
         },
@@ -94,6 +107,7 @@ export default {
             if (genre.name !== "") {
                 genre.editing = false;
             }
+
         },
         cancelEditing(index) {
             const genre = this.genres[index];
