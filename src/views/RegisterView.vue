@@ -19,7 +19,7 @@
                 </div >
                 <div class="mb-3">
                     <label for="email" class="form-label">E-posti aadress</label>
-                    <input v-model="registrationRequest.email" type="email" class="form-control" id="password">
+                    <input v-model="registrationRequest.email" type="email" class="form-control" id="password" placeholder="example@gmail.com">
                 </div >
                 <div class="row justify-content-center">
                     <div class="">

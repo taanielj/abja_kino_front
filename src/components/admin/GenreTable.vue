@@ -28,18 +28,14 @@
         </tr>
         <tr>
             <td>
-                <input v-model="newGenre" type="text" v-if="showInput">
+                <input v-model="newGenre" type="text" v-if="showInput" class="form-control">
             </td>
             <td>
                 <template v-if="showInput">
-                    <font-awesome-icon @click="addGenre" class="hoverable-link me-3" :icon="['fas', 'plus']"/>
+                    <button @click="addGenre" type="button" class="btn btn-outline-dark ">Salvesta</button>
                 </template>
                 <template v-else>
                     <font-awesome-icon @click="toggleInput" class="hoverable-link me-3" :icon="['fas', 'plus']"/>
-<!--                    <font-awesome-icon @click="saveGenre(genres.length)" class="hoverable-link me-3"-->
-<!--                                       :icon="['fas', 'save']"/>-->
-<!--                    <font-awesome-icon @click="cancelEditing(genres.length)" class="hoverable-link me-3"-->
-<!--                                       :icon="['fas', 'times']"/>-->
                 </template>
 
             </td>
