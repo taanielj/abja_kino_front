@@ -7,20 +7,11 @@ import AdminView from "@/views/admin/AdminView.vue";
 import AddMovieView from "@/views/admin/AddMovieView.vue";
 import ErrorView from "@/views/ErrorView.vue";
 import SeanceView from "@/views/SeanceView.vue";
+import AllMoviesView from "@/views/AllMoviesView.vue";
 
 const routes = [
 
-    {
-        path: '/seance/:id',
-        name: 'SeanceRoute',
-        component: SeanceView,
-        props: true
-    },
-    {
-        path: '/admin/add-movie',
-        name: 'AddMovieRoute',
-        component: AddMovieView
-    },
+
     {
         path: '/',
         name: 'ScheduleRoute',
@@ -37,15 +28,31 @@ const routes = [
         component: RegisterView
     },
     {
+        path: '/movies',
+        name: 'AllMoviesRoute',
+        component: AllMoviesView
+    },
+    {
         path: '/movie/:id',
         name: 'MovieRoute',
         component: MovieView,
         props: true
     },
     {
+        path: '/seance/:id',
+        name: 'SeanceRoute',
+        component: SeanceView,
+        props: true
+    },
+    {
         path: '/admin',
         name: 'AdminRoute',
         component: AdminView
+    },
+    {
+        path: '/admin/add-movie',
+        name: 'AddMovieRoute',
+        component: AddMovieView
     },
     {
         path: '/error',
@@ -53,44 +60,6 @@ const routes = [
         component: ErrorView
     },
 
-    {
-        path: '/seance/:id',
-        name: 'SeanceRoute',
-        component: SeanceView,
-        props: true
-    },
-    {
-        path: '/admin/add-movie',
-        name: 'AddMovieRoute',
-        component: AddMovieView
-    },
-
-    {
-        path: '/login',
-        name: 'loginRoute',
-        component: LoginView
-    },
-    {
-        path: '/register',
-        name: 'registerRoute',
-        component: RegisterView
-    },
-    {
-        path: '/movie/:id',
-        name: 'MovieRoute',
-        component: MovieView,
-        props: true
-    },
-    {
-        path: '/',
-        name: 'ScheduleRoute',
-        component: ScheduleView
-    },
-    {
-        path: '/admin',
-        name: 'AdminRoute',
-        component: AdminView
-    }
 
 ]
 

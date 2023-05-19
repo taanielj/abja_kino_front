@@ -1,7 +1,7 @@
 <template>
   <nav>
     <router-link to="/">Kava</router-link> |
-    <router-link to="//movie/:id">Filmid</router-link> |
+    <router-link to="/movies">Filmid</router-link> |
     <router-link v-if="userId === null" to="/login">Logi Sisse</router-link>
       <template v-else>
           <router-link to="/tickets">Piletid</router-link>
