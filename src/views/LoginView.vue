@@ -22,16 +22,19 @@
 
 <script>
 import router from "@/router";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 export default {
     name: "LoginView",
+    components: {AlertDanger},
     data() {
         return {
             username: "",
             password: "",
             message: "",
-            loginResponse: {
-                userId: 0,
-                roleName: ""
+            errorResponse:{
+                message: "",
+                errorCode: 0
+
             }
         };
     },
@@ -56,9 +59,8 @@ export default {
 
 
             }).then(response => {
-                this.loginResponse = response.data;
-                sessionStorage.setItem("userId", this.loginResponse.userId);
-                sessionStorage.setItem("roleName", this.loginResponse.roleName);
+                sessionStorage.setItem("userId", response.data.userId);
+                sessionStorage.setItem("roleName", response.data.roleName);
                 this.$emit('event-update-nav-menu')
                 router.push({name: 'ScheduleRoute'})
             }).catch(error => {

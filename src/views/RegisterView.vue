@@ -35,9 +35,11 @@
 
 <script>
 import router from "@/router";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
     name: "RegisterView",
+    components: {AlertDanger},
     data() {
         return {
             matchingPassword: '',
@@ -48,6 +50,10 @@ export default {
                 password: "",
                 email: "",
             },
+            errorResponse: {
+                message: "",
+                errorCode: 0
+            }
         };
     },
     methods: {
@@ -83,8 +89,12 @@ export default {
         },
         postNewClient() {
             this.$http.post('/user/register', this.registrationRequest
-                ).then(() => {
-                    this.successMessage = 'Kasutaja loodud'
+                ).then((response) => {
+
+                sessionStorage.setItem("userId", response.data.userId);
+                sessionStorage.setItem("roleName", response.data.roleName);
+                this.$emit('event-update-nav-menu')
+                router.push({name: 'ScheduleRoute'})
                     this.navigateBack()
                 })
                 .catch(error => {
@@ -94,10 +104,10 @@ export default {
 
         },
         handleRegistrationError(error) {
-            if (error.response.status === 400) {
-                this.message = "Kasutajanimi on juba kasutusel"
+            if (error.response.status === 409) {
+                this.errorMessage = error.response.data.message
             } else {
-                this.message = "Serveri viga"
+                router.push({path: '/error'})
             }
         }
     }
