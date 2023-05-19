@@ -38,6 +38,7 @@ export default {
         },
 
         handleLogout() {
+            this.$refs.logoutModalRef.$refs.modalRef.openModal()
         },
     }
 
