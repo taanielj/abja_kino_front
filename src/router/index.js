@@ -8,6 +8,7 @@ import AddMovieView from "@/views/admin/AddMovieView.vue";
 import ErrorView from "@/views/ErrorView.vue";
 import SeanceView from "@/views/SeanceView.vue";
 import AllMoviesView from "@/views/AllMoviesView.vue";
+import AddSeanceView from "@/views/admin/AddSeanceView.vue";
 
 const routes = [
 
@@ -53,6 +54,11 @@ const routes = [
         path: '/admin/add-movie',
         name: 'AddMovieRoute',
         component: AddMovieView
+    },
+    {
+        path: '/admin/add-seance',
+        name: 'AddMovieRoute',
+        component: AddSeanceView
     },
     {
         path: '/error',
