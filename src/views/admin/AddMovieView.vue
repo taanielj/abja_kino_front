@@ -43,11 +43,12 @@ import MovieDetailsInput from "@/components/admin/MovieDetailsInput.vue";
 import ImageInput from "@/components/admin/ImageInput.vue";
 import router from "@/router";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 
 export default {
     name: "AddMovieView",
 
-    components: {AlertDanger, ImageInput, MovieDetailsInput, PosterImage},
+    components: {AlertSuccess, AlertDanger, ImageInput, MovieDetailsInput, PosterImage},
     data() {
         return {
             successMessage: "",
@@ -92,7 +93,7 @@ export default {
             }
             this.movieInfo.posterImage = this.posterImage;
             this.$http.post("/movie/add", this.movieInfo
-            ).then(response => {
+            ).then(() => {
                 this.successMessage = "Film lisatud!";
             }).catch(error => {
                 this.errorMessage = error.response.data.message;
