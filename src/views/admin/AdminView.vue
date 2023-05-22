@@ -13,7 +13,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col col-5 admin-table">
-                        <GenreTable/>
+                        <GenreTable @event-error-message="setErrorMessage($event)"/>
                     </div>
                     <div class="col col-2">
                     </div>
@@ -49,6 +49,11 @@ export default {
     data() {
         return {
             errorMessage: ''
+        }
+    },
+    methods: {
+        setErrorMessage(errorMessage) {
+            this.errorMessage = errorMessage;
         }
     }
 }

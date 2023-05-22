@@ -14,13 +14,13 @@
             </td>
             <td>
                 <template v-if="!genre.editing">
-                    <font-awesome-icon @click="putGenre(genre.id)" class="hoverable-link me-3"
+                    <font-awesome-icon @click="toggleEditGenre(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'edit']"/>
                     <font-awesome-icon @click="deleteGenre(genre.id)" class="hoverable-link me-3"
                                        :icon="['fas', 'trash']"/>
                 </template>
                 <template v-else>
-                    <font-awesome-icon @click="saveGenre(genre.id)" class="hoverable-link me-3" :icon="['fas', 'save']"/>
+                    <font-awesome-icon @click="putGenre(genre.id)" class="hoverable-link me-3" :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
                 </template>
@@ -32,13 +32,12 @@
             </td>
             <td>
                 <template v-if="showInput">
-                    <button @click="addGenre" type="button" class="btn btn-outline-dark me-3 ">Salvesta</button>
+                    <font-awesome-icon @click="addGenre" class="hoverable-link me-3" :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="toggleInput" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
                 </template>
                 <template v-else>
                     <font-awesome-icon @click="toggleInput" class="hoverable-link me-3" :icon="['fas', 'plus']"/>
-
                 </template>
 
             </td>
@@ -83,7 +82,7 @@ export default {
                     this.genres = response.data
                 })
                 .catch(error => {
-                    const errorResponseBody = error.response.data
+                    this.handleGenreError(error)
                 })
         },
         postGenre: function () {
@@ -122,7 +121,7 @@ export default {
         addGenre() {
             if (this.showInput && this.newGenre.trim() !== "") {
                 this.postGenre();
-
+                this.getGenres();
             }
             this.showInput = false;
         },
@@ -132,9 +131,12 @@ export default {
             if (genre.name !== "") {
                 genre.editing = false;
             }
-
-
         },
+
+        toggleEditGenre(index) {
+            this.genres[index].editing = !this.genres[index].editing;
+        },
+
         cancelEditing(index) {
             const genre = this.genres[index];
             if (genre.name === "") {
@@ -147,9 +149,9 @@ export default {
 
         },
         handleGenreError(error) {
-            if (error.response.status === 409) {
+            if (error.response.status === 409 || error.response.status === 400) {
                 this.errorMessage = error.response.data.message;
-
+                this.$emit("event-error-message", this.errorMessage);
             }else {
                 router.push({path: '/error'})
             }
@@ -159,9 +161,10 @@ export default {
             this.$http.delete("/genre/"+ (index))
                 .then(() => {
                     this.genres.splice(index, 1);
+                    this.getGenres();
                 })
                 .catch(error => {
-                    // this.handleGenreError(error);
+                    this.handleGenreError(error);
                 })
 
 
