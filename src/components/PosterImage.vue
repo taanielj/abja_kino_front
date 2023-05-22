@@ -9,8 +9,9 @@ export default {
     props: {
         imageDataBase64: {
             type: String,
-            default: ''
-        }
+            default: null
+        },
+        movieId: 0,
     }
 }
 </script>

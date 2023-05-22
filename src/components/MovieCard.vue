@@ -3,24 +3,24 @@
         <div class="row">
             <div class="col col-3">
                 <div class="row">
-                    <PosterImage :image-data-base64="movieInfo.poster"/>
+                    <PosterImage :image-data-base64="movieInfo.posterImage" ref="posterImage"/>
                 </div>
 
             </div>
             <div class="col col-8">
                 <div class="row text-lg-start">
-                    <h1>
-                        Kiired ja vihased X
+                    <h1 class="text-start">
+                        {{ movieInfo.title }}
                     </h1>
-                    <p>
-                        genre | runtime: 2h 21min
+                    <p class="text-start">
+                        Genre: {{ movieInfo.genreName }}| runtime: {{ runtimeHours }}h {{ runtimeMinutes }}min
+                    </p>
+                    <p class="text-start">
+                        description
                     </p>
 
+                </div>
 
-                </div>
-                <div class="row">
-                    description
-                </div>
             </div>
 
         </div>
@@ -36,28 +36,53 @@ export default defineComponent({
     name: "MovieCard",
     components: {PosterImage},
     props: {
-        movie: {
-            type: Object,
-            default: () => ({
-                id: 0,
-                title: "Pealkiri",
-                poster: "",
-                timeStamp: "Kellaaeg"
-
-            })
-        }
+        movieId: 0
     },
     data() {
         return {
-            movieInfo: this.movie
+            movieInfo: {
+                id: 0,
+                title: "Pealkiri",
+                genreName: "Action",
+                posterImage: "",
+                runtime: Number //minutes
+            },
+            runtimeHours: 0,
+            runtimeMinutes: 0
         }
     },
     methods: {
         gotoMovie(id) {
             router.push({name: 'MovieRoute', params: {id: id}})
         },
+        getMovie() {
+            if (this.movieId === 0) {
+                return
+            }
+            console.log("get movie")
+            this.$http.get("/movie/" + this.movieId).then(response => {
+                this.movieInfo = response.data;
+                console.log(this.movieInfo)
+                this.$nextTick(() => {
+                    this.runtimeToHoursMinutes();
+                    console.log("next tick")
+                })
+                this.setImgData();
+            }).catch(() => {
+                // router.push({path: '/error'})
+            })
+        },
+        runtimeToHoursMinutes() {
+            this.runtimeHours = Math.floor(this.movieInfo.runtime / 60)
+            this.runtimeMinutes = this.movieInfo.runtime % 60
+        }
 
+    },
+    mounted() {
+        if (this.movieId !== 0) {
+            this.getMovie();
 
+        }
     }
 
 
