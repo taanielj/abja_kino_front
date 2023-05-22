@@ -75,7 +75,7 @@ export default {
         },
         allFieldsFilled() {
             return this.movieInfo.title !== "" &&
-                this.movieInfo.runtime !== "" &&
+                this.movieInfo.runtime !== 0 &&
                 this.movieInfo.director !== "" &&
                 this.movieInfo.youtube !== "" &&
                 this.movieInfo.description !== "" &&
