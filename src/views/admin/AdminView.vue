@@ -1,5 +1,6 @@
 <template>
     <div class="container text-center">
+        <AlertDanger :message="errorMessage"/>
         <div class="row">
             <div class="col">
                 <h1>
@@ -12,12 +13,11 @@
                     <SeanceTable/>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col col-5 admin-table">
-                        <GenreTable/>
+                    <div class="col-6 col-md-4 admin-table">
+                        <GenreTable @event-error-message="setErrorMessage($event)"/>
                     </div>
-                    <div class="col col-2">
-                    </div>
-                    <div class="col col-5 admin-table">
+                    <div class="col-2 d-none d-md-block"></div> <!-- Spacer column -->
+                    <div class="col-6 col-md-4 admin-table">
                         <TicketTypeTable/>
                     </div>
                 </div>
@@ -49,6 +49,15 @@ export default {
     data() {
         return {
             errorMessage: ''
+        }
+    },
+    methods: {
+        setErrorMessage(errorMessage) {
+            this.errorMessage = errorMessage;
+
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 5000);
         }
     }
 }

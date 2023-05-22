@@ -1,38 +1,44 @@
 <template>
     <table class="table">
+        <colgroup>
+            <col style="width: 60%">
+            <col style="width: 40%">
+        </colgroup>
         <thead>
         <tr>
             <th scope="col">Žanr</th>
-            <th scope="col">Tegevus</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(genre, index) in genres" :key="index">
-            <td>
-                <input v-model="genre.name" type="text" v-if="genre.name === '' && !genre.editing">
+        <tr v-for="(genre, index) in genres" :key="index" class="text-center">
+            <td class="text-center">
+                <input v-model="genre.name" type="text" v-if="genre.editing" class="w-50 ">
                 <span v-else>{{ genre.name }}</span>
             </td>
             <td>
-                <template v-if="genre.name === '' && !genre.editing">
-                    <font-awesome-icon @click="editGenre(index)" class="hoverable-link me-3"
-                                       :icon="['fas', 'pen']"/>
-                    <font-awesome-icon @click="deleteGenre(index)" class="hoverable-link me-3"
+                <template v-if="!genre.editing">
+                    <font-awesome-icon @click="toggleEditGenre(index)" class="hoverable-link me-3"
+                                       :icon="['fas', 'edit']"/>
+                    <font-awesome-icon @click="deleteGenre(genre.id)" class="hoverable-link me-3"
                                        :icon="['fas', 'trash']"/>
                 </template>
                 <template v-else>
-                    <font-awesome-icon @click="saveGenre(index)" class="hoverable-link me-3" :icon="['fas', 'edit']"/>
+                    <font-awesome-icon @click="putGenre(genre.id)" class="hoverable-link me-3" :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
                 </template>
             </td>
         </tr>
-        <tr>
+        <tr class="text-center">
             <td>
-                <input v-model="newGenre" type="text" v-if="showInput" class="form-control">
+                <input v-model="newGenre" type="text" v-if="showInput" class="w-50">
             </td>
             <td>
                 <template v-if="showInput">
-                    <button @click="addGenre" type="button" class="btn btn-outline-dark ">Salvesta</button>
+                    <font-awesome-icon @click="addGenre" class="hoverable-link me-3" :icon="['fas', 'save']"/>
+                    <font-awesome-icon @click="toggleInput" class="hoverable-link me-3"
+                                       :icon="['fas', 'times']"/>
                 </template>
                 <template v-else>
                     <font-awesome-icon @click="toggleInput" class="hoverable-link me-3" :icon="['fas', 'plus']"/>
@@ -47,10 +53,13 @@
 <script>
 import index from "vuex";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+import alert from "@/components/alert/Alert.vue";
+import router from "@/router";
 
 export default {
     name: "GenreTable",
-    components: {FontAwesomeIcon},
+    components: {FontAwesomeIcon, AlertDanger, alert},
     computed: {
         index() {
             return index
@@ -58,6 +67,7 @@ export default {
     },
     data() {
         return {
+            errorMessage: "",
             genres: [
                 {
                     id: 0,
@@ -76,7 +86,7 @@ export default {
                     this.genres = response.data
                 })
                 .catch(error => {
-                    const errorResponseBody = error.response.data
+                    this.handleGenreError(error)
                 })
         },
         postGenre: function () {
@@ -89,26 +99,48 @@ export default {
                 this.genres.push({id: this.genres.length, name: this.newGenre, editing: false});
                 this.newGenre = "";
             }).catch(error => {
-                const errorResponseBody = error.response.data
+                this.handleGenreError(error);
+                if (!this.showInput) {
+                    this.newGenre = "";
+                }
+            })
+        },
+
+        putGenre () {
+            this.$http.put("/genre/update", null, {
+                params: {
+                    genreName: this.newGenre
+                }
+            }).then(() => {
+                this.genres.push({id: this.genres.length, name: this.newGenre, editing: false});
+                this.newGenre = "";
+            }).catch(error => {
+                this.handleGenreError(error);
+                if (!this.showInput) {
+                    this.newGenre = "";
+                }
             })
         },
 
         addGenre() {
             if (this.showInput && this.newGenre.trim() !== "") {
                 this.postGenre();
+                this.getGenres();
             }
             this.showInput = false;
         },
-        editGenre(index) {
-            this.genres[index].editing = true;
-        },
+
         saveGenre(index) {
             const genre = this.genres[index];
             if (genre.name !== "") {
                 genre.editing = false;
             }
-
         },
+
+        toggleEditGenre(index) {
+            this.genres[index].editing = !this.genres[index].editing;
+        },
+
         cancelEditing(index) {
             const genre = this.genres[index];
             if (genre.name === "") {
@@ -116,16 +148,42 @@ export default {
             } else {
                 genre.editing = false;
             }
+            this.newGenre = "";
+            this.showInput = false;
+
+        },
+        handleGenreError(error) {
+            if (error.response.status === 409 || error.response.status === 400) {
+                this.errorMessage = error.response.data.message;
+                this.$emit("event-error-message", this.errorMessage);
+            }else {
+                router.push({path: '/error'})
+            }
+
         },
         deleteGenre(index) {
-            this.genres.splice(index, 1);
+            this.$http.delete("/genre/"+ (index))
+                .then(() => {
+                    this.genres.splice(index, 1);
+                    this.getGenres();
+                })
+                .catch(error => {
+                    this.handleGenreError(error);
+                })
+
+
         },
         toggleInput() {
             this.showInput = !this.showInput;
-        }
+            if (!this.showInput) {
+                this.newGenre = "";
+            }
+        },
+
     },
     beforeMount() {
         this.getGenres()
     }
 }
 </script>
+
