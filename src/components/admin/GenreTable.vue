@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td>
-                <input v-model="newGenre" type="text" v-if="showInput" class="form-control">
+                <input v-model="newGenre" type="text" v-if="showInput" class="w-50 form-control">
             </td>
             <td>
                 <template v-if="showInput">
