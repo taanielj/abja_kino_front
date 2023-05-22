@@ -1,5 +1,9 @@
 <template>
     <table class="table">
+        <colgroup>
+            <col style="width: 60%">
+            <col style="width: 40%">
+        </colgroup>
         <thead>
         <tr>
             <th scope="col">Žanr</th>
@@ -7,9 +11,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(genre, index) in genres" :key="index">
-            <td>
-                <input v-model="genre.name" type="text" v-if="genre.editing">
+        <tr v-for="(genre, index) in genres" :key="index" class="text-center">
+            <td class="text-center">
+                <input v-model="genre.name" type="text" v-if="genre.editing" class="w-50 ">
                 <span v-else>{{ genre.name }}</span>
             </td>
             <td>
@@ -26,9 +30,9 @@
                 </template>
             </td>
         </tr>
-        <tr>
+        <tr class="text-center">
             <td>
-                <input v-model="newGenre" type="text" v-if="showInput" class="w-50 form-control">
+                <input v-model="newGenre" type="text" v-if="showInput" class="w-50">
             </td>
             <td>
                 <template v-if="showInput">
@@ -182,3 +186,4 @@ export default {
     }
 }
 </script>
+
