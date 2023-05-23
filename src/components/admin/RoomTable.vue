@@ -58,11 +58,11 @@
             </td>
             <td v-else></td>
             <td v-if="showInput">
-                <input v-model="newRoom.numberOfRows" type="text" class="w-50 input-field ">
+                <input v-model="newRoom.rows" type="text" class="w-50 input-field ">
             </td>
             <td v-else></td>
             <td v-if="showInput">
-                <input v-model="newRoom.numberOfSeats" type="text" class="w-50 input-field">
+                <input v-model="newRoom.seats" type="text" class="w-50 input-field">
             </td>
             <td>
                 <template v-if="showInput">
@@ -97,8 +97,8 @@ export default {
                     id: 0,
                     name: "Marss",
                     numberOfSeances: 0,
-                    numberOfRows: 0,
-                    numberOfSeats: 0,
+                    rows: 0,
+                    seats: 0,
                 }
             ],
             newRoom: "",
@@ -111,7 +111,7 @@ export default {
         getAllRooms() {
             this.$http.get("/room/all")
                 .then(response => {
-                    this.rooms = response.data
+                    this.rooms = response.data;
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
@@ -214,10 +214,11 @@ export default {
                 this.newRoom = "";
             }
         },
-        beforeMount() {
-            this.getAllRooms()
-        }
+
     },
+    beforeMount() {
+        this.getAllRooms();
+    }
 }
 </script>
 <style scooped>
