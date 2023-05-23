@@ -96,7 +96,7 @@ export default {
                     }
                 }
             ).then(() => {
-                this.genres.push({id: this.genres.length, name: this.newGenre, editing: false});
+                this.getGenres();
                 this.newGenre = "";
             }).catch(error => {
                 this.handleGenreError(error);
@@ -107,10 +107,9 @@ export default {
         },
 
         putGenre (genre) {
-            const genreId = parseInt(genre.id);
-            this.$http.put("/genre/{id}",  {
+            this.$http.put("/genre/" + genre.id, null,  {
+
                 params: {
-                    genreId: genreId.id,
                     genreName: genre.name
                 }
             }).then(() => {
