@@ -2,17 +2,19 @@
     <table class="table">
         <colgroup>
             <col style="width: 20%">
-            <col style="width: 20%">
-            <col style="width: 20%">
-            <col style="width: 20%">
-            <col style="width: 20%">
+            <col style="width: 15%">
+            <col style="width: 15%">
+            <col style="width: 15%">
+            <col style="width: 15%">
+            <col style="width: 10%">
         </colgroup>
         <thead>
         <tr>
             <th scope="col">Saal</th>
             <th scope="col">Seansside arv</th>
-            <th scope="col">Ridade arv</th>
-            <th scope="col">Istekohtade arv</th>
+            <th scope="col">Ridu</th>
+            <th scope="col">Istekohti reas</th>
+            <th scope="col">Istekohti saalis</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -29,6 +31,10 @@
             <td>
                 <input v-model="room.numberOfRows" type="number" v-if="room.editing" class="w-50 input-field">
                 <span v-else>{{ room.numberOfRows }}</span>
+            </td>
+            <td>
+                <input v-model="room.numberOfSeats" type="number" v-if="room.editing" class="w-50 input-field">
+                <span v-else>{{ room.numberOfSeats }}</span>
             </td>
             <td>
                 <input v-model="room.numberOfSeats" type="number" v-if="room.editing" class="w-50 input-field">
@@ -54,7 +60,7 @@
             </td>
             <td v-else></td>
             <td v-if="showInput">
-                <input v-model="newRoom.numberOfSeances" type="text" class="w-50 input-field">
+
             </td>
             <td v-else></td>
             <td v-if="showInput">
@@ -64,6 +70,10 @@
             <td v-if="showInput">
                 <input v-model="newRoom.seats" type="text" class="w-50 input-field">
             </td>
+            <td v-else></td>
+            <td v-if="showInput"></td>
+            <td v-else></td>
+
             <td>
                 <template v-if="showInput">
                     <font-awesome-icon @click="addRoom" class="hoverable-link me-3" :icon="['fas', 'save']"/>
@@ -95,13 +105,15 @@ export default {
             rooms: [
                 {
                     id: 0,
-                    name: "Marss",
+                    name: "",
                     numberOfSeances: 0,
                     rows: 0,
-                    seats: 0,
+                    cols: 0,
+                    numberOfSeats: 0,
+                    editing: false
                 }
             ],
-            newRoom: "",
+            newRoom: {},
             showInput: false
         }
 
@@ -198,9 +210,8 @@ export default {
                 router.push({path: "/error"})
             }
         },
-        deleteRoom(id) {
-            this.$http.delete("/room/" + (id))
-
+        deleteRoom(index) {
+            this.$http.delete("/room/" + (index))
                 .then(() => {
                     this.rooms.splice(index, 1)
                     this.getAllRooms()

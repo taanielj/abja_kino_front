@@ -20,7 +20,7 @@
             </td>
             <td>
                 <input v-model="ticketType.price" type="number" v-if="ticketType.editing" class="w-50" input-field>
-                <span v-else >{{ ticketType.price }}</span>
+                <span v-else>{{ ticketType.price }}</span>
             </td>
             <td>
                 <template v-if="!ticketType.editing">
@@ -34,17 +34,18 @@
                                        :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
-                    </template>
+                </template>
             </td>
         </tr>
         <tr class="text-center">
             <td v-if="showInput">
-                <input v-model="newTicketType.name" type="text" class="w-50" input-field>
+                <input v-model="newTicketType.name" type="text" class="w-50 input-field" >
             </td>
             <td v-else></td>
             <td v-if="showInput">
-                <input v-model="newTicketType.price" type="number" class="w-50" input-field>
+                <input v-model="newTicketType.price" type="number" class="w-50 input-field">
             </td>
+            <td v-else></td>
             <td>
                 <template v-if="showInput">
                     <font-awesome-icon @click="addTicketType" class="hoverable-link me-3"
@@ -52,7 +53,7 @@
                     <font-awesome-icon @click="toggleInput" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
                 </template>
-            <template v-else>
+                <template v-else>
                     <font-awesome-icon @click="toggleInput" class="hoverable-link me-3"
                                        :icon="['fas', 'plus']"/>
                 </template>
@@ -66,10 +67,17 @@
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import Alert from "@/components/alert/Alert.vue";
+import router from "@/router";
+import index from "vuex";
 
 export default {
     name: "TicketTypeTable",
     components: {FontAwesomeIcon, AlertDanger, Alert},
+    computed: {
+        index() {
+            return index
+        }
+    },
     data() {
         return {
             errorMessage: "",
@@ -77,10 +85,15 @@ export default {
                 {
                     id: 0,
                     name: "",
-                    price: 0,
+                    price: null,
+                    editing: false,
                 }
             ],
-            newTicketType: "",
+            newTicketType: {
+                id: 0,
+                name: "",
+                price: null,
+            },
             showInput: false,
         }
     },
@@ -95,74 +108,73 @@ export default {
                     const errorResponseBody = error.response.data
                 })
         },
-        postTicketType () {
-            this.$http.post("/ticket/types", null, {
-                params: {
-                    name: this.newTicketType.name,
-                    price: this.newTicketType.price,
-                }
-            }).then(() => {
-                 this.ticketTypes.push(this.newTicketType)
-                this.newTicketType = "";
-                })
-                .catch(error => {
-                    this.handleTicketTypeError(error);
-                    if(!this.showInput) {
-                        this.newTicketType = "";
-                    }
-                })
-        },
-        putTicketType(){
-            this.$http.put("/ticket/types/" + id, null, {
-                params: {
-                    name: this.newTicketType.name,
-                    price: this.newTicketType.price,
-                }
-            }).then(() => {
-                this.ticketTypes.push(this.newTicketType)
+        postTicketType() {
+            this.$http.post("/ticket/add", this.newTicketType ).then(() => {
+                this.getTicketTypes()
                 this.newTicketType = "";
             })
                 .catch(error => {
                     this.handleTicketTypeError(error);
-                    if(!this.showInput) {
+                    if (!this.showInput) {
+                        this.newTicketType = "";
+                    }
+                })
+        },
+        putTicketType(ticketType) {
+
+            this.$http.put("/ticket/" +ticketType.id, null, {
+                params: {
+                    name: ticketType.name,
+                    price: ticketType.price,
+                }
+            } ).then(() => {
+                ticketType.editing = false
+                this.getTicketTypes()
+
+            })
+                .catch(error => {
+                    this.handleTicketTypeError(error);
+                    if (!this.showInput) {
                         this.newTicketType = "";
                     }
                 })
         },
         addTicketType() {
-            if(this.newTicketType.name === "" || this.newTicketType.price === 0) {
+            if (this.newTicketType.name === "" || this.newTicketType.price === 0) {
                 this.errorMessage = "Palun sisesta kõik väljad"
+                this.showInput = false;
             } else {
+                this.newTicketType.price = Number(this.newTicketType.price)
                 this.postTicketType()
             }
         },
         toggleEditTicketType(index) {
-           if (index === undefined) {
-               this.showInput = !this.showInput
-           } else {
-               this.ticketTypes[index].editing = !this.ticketTypes[index].editing
-           }
+            if (index === undefined) {
+                this.showInput = !this.showInput
+            } else {
+                this.ticketTypes[index].editing = !this.ticketTypes[index].editing
+            }
         },
-        cancelEditing(index){
+        cancelEditing(index) {
             const ticketType = this.ticketTypes[index]
-            if(ticketType.id === undefined) {
+            if (ticketType.id === undefined) {
                 this.ticketTypes.splice(index, 1)
             } else {
                 ticketType.editing = false
             }
         },
         handleTicketTypeError(error) {
-            if(error.response.status === 400) {
+            if (error.response.status === 400) {
                 this.errorMessage = error.response.data.message
                 this.$emit("event-error-message", this.errorMessage)
             } else {
                 router.push({path: "/error"})
             }
         },
-        deleteTicketType(id) {
-            this.$http.delete("/ticket/types/" + id)
+        deleteTicketType(index) {
+            this.$http.delete("/ticket/types/" + (index))
                 .then(() => {
-                    this.rooms.splice(index, 1)
+                    this.ticketTypes.splice(index, 1)
                     this.getTicketTypes()
                 })
                 .catch(error => {
@@ -182,6 +194,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.input-field{
+    border-radius: 5px;
+}
 </style>
