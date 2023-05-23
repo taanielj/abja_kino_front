@@ -32,13 +32,13 @@
 </template>
 
 <script>
-import GenreTable from "@/components/admin/GenreTable.vue";
-import TicketTypeTable from "@/components/admin/TicketTypeTable.vue";
+import GenreTable from "@/components/admin/table/GenreTable.vue";
+import TicketTypeTable from "@/components/admin/table/TicketTypeTable.vue";
 import AllMoviesView from "@/views/AllMoviesView.vue";
-import MovieTable from "@/components/admin/MovieTable.vue";
+import MovieTable from "@/components/admin/table/MovieTable.vue";
 import SeanceCard from "@/components/SeanceCard.vue";
-import SeanceTable from "@/components/admin/SeanceTable.vue";
-import RoomTable from "@/components/admin/RoomTable.vue";
+import SeanceTable from "@/components/admin/table/SeanceTable.vue";
+import RoomTable from "@/components/admin/table/RoomTable.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
@@ -66,10 +66,14 @@ export default {
 <style scoped>
 
 .admin-table {
-    background-color: orange;
-    border-radius: 20px;
+    background-color: #fff;
+    //border-radius: 20px;
     margin-bottom: 20px;
-
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* add a box shadow */
+    transition: box-shadow 0.3s ease-in-out; /* optional: add a transition for a smooth hover effect */
 }
 
+.admin-table:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2); /* optional: add a hover effect */
+}
 </style>

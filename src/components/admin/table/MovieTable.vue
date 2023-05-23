@@ -1,4 +1,5 @@
 <template>
+    <DeleteMovieModal ref="deleteMovieModalRef" :movieId="selectedMovieId" :movieTitle="selectedMovieTitle" @movie-deleted="getAllMovies"/>
     <table class="table">
         <thead>
         <tr>
@@ -16,8 +17,13 @@
             <td>
                 <font-awesome-icon @click="navigateToEditMovie(movie.id)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
-                <font-awesome-icon @click="openDeleteLocationModal(atmLocation.locationId)" class="hoverable-link"
+                <font-awesome-icon @click="openDeleteMovieModal(movie.id, movie.title)" class="hoverable-link"
                                    :icon="['fas', 'xmark']"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <button class="btn btn-light w-100" @click="navigateToAddMovie">Lisa uus film</button>
             </td>
         </tr>
         </tbody>
@@ -28,9 +34,11 @@
 
 
 import router from "@/router";
+import DeleteMovieModal from "@/components/modal/DeleteMovieModal.vue";
 
 export default {
     name: "MovieTable",
+    components: {DeleteMovieModal},
     data() {
         return {
             movies: [
@@ -41,7 +49,9 @@ export default {
                     numberOfSeances: 0,
 
                 }
-            ]
+            ],
+            selectedMovieId: null,
+            selectedMovieTitle: null
         }
     },
     methods: {
@@ -57,6 +67,14 @@ export default {
         navigateToEditMovie(id) {
             router.push({path: "admin/edit-movie/" + id})
         },
+        navigateToAddMovie() {
+            router.push({path: "admin/add-movie"})
+        },
+        openDeleteMovieModal(id, title) {
+            this.selectedMovieId = id
+            this.selectedMovieTitle = title
+            this.$refs.deleteMovieModalRef.$refs.modalRef.openModal()
+        }
     },
     beforeMount() {
         this.getAllMovies()

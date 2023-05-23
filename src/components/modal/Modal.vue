@@ -46,3 +46,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.modal-content {
+    background-color: white !important;
+}
+</style>

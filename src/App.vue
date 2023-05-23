@@ -1,21 +1,26 @@
 <template>
-  <nav>
-    <router-link to="/">Kava</router-link> |
-    <router-link to="/movies">Filmid</router-link> |
-    <router-link v-if="userId === null" to="/login">Logi Sisse</router-link>
-      <template v-else>
-          <router-link to="/tickets">Piletid</router-link>
-          |
-          <template v-if="roleName === 'ROLE_ADMIN'">
-              <router-link to="/admin">Admin</router-link>
-          |
-          </template>
+    <nav>
+        <router-link to="/">Kava</router-link>
+        |
+        <router-link to="/movies">Filmid</router-link>
+        |
+        <router-link v-if="userId === null" to="/login">Logi Sisse</router-link>
+        <template v-else>
+            <router-link to="/tickets">Piletid</router-link>
+            |
+            <template v-if="roleName === 'ROLE_ADMIN'">
+                <router-link to="/admin">Admin</router-link>
+                |
+            </template>
 
-          <router-link to="#" @click="handleLogout">Logi välja</router-link>
-      </template>
-  </nav>
-  <LogoutModal ref="logoutModalRef" @event-update-nav-menu="updateNavMenu"/>
-  <router-view @event-update-nav-menu="updateNavMenu"/>
+            <router-link to="#" @click="handleLogout">Logi välja</router-link>
+        </template>
+    </nav>
+    <div class="content">
+        <router-view @event-update-nav-menu="updateNavMenu"/>
+    </div>
+
+    <LogoutModal ref="logoutModalRef" @event-update-nav-menu="updateNavMenu"/>
 
 
 </template>
@@ -23,6 +28,7 @@
 <script>
 import LogoutModal from "@/components/modal/LogoutModal.vue";
 import Modal from "@/components/modal/Modal.vue";
+
 export default {
     components: {LogoutModal, Modal},
     data() {
@@ -56,11 +62,14 @@ export default {
 }
 
 nav {
+    position: fixed;
+    background-color: lightgray;
     padding: 30px;
     font-size: 40px;
     width: 100%;
     transition: top 0.3s;
     z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* add a box shadow */
 }
 
 nav a {
@@ -73,7 +82,7 @@ nav a.router-link-exact-active {
 }
 
 .content {
-    padding-top: 80px;
+    padding-top: 120px;
 }
 </style>
 <script setup>

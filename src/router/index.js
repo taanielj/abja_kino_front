@@ -64,6 +64,11 @@ const routes = [
         component: AddSeanceView
     },
     {
+        path: '/admin/edit-seance/:id',
+        name: 'EditSeanceRoute',
+        component: AddSeanceView
+    },
+    {
         path: '/error',
         name: 'errorRoute',
         component: ErrorView

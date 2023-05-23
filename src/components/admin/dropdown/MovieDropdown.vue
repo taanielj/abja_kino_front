@@ -9,6 +9,7 @@
 <script>
 export default {
     name: "MovieDropdown",
+    props: ['movie'],
     data() {
         return {
             selectedMovieId: "0",
@@ -25,9 +26,6 @@ export default {
             this.$emit('event-emit-selected-movie-id', Number(this.selectedMovieId))
         },
 
-        setSelectedMovieId(movieId) {
-            this.selectedMovieId = movieId
-        },
 
         getMovies() {
             this.$http.get("/movie/all")
@@ -38,6 +36,11 @@ export default {
                     const errorResponseBody = error.response.data
                 })
         },
+    },
+    watch: {
+        movie(newMovieId) {
+            this.selectedMovieId = newMovieId || 0;
+        }
     },
     beforeMount() {
         this.getMovies()

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import GenreDropdown from "@/components/admin/GenreDropdown.vue";
+import GenreDropdown from "@/components/admin/dropdown/GenreDropdown.vue";
 
 export default {
     name: "MovieDetailsInput",

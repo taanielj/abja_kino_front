@@ -56,7 +56,6 @@ export default {
             errorMessage: "",
             isEdit: false,
             movieInfo: {
-                id: null,
                 title: "",
                 runtime: "",
                 director: "",
@@ -125,7 +124,7 @@ export default {
                 return;
             }
             this.movieInfo.posterImage = this.image;
-            this.$http.put("/movie/update/" + this.movieId, this.movieInfo)
+            this.$http.put("/movie/" + this.movieId, this.movieInfo)
                 .then(() => this.successMessage = "Film muudetud!")
                 .catch(error => this.errorMessage = error.response.data.message);
         },

@@ -9,7 +9,7 @@
 <script>
 export default {
     name: "RoomDropdown",
-
+    props: ['room'],
     data() {
         return {
             selectedRoomId: '0',
@@ -40,6 +40,11 @@ export default {
                     const errorResponseBody = error.response.data
                 })
         },
+    },
+    watch: {
+        room(newRoomId) {
+            this.selectedRoomId = newRoomId || 0;
+        }
     },
     beforeMount() {
         this.getRooms()

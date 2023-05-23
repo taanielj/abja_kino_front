@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <div class="row justify-content-center mb-4">
-            <h1>Seansi lisamine</h1>
+            <h1 v-if="isEdit">Seansi muutmine</h1>
+            <h1 v-else >Seansi lisamine</h1>
         </div>
         <div class="row mb-3 justify-content-center">
             <div class="col col-4">
@@ -54,7 +55,7 @@
                 <button v-if="isEdit" @click="editSeance" type="button" class="btn btn-outline-success">
                     Muuda
                 </button>
-                <button v-else @click="postNewSeance" type="button" class="btn button btn-outline-success">
+                <button v-else @click="addSeance" type="button" class="btn button btn-outline-success">
                     Lisa
                 </button>
             </div>
@@ -63,8 +64,8 @@
 </template>
 
 <script>
-import MovieDropdown from "@/components/admin/MovieDropdown.vue";
-import RoomDropdown from "@/components/admin/RoomDropdown.vue";
+import MovieDropdown from "@/components/admin/dropdown/MovieDropdown.vue";
+import RoomDropdown from "@/components/admin/dropdown/RoomDropdown.vue";
 import router from "@/router";
 
 export default {
@@ -73,7 +74,8 @@ export default {
 
     data() {
         return {
-
+            isEdit: false,
+            seanceId: this.$route.params.id,
             successMessage: "",
             errorMessage: "",
             seanceInfo: {
@@ -87,9 +89,44 @@ export default {
     },
     methods: {
 
+        getSeance() {
+            this.$http.get("/seance/" + this.seanceId)
+                .then(response => {
+                    this.seanceInfo = response.data;
+                })
+                .catch(() => {
+                    router.push({path: "/error"})
+                })
+        },
 
-        setSeanceInfo(seanceInfo) {
-            this.seanceInfo = seanceInfo;
+        addSeance() {
+            this.resetMessageFields();
+
+            if(!this.allFieldsFilled()) {
+                this.errorMessage = "Täida kõik väljad!";
+                return;
+            }
+
+            this.$http.post("/seance", this.seanceInfo)
+                .then(response => {
+                    this.successMessage = "Seanss lisatud";
+                })
+                .catch(error => {
+                    this.errorMessage = error.response.data.message;
+                })
+        },
+
+        editSeance() {
+            this.resetMessageFields();
+
+            if (!this.allFieldsFilled()) {
+                this.errorMessage = "Täida kõik väljad!";
+                return;
+            }
+
+            this.$http.put("/seance/" + this.seanceId, this.seanceInfo)
+                .then(() => this.successMessage = "Seanss muudetud!")
+                .catch(error => this.errorMessage = error.response.data.message);
         },
 
         allFieldsFilled() {
@@ -100,15 +137,7 @@ export default {
                 this.seanceInfo.subtitles !== "";
         },
 
-        postNewSeance() {
-            this.$http.post("/seance", this.seanceInfo)
-                .then(response => {
-                    this.successMessage = "Seanss lisatud";
-                })
-                .catch(error => {
-                    this.errorMessage = "Seansi lisamine ebaõnnestus";
-                })
-        },
+
 
 
         resetMessageFields() {
@@ -125,6 +154,12 @@ export default {
             this.seanceInfo.roomId = roomId;
         }
 
+    },
+    mounted() {
+        if(this.seanceId !== undefined) {
+            this.isEdit = true;
+            this.getSeance();
+        }
     }
 }
 </script>
