@@ -24,7 +24,7 @@
                                        :icon="['fas', 'trash']"/>
                 </template>
                 <template v-else>
-                    <font-awesome-icon @click="putGenre(genre.id)" class="hoverable-link me-3" :icon="['fas', 'save']"/>
+                    <font-awesome-icon @click="saveGenre(genre.id)" class="hoverable-link me-3" :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
                 </template>
@@ -89,7 +89,7 @@ export default {
                     this.handleGenreError(error)
                 })
         },
-        postGenre: function () {
+        postGenre () {
             this.$http.post("/genre/add", null, {
                     params: {
                         genreName: this.newGenre
@@ -106,14 +106,16 @@ export default {
             })
         },
 
-        putGenre () {
-            this.$http.put("/genre/update", null, {
+        putGenre (genre) {
+            const genreId = parseInt(genre.id);
+            this.$http.put("/genre/{id}",  {
                 params: {
-                    genreName: this.newGenre
+                    genreId: genreId.id,
+                    genreName: genre.name
                 }
             }).then(() => {
-                this.genres.push({id: this.genres.length, name: this.newGenre, editing: false});
-                this.newGenre = "";
+                genre.editing = false;
+                this.getGenres();
             }).catch(error => {
                 this.handleGenreError(error);
                 if (!this.showInput) {
@@ -130,10 +132,11 @@ export default {
             this.showInput = false;
         },
 
-        saveGenre(index) {
-            const genre = this.genres[index];
-            if (genre.name !== "") {
-                genre.editing = false;
+        saveGenre(genreId) {
+            const genre = this.genres.find((g) => g.id === genreId);
+            if (genre && genre.name !== "") {
+                this.putGenre(genre);
+                this.getGenres();
             }
         },
 
