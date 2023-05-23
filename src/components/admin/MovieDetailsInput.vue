@@ -12,7 +12,7 @@
                 <input v-model="movieInfo.title" type="text" class="form-control mb-2" id="title">
                 <input v-model="movieInfo.runtime" type="text" class="form-control mb-2" id="runtime">
                 <input v-model="movieInfo.director" type="text" class="form-control mb-2" id="director">
-                <input v-model="movieInfo.youtube" type="text" class="form-control mb-2" id="youtube">
+                <input v-model="movieInfo.youtubeLink" type="text" class="form-control mb-2" id="youtube">
                 <GenreDropdown :genre="movieInfo.genreId" @event-emit-selected-genre-id="updateGenreId"/>
             </div>
         </div>
@@ -32,24 +32,33 @@ import GenreDropdown from "@/components/admin/GenreDropdown.vue";
 export default {
     name: "MovieDetailsInput",
     components: {GenreDropdown},
+    props: ['movie'],
     data() {
         return {
             movieInfo: {
                 title: "",
-                runtime: "",
+                runtime: Number,
                 director: "",
-                youtube: "",
+                youtubeLink: "",
                 description: "",
-                genreId: 0
-            }
+                genreId: 0,
+                posterImage: ""
+            },
         }
     },
     watch: {
-        movieInfo: {
-            handler() {
-                this.emitMovieInfo();
+        movie: {
+            handler(newMovie) {
+                this.movieInfo = { ...newMovie };
             },
+            immediate: true,
             deep: true
+        },
+        'movie.genreId': {
+            handler(newGenreId) {
+                this.movieInfo.genreId = newGenreId;
+            },
+            immediate: true
         }
     },
     methods: {

@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="col col-6">
-                <MovieDetailsInput @event-emit-movie-info="setMovieInfo"/>
+                <MovieDetailsInput @event-emit-movie-info="setMovieInfo" :movie="movieInfo"/>
             </div>
 
         </div>
@@ -24,10 +24,10 @@
                 <button @click="navigateBack" type="button" class="btn button btn-outline-secondary me-3">
                     Tagasi
                 </button>
-                <button v-if="isEdit" @click="editMovie" type="button" class="btn btn-outline-success">
+                <button v-if="isEdit" @click="editMovie" type="button" class="btn button btn-outline-success me-3">
                     Muuda
                 </button>
-                <button v-else @click="postMovie" type="button" class="btn button btn-outline-success">
+                <button v-else @click="postMovie" type="button" class="btn button btn-outline-success me-3">
                     Lisa
                 </button>
             </div>
@@ -47,7 +47,6 @@ import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 
 export default {
     name: "AddMovieView",
-
     components: {AlertSuccess, AlertDanger, ImageInput, MovieDetailsInput, PosterImage},
     data() {
         return {
@@ -56,10 +55,11 @@ export default {
             errorMessage: "",
             isEdit: false,
             movieInfo: {
+                id: null,
                 title: "",
                 runtime: Number,
                 director: "",
-                youtube: "",
+                youtubeLink: "",
                 description: "",
                 genreId: 0,
                 posterImage: ""
@@ -69,7 +69,7 @@ export default {
     },
     methods: {
         setImageData(imageDataBase64) {
-            this.posterImage    = imageDataBase64;
+            this.posterImage = imageDataBase64;
             this.movieInfo.posterImage = imageDataBase64;
             this.$emit('event-emit-base64', imageDataBase64)
         },
@@ -80,7 +80,7 @@ export default {
             return this.movieInfo.title !== "" &&
                 this.movieInfo.runtime !== 0 &&
                 this.movieInfo.director !== "" &&
-                this.movieInfo.youtube !== "" &&
+                this.movieInfo.youtubeLink !== "" &&
                 this.movieInfo.description !== "" &&
                 this.movieInfo.genreId !== 0 &&
                 this.posterImage !== "";
@@ -90,12 +90,29 @@ export default {
             this.$http.get("/movie/" + this.movieId)
                 .then(response => {
                     this.movieInfo = response.data;
+                    this.posterImage = this.movieInfo.posterImage;
                 })
                 .catch(() => {
-                    router.push({path:"/error"})
+                    router.push({path: "/error"})
                 })
         },
-        
+
+        editMovie() {
+            this.resetMessageFields();
+
+            if (!this.allFieldsFilled()) {
+                this.errorMessage = "Täida kõik väljad!";
+                return;
+            }
+            this.movieInfo.posterImage = this.posterImage;
+            this.$http.put("/movie/update", this.movieInfo
+            ).then(() => {
+                this.successMessage = "Film muudetud!";
+            }).catch(error => {
+                this.errorMessage = error.response.data.message;
+            })
+        },
+
 
         postMovie() {
             this.resetMessageFields();
@@ -121,8 +138,8 @@ export default {
         },
 
     },
-    beforeMount() {
-        if(this.movieId !== undefined) {
+    mounted() {
+        if (this.movieId !== undefined) {
             this.isEdit = true;
             this.getMovie();
         }
@@ -132,7 +149,7 @@ export default {
 
 <style scoped>
 
-.button{
+.button {
     font-size: 30px;
 }
 
