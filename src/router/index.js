@@ -57,7 +57,7 @@ const routes = [
     },
     {
         path: '/admin/add-seance',
-        name: 'AddMovieRoute',
+        name: 'AddSeanceRoute',
         component: AddSeanceView
     },
     {

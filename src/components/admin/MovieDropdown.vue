@@ -1,8 +1,8 @@
 <template>
     <select v-model="selectedMovieId" @change="emitSelectedMovieId" class="form-select"
-            aria-label="Default select example">
+            aria-label="Movie Dropdown">
         <option selected value="0">Kõik filmid</option>
-        <option v-for="movie in movies" :key="movie.id" :value="movie.id">{{ movie.name }}</option>
+        <option v-for="movie in movies" :key="movie.id" :value="movie.id">{{ movie.title}}</option>
     </select>
 </template>
 
@@ -29,7 +29,7 @@ export default {
             this.selectedMovieId = movieId
         },
 
-        getMovies: function () {
+        getMovies() {
             this.$http.get("/movie/all")
                 .then(response => {
                     this.movies = response.data

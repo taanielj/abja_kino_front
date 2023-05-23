@@ -24,7 +24,7 @@
                 <label for="subtitles" class="form-label">Subtiitrid</label>
             </div>
             <div class="col col-4">
-                <input v-model="subtitles" type="text" class="form-control" id="subtitles">
+                <input v-model="seanceInfo.subtitles" type="text" class="form-control" id="subtitles">
             </div>
         </div>
         <div class="row mb-3 justify-content-center">
@@ -32,7 +32,7 @@
                 <label for="language" class="form-label">Keel</label>
             </div>
             <div class="col col-4">
-                <input v-model="language" type="text" class="form-control" id="language">
+                <input v-model="seanceInfo.language" type="text" class="form-control" id="language">
             </div>
         </div>
 
@@ -42,7 +42,7 @@
                 <label for="timeDate" class="form-label">Algusaeg</label>
             </div>
             <div class="col col-4">
-                <input v-model="dateTime" type="datetime-local" class="form-control" id="timeDate">
+                <input v-model="seanceInfo.dateTime" type="datetime-local" class="form-control" id="timeDate">
             </div>
         </div>
 
@@ -73,9 +73,7 @@ export default {
 
     data() {
         return {
-            timeDate: 0,
-            timeHours: 0,
-            timeMinutes: 0,
+
             successMessage: "",
             errorMessage: "",
             seanceInfo: {
@@ -83,7 +81,7 @@ export default {
                 roomId: 0,
                 subtitles: "eesti",
                 language: "inglise",
-                timeStamp: "2023-05-31T19:11"
+                dateTime: "2023-05-31T19:11"
             }
         }
     },
@@ -103,13 +101,16 @@ export default {
         },
 
         postNewSeance() {
-            this.resetMessageFields();
-
-            if (!this.allFieldsFilled()) {
-                this.errorMessage = "Täida kõik väljad!";
-                return;
-            }
+            this.$http.post("/seance", this.seanceInfo)
+                .then(response => {
+                    this.successMessage = "Seanss lisatud";
+                })
+                .catch(error => {
+                    this.errorMessage = "Seansi lisamine ebaõnnestus";
+                })
         },
+
+
         resetMessageFields() {
             this.successMessage = "";
             this.errorMessage = "";
@@ -117,6 +118,12 @@ export default {
         navigateBack() {
             router.push({path: "/admin"});
         },
+        updateMovieId(movieId) {
+            this.seanceInfo.movieId = movieId;
+        },
+        updateRoomId(roomId) {
+            this.seanceInfo.roomId = roomId;
+        }
 
     }
 }
