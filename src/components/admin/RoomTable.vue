@@ -12,7 +12,8 @@
             <th scope="col">Saal</th>
             <th scope="col">Seansside arv</th>
             <th scope="col">Ridade arv</th>
-            <th scope="col">Istekohtade arv</th>
+            <th scope="col">Istekohtade arv reas</th>
+            <th scope="col">Istekohti kokku</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -64,6 +65,7 @@
             <td v-if="showInput">
                 <input v-model="newRoom.numberOfSeats" type="text" class="w-50 input-field">
             </td>
+            <td v-else></td>
             <td>
                 <template v-if="showInput">
                     <font-awesome-icon @click="addRoom" class="hoverable-link me-3" :icon="['fas', 'save']"/>

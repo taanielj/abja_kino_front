@@ -45,6 +45,7 @@
             <td v-if="showInput">
                 <input v-model="newTicketType.price" type="number" class="w-50" input-field>
             </td>
+            <td v-else></td>
             <td>
                 <template v-if="showInput">
                     <font-awesome-icon @click="addTicketType" class="hoverable-link me-3"

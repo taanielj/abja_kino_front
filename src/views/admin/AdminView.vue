@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col col-5 admin-table">
+                    <div class="col col-10 admin-table">
                         <RoomTable/>
                     </div>
                 </div>
