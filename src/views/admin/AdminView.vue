@@ -7,18 +7,18 @@
                     Administraatori töölaud
                 </h1>
                 <div class="row admin-table">
-<!--                    <MovieTable/>-->
+                    <MovieTable/>
                 </div>
                 <div class="row admin-table">
-<!--                    <SeanceTable/>-->
+                    <SeanceTable/>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-6 col-md-4 admin-table">
-<!--                        <GenreTable @event-error-message="setErrorMessage($event)"/>-->
+                        <GenreTable @event-error-message="setErrorMessage($event)"/>
                     </div>
                     <div class="col-2 d-none d-md-block"></div> <!-- Spacer column -->
                     <div class="col-6 col-md-4 admin-table">
-<!--                        <TicketTypeTable/>-->
+                        <TicketTypeTable/>
                     </div>
                 </div>
                 <div class="row justify-content-center">
