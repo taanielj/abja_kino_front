@@ -32,7 +32,7 @@
         </tr>
         <tr class="text-center">
             <td>
-                <input v-model="newGenre" type="text" v-if="showInput" class="w-50">
+                <input v-model="newGenre" type="text" v-if="showInput" class="w-50 input-field">
             </td>
             <td>
                 <template v-if="showInput">
@@ -188,4 +188,9 @@ export default {
     }
 }
 </script>
+<style>
+.input-field{
+    border-radius: 5px;
+}
+</style>
 

@@ -53,6 +53,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     font-size: 25px;
+    background-color: lightyellow;
 }
 
 nav {
@@ -61,6 +62,7 @@ nav {
     width: 100%;
     transition: top 0.3s;
     z-index: 9999;
+    background-color: beige;
 }
 
 nav a {
@@ -69,7 +71,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-    color: #42b983;
+    color: #2c3e50;
 }
 
 .content {
