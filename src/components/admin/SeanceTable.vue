@@ -10,9 +10,9 @@
         </thead>
         <tbody>
         <tr v-for="seance in seances">
-            <td>{{ seance.timeStamp }}</td>
+            <td>{{ seance.dateTime }}</td>
             <td>{{ seance.movieTitle }}</td>
-            <td>{{ seance.room }}</td>
+            <td>{{ seance.roomName }}</td>
             <td>
                 <font-awesome-icon @click="navigateToEditAtmLocation(atmLocation.locationId)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
@@ -34,23 +34,29 @@ export default {
             seances: [
                 {
                     id: 0,
-                    timeStamp: "kellaaeg",
+                    dateTime: "2023-06-01T01:11",
                     movieTitle: "pealkiri",
-                    room: "Marss"
+                    roomName: "Marss",
+                    date: "2023-06-01",
+                    timeHours: 0,
+                    timeMinutes: 0,
                 }
             ]
         }
     },
     methods: {
-        getAllSeances: function () {
-            this.$http.get("/seance/all")
+        getAllSeances() {
+            this.$http.get("/seance/admin-summary")
                 .then(response => {
                     this.seances = response.data
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
                 })
-        },
+        }
+    },
+    mounted() {
+        this.getAllSeances()
     }
 }
 </script>
