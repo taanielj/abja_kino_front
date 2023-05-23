@@ -3,12 +3,13 @@
         <AlertDanger :message="errorMessage"/>
         <AlertSuccess :message="successMessage"/>
         <div class="row justify-content-center mb-4">
-            <h1>Lisa film</h1>
+            <h1 v-if="isEdit">Muuda Filmi</h1>
+            <h1 v-else>Lisa film</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col col-4">
                 <div class="row mb-2">
-                    <PosterImage :image-data-base64="posterImage"/>
+                    <PosterImage :image-data-base64="this.image"/>
                 </div>
                 <div class="row justify-content-lg-center">
                     <ImageInput ref="imageInputRef" @event-emit-base64="setImageData"/>
@@ -27,7 +28,7 @@
                 <button v-if="isEdit" @click="editMovie" type="button" class="btn button btn-outline-success me-3">
                     Muuda
                 </button>
-                <button v-else @click="postMovie" type="button" class="btn button btn-outline-success me-3">
+                <button v-else @click="addMovie" type="button" class="btn button btn-outline-success me-3">
                     Lisa
                 </button>
             </div>
@@ -57,25 +58,28 @@ export default {
             movieInfo: {
                 id: null,
                 title: "",
-                runtime: Number,
+                runtime: "",
                 director: "",
                 youtubeLink: "",
                 description: "",
                 genreId: 0,
                 posterImage: ""
             },
-            posterImage: ""
+            image: null,
         }
     },
     methods: {
+
         setImageData(imageDataBase64) {
-            this.posterImage = imageDataBase64;
+            this.image = imageDataBase64;
             this.movieInfo.posterImage = imageDataBase64;
             this.$emit('event-emit-base64', imageDataBase64)
         },
+
         setMovieInfo(movieInfo) {
             this.movieInfo = movieInfo;
         },
+
         allFieldsFilled() {
             return this.movieInfo.title !== "" &&
                 this.movieInfo.runtime !== 0 &&
@@ -83,18 +87,34 @@ export default {
                 this.movieInfo.youtubeLink !== "" &&
                 this.movieInfo.description !== "" &&
                 this.movieInfo.genreId !== 0 &&
-                this.posterImage !== "";
+                this.movieInfo.posterImage !== "";
         },
 
         getMovie() {
             this.$http.get("/movie/" + this.movieId)
                 .then(response => {
                     this.movieInfo = response.data;
-                    this.posterImage = this.movieInfo.posterImage;
+                    this.image = this.movieInfo.posterImage;
                 })
                 .catch(() => {
                     router.push({path: "/error"})
                 })
+        },
+
+        addMovie() {
+            this.resetMessageFields();
+
+            if (!this.allFieldsFilled()) {
+                this.errorMessage = "Täida kõik väljad!";
+                return;
+            }
+            this.movieInfo.posterImage = this.image;
+            this.$http.post("/movie/add", this.movieInfo
+            ).then(() => {
+                this.successMessage = "Film lisatud!";
+            }).catch(error => {
+                this.errorMessage = error.response.data.message;
+            })
         },
 
         editMovie() {
@@ -104,38 +124,20 @@ export default {
                 this.errorMessage = "Täida kõik väljad!";
                 return;
             }
-            this.movieInfo.posterImage = this.posterImage;
-            this.$http.put("/movie/update", this.movieInfo
-            ).then(() => {
-                this.successMessage = "Film muudetud!";
-            }).catch(error => {
-                this.errorMessage = error.response.data.message;
-            })
+            this.movieInfo.posterImage = this.image;
+            this.$http.put("/movie/update/" + this.movieId, this.movieInfo)
+                .then(() => this.successMessage = "Film muudetud!")
+                .catch(error => this.errorMessage = error.response.data.message);
         },
 
-
-        postMovie() {
-            this.resetMessageFields();
-
-            if (!this.allFieldsFilled()) {
-                this.errorMessage = "Täida kõik väljad!";
-                return;
-            }
-            this.movieInfo.posterImage = this.posterImage;
-            this.$http.post("/movie/add", this.movieInfo
-            ).then(() => {
-                this.successMessage = "Film lisatud!";
-            }).catch(error => {
-                this.errorMessage = error.response.data.message;
-            })
-        },
         resetMessageFields() {
             this.successMessage = "";
             this.errorMessage = "";
         },
+
         navigateBack() {
             router.push({path: "/admin"});
-        },
+        }
 
     },
     mounted() {
