@@ -14,7 +14,7 @@
             <td>{{movie.genreName}}</td>
             <td>{{movie.numberOfSeances}}</td>
             <td>
-                <font-awesome-icon @click="navigateToEditAtmLocation(atmLocation.locationId)"
+                <font-awesome-icon @click="navigateToEditMovie(movie.id)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
                 <font-awesome-icon @click="openDeleteLocationModal(atmLocation.locationId)" class="hoverable-link"
                                    :icon="['fas', 'xmark']"/>
@@ -26,6 +26,8 @@
 
 <script>
 
+
+import router from "@/router";
 
 export default {
     name: "MovieTable",
@@ -51,6 +53,9 @@ export default {
                 .catch(error => {
                     const errorResponseBody = error.response.data
                 })
+        },
+        navigateToEditMovie(id) {
+            router.push({path: "admin/edit-movie/" + id})
         },
     },
     beforeMount() {

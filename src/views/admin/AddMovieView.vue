@@ -27,7 +27,7 @@
                 <button v-if="isEdit" @click="editMovie" type="button" class="btn btn-outline-success">
                     Muuda
                 </button>
-                <button v-else @click="postNewMovie" type="button" class="btn button btn-outline-success">
+                <button v-else @click="postMovie" type="button" class="btn button btn-outline-success">
                     Lisa
                 </button>
             </div>
@@ -51,8 +51,10 @@ export default {
     components: {AlertSuccess, AlertDanger, ImageInput, MovieDetailsInput, PosterImage},
     data() {
         return {
+            movieId: this.$route.params.id,
             successMessage: "",
             errorMessage: "",
+            isEdit: false,
             movieInfo: {
                 title: "",
                 runtime: Number,
@@ -84,7 +86,18 @@ export default {
                 this.posterImage !== "";
         },
 
-        postNewMovie() {
+        getMovie() {
+            this.$http.get("/movie/" + this.movieId)
+                .then(response => {
+                    this.movieInfo = response.data;
+                })
+                .catch(() => {
+                    router.push({path:"/error"})
+                })
+        },
+        
+
+        postMovie() {
             this.resetMessageFields();
 
             if (!this.allFieldsFilled()) {
@@ -107,6 +120,12 @@ export default {
             router.push({path: "/admin"});
         },
 
+    },
+    beforeMount() {
+        if(this.movieId !== undefined) {
+            this.isEdit = true;
+            this.getMovie();
+        }
     }
 }
 </script>

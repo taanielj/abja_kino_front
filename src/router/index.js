@@ -36,14 +36,12 @@ const routes = [
     {
         path: '/movie/:id',
         name: 'MovieRoute',
-        component: MovieView,
-        props: true
+        component: MovieView
     },
     {
         path: '/seance/:id',
         name: 'SeanceRoute',
-        component: SeanceView,
-        props: true
+        component: SeanceView
     },
     {
         path: '/admin',
@@ -51,7 +49,12 @@ const routes = [
         component: AdminView
     },
     {
-        path: '/admin/add-movie',
+        path: '/admin/edit-movie/:id',
+        name: 'EditMovieRoute',
+        component: AddMovieView
+    },,
+    {
+        path: '/admin/add-movie/',
         name: 'AddMovieRoute',
         component: AddMovieView
     },
