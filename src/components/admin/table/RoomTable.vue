@@ -25,20 +25,18 @@
                 <span v-else>{{ room.name }}</span>
             </td>
             <td>
-                <input v-model="room.numberOfSeances" type="number" v-if="room.editing" class="w-50 input-field">
-                <span v-else>{{ room.numberOfSeances }}</span>
+                <span>{{ room.numberOfSeances }}</span>
             </td>
             <td>
                 <input v-model="room.numberOfRows" type="number" v-if="room.editing" class="w-50 input-field">
                 <span v-else>{{ room.numberOfRows }}</span>
             </td>
             <td>
-                <input v-model="room.numberOfSeats" type="number" v-if="room.editing" class="w-50 input-field">
-                <span v-else>{{ room.numberOfSeats }}</span>
+                <input v-model="room.numberOfCols" type="number" v-if="room.editing" class="w-50 input-field">
+                <span v-else>{{ room.numberOfCols }}</span>
             </td>
             <td>
-                <input v-model="room.numberOfSeats" type="number" v-if="room.editing" class="w-50 input-field">
-                <span v-else>{{ room.numberOfSeats }}</span>
+                <span>{{ room.numberOfSeats }}</span>
             </td>
             <td>
                 <template v-if="!room.editing">
@@ -68,7 +66,7 @@
             </td>
             <td v-else></td>
             <td v-if="showInput">
-                <input v-model="newRoom.seats" type="text" class="w-50 input-field">
+                <input v-model="newRoom.col" type="text" class="w-50 input-field">
             </td>
             <td v-else></td>
             <td v-if="showInput"></td>
@@ -109,11 +107,11 @@ export default {
                     numberOfSeances: 0,
                     rows: 0,
                     cols: 0,
-                    numberOfSeats: 0,
+                    seats: 0,
                     editing: false
                 }
             ],
-            newRoom: {},
+            newRoom: "",
             showInput: false
         }
 
@@ -134,9 +132,8 @@ export default {
             this.$http.post("/room/add", null, {
                 params: {
                     name: this.newRoom.name,
-                    numberOfSeances: this.newRoom.numberOfSeances,
                     numberOfRows: this.newRoom.numberOfRows,
-                    numberOfSeats: this.newRoom.numberOfSeats,
+                    numberOfCols: this.newRoom.numberOfCols,
                 }
             }).then(() => {
                 this.rooms.push(this.newRoom)
