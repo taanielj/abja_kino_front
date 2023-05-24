@@ -30,6 +30,7 @@ export default defineComponent({
             this.$http.delete("/movie/" + this.movieId)
                 .then(() => {
                     this.$emit('movie-deleted')
+                    this.$refs.modalRef.closeModal();
                 })
                 .catch(() => {
                     router.push({path: "/error"})
