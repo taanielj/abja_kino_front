@@ -4,38 +4,48 @@
             <div class="col justify-content-lg-start">
                 <div class="row mb-2">
                     <h1 class="text-lg-start">
-                        {{ movieInfo.title}}
+                        {{ movieInfo.title }}
                     </h1>
                 </div>
                 <div class="row mb-2">
                     <PosterImage :image-data-base64="image" ref="posterImage"/>
                 </div>
-                <div class="row mb-2">
-                    {{ movieInfo.genreName }}
+                <div class="text-lg-start">
+                    <h2>Filmi info</h2>
                 </div>
                 <div class="row mb-2">
-                    {{ movieInfo.director }}
+                    <div class="text-lg-start">
+                        Žanr: {{ movieInfo.genreName }}
+                    </div>
                 </div>
                 <div class="row mb-2">
-                    {{ runtimeHours }}h {{ runtimeMinutes }}min
+                    <div class="text-lg-start">
+                        Režissöör: {{ movieInfo.director }}
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="text-lg-start">
+                        Filmi pikkus: {{ runtimeHours }}h {{ runtimeMinutes }}min
+                    </div>
                 </div>
                 <div class="row mb-2">
                     <iframe
-                        title="YouTube video with movie trailer"
-                        v-if="showIframe"
-                        width="560"
-                        height="200"
-                        :src="movieInfo.youtubeLink"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen></iframe>
+                            title="YouTube video with movie trailer"
+                            v-if="showIframe"
+                            width="560"
+                            height="200"
+                            :src="movieInfo.youtubeLink"
+                            allow="autoplay; encrypted-media"
+                            allowfullscreen></iframe>
                 </div>
             </div>
-            <div class="col">
-                {{ movieInfo.description}}
+            <div class="col text-lg-start">
+                <h2>{{ movieInfo.description }}</h2>
             </div>
         </div>
-
-
+        <div>
+            Vali seanss
+        </div>
 
     </div>
 </template>
@@ -44,7 +54,6 @@
 import PosterImage from "@/components/PosterImage.vue";
 import router from "@/router";
 import SeanceCard from "@/components/SeanceCard.vue";
-import {handleError} from "vue";
 
 export default {
     name: "MovieView",
@@ -79,6 +88,7 @@ export default {
                 .then(response => {
                     this.movieInfo = response.data;
                     this.image = this.movieInfo.posterImage;
+                    this.runtimeToHoursMinutes()
                     this.getGenre();
                     this.showIframe = this.isValidYoutubeEmbedLink(this.movieInfo.youtubeLink);
                 })
