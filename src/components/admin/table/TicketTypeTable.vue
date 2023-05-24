@@ -30,7 +30,7 @@
                                        :icon="['fas', 'trash']"/>
                 </template>
                 <template v-else>
-                    <font-awesome-icon @click="putTicketType(ticketType.id)" class="hoverable-link me-3"
+                    <font-awesome-icon @click="saveTicketType(ticketType.id)" class="hoverable-link me-3"
                                        :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
@@ -39,7 +39,7 @@
         </tr>
         <tr class="text-center">
             <td v-if="showInput">
-                <input v-model="newTicketType.name" type="text" class="w-50 input-field" >
+                <input v-model="newTicketType.name" type="text" class="w-50 input-field">
             </td>
             <td v-else></td>
             <td v-if="showInput">
@@ -108,10 +108,21 @@ export default {
                     const errorResponseBody = error.response.data
                 })
         },
+
+        saveTicketType(ticketTypeId) {
+            let ticketType = this.ticketTypes.find(ticketType => ticketType.id === ticketTypeId);
+            if (ticketType && ticketType.name !== "") {
+                this.putTicketType(ticketType);
+            }
+
+
+        },
+
         postTicketType() {
-            this.$http.post("/ticket/add", this.newTicketType ).then(() => {
-                this.getTicketTypes()
+            this.$http.post("/ticket/add", this.newTicketType).then(() => {
+
                 this.newTicketType = "";
+                this.getTicketTypes();
             })
                 .catch(error => {
                     this.handleTicketTypeError(error);
@@ -120,18 +131,13 @@ export default {
                     }
                 })
         },
+
         putTicketType(ticketType) {
-
-            this.$http.put("/ticket/" +ticketType.id, null, {
-                params: {
-                    name: ticketType.name,
-                    price: ticketType.price,
-                }
-            } ).then(() => {
-                ticketType.editing = false
-                this.getTicketTypes()
-
+            this.$http.put("/ticket/" + ticketType.id, ticketType, {
             })
+                .then(() => {
+                    ticketType.editing = false;
+                })
                 .catch(error => {
                     this.handleTicketTypeError(error);
                     if (!this.showInput) {
@@ -139,6 +145,7 @@ export default {
                     }
                 })
         },
+
         addTicketType() {
             if (this.newTicketType.name === "" || this.newTicketType.price === 0) {
                 this.errorMessage = "Palun sisesta kõik väljad"
@@ -195,7 +202,7 @@ export default {
 </script>
 
 <style>
-.input-field{
+.input-field {
     border-radius: 5px;
 }
 </style>

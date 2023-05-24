@@ -114,7 +114,6 @@ export default {
                 }
             }).then(() => {
                 genre.editing = false;
-                this.getGenres();
             }).catch(error => {
                 this.handleGenreError(error);
                 if (!this.showInput) {
@@ -132,10 +131,9 @@ export default {
         },
 
         saveGenre(genreId) {
-            const genre = this.genres.find((g) => g.id === genreId);
+            let genre = this.genres.find((genre) => genre.id === genreId);
             if (genre && genre.name !== "") {
                 this.putGenre(genre);
-                this.getGenres();
             }
         },
 
