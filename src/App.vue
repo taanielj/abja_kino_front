@@ -13,7 +13,7 @@
                 |
             </template>
 
-            <router-link to="#" @click="handleLogout">Logi välja</router-link>
+            <router-link to="/logout" @click="handleLogout">Logi välja</router-link>
         </template>
     </nav>
     <div class="content">

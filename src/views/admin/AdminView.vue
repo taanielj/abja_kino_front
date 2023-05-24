@@ -17,7 +17,7 @@
                         <GenreTable @event-error-message="setErrorMessage($event)"/>
                     </div>
                     <div class="col-2 d-none d-md-block"></div> <!-- Spacer column -->
-                    <div class="col-6 col-md-4 admin-table">
+                    <div class="col-6 col-md-4 admin-table rotate">
                         <TicketTypeTable/>
                     </div>
                 </div>
