@@ -20,7 +20,14 @@
                     {{ runtimeHours }}h {{ runtimeMinutes }}min
                 </div>
                 <div class="row mb-2">
-                    <iframe width="560" height="200" src="{{movieInfo.youtubeLink}}"  allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <iframe
+                        title="YouTube video with movie trailer"
+                        v-if="showIframe"
+                        width="560"
+                        height="200"
+                        :src="movieInfo.youtubeLink"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen></iframe>
                 </div>
             </div>
             <div class="col">
@@ -37,12 +44,14 @@
 import PosterImage from "@/components/PosterImage.vue";
 import router from "@/router";
 import SeanceCard from "@/components/SeanceCard.vue";
+import {handleError} from "vue";
 
 export default {
     name: "MovieView",
     components: {SeanceCard, PosterImage},
     data() {
         return {
+            showIframe: true,
             movieId: this.$route.params.id,
             movieInfo: {
                 id: 0,
@@ -60,12 +69,18 @@ export default {
         }
     },
     methods: {
+        isValidYoutubeEmbedLink(link) {
+            const regex = /^https:\/\/www\.youtube\.com\/embed\/[^\/]+$/;
+            return regex.test(link);
+        },
+
         getMovie() {
             this.$http.get("/movie/" + this.movieId)
                 .then(response => {
                     this.movieInfo = response.data;
                     this.image = this.movieInfo.posterImage;
                     this.getGenre();
+                    this.showIframe = this.isValidYoutubeEmbedLink(this.movieInfo.youtubeLink);
                 })
                 .catch(() => {
                     router.push({path: "/error"})
