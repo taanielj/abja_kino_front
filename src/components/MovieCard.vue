@@ -9,7 +9,12 @@
             <div class="col col-5">
                 <div class="row text-lg-start">
                     <h1 class="text-start hoverable-link" @click="gotoMovie(movieId)">
-                        {{ movieInfo.title}}
+                        {{ movieInfo.title }}
+                        <div class="col col-5">
+                            <div class="row text-lg-start">
+                                <button type="button" class="btn btn-success">Vali seanss</button>
+                            </div>
+                        </div>
                     </h1>
                     <p class="text-start">
                         {{ movieInfo.director }}
@@ -89,7 +94,6 @@ export default defineComponent({
                     router.push({path: "/error"})
                 })
         },
-
 
 
         runtimeToHoursMinutes() {
