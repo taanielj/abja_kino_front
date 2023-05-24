@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col col-4">
                 <div class="row mb-2 movie-poster">
-                    <PosterImage :image-data-base64="this.image"/>
+                    <PosterImage :image-data-base64="image"/>
                 </div>
                 <div class="row justify-content-lg-center">
                     <ImageInput ref="imageInputRef" @event-emit-base64="setImageData"/>

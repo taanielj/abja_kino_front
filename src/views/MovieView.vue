@@ -57,14 +57,43 @@ export default {
                 id: this.$route.params.id
             },
             movieInfo: {
-                id: 1,
+                id: 0,
                 title: "Pealkiri",
-                poster: "",
-                timeStamp: "Kellaaeg",
-                description: `In the thrilling action-adventure film "Shadow's Edge," directed by James Anderson, a former elite assassin, Alex Sullivan, is forced out of hiding when his estranged sister is kidnapped by a ruthless criminal syndicate. With time running out, Alex embarks on a high-stakes mission across exotic locations and dangerous landscapes to rescue his sister and bring down the syndicate. Faced with relentless enemies and his own dark past, Alex must confront his inner demons and tap into his lethal skills to ensure his sister's survival. "Shadow's Edge" delivers heart-pounding suspense, intense fight sequences, and a gripping narrative that will leave audiences on the edge of their seats.`
-            }
+                genreName: "Action",
+                posterImage: "",
+                director: "",
+                description: "",
+                runtime: Number //minutes
+            },
+            image: "",
+            runtimeHours: 0,
+            runtimeMinutes: 0
         }
     },
+    methods: {
+        getMovie() {
+            this.$http.get("/movie/" + this.movieId)
+                .then(response => {
+                    this.movieInfo = response.data;
+                    this.image = this.movieInfo.posterImage;
+                })
+                .catch(() => {
+                    router.push({path: "/error"})
+                })
+        },
+
+        runtimeToHoursMinutes() {
+            this.runtimeHours = Math.floor(this.movieInfo.runtime / 60)
+            this.runtimeMinutes = this.movieInfo.runtime % 60
+        }
+
+    },
+    mounted() {
+        if (this.movieId !== 0) {
+            this.getMovie();
+
+        }
+    }
 }
 </script>
 

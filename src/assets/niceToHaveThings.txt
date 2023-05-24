@@ -1,0 +1,1 @@
+1) erineva pikkusega kirjeldused moviecard ja movieview.
