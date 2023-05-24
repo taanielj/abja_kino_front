@@ -15,7 +15,7 @@
 <script>
 import {defineComponent} from 'vue'
 import PosterImage from "@/components/PosterImage.vue";
-import SeanceCardFull from "@/components/SeanceCardFull.vue";
+import SeanceCardFull from "@/components/SeanceCardSchedule.vue";
 
 export default defineComponent({
     name: "SeanceView",
