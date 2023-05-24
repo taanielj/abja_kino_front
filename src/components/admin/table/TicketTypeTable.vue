@@ -23,18 +23,18 @@
                 <span v-else>{{ ticketType.price }}</span>
             </td>
             <td>
-                <template v-if="!ticketType.editing">
+                <span v-if="!ticketType.editing">
                     <font-awesome-icon @click="toggleEditTicketType(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'edit']"/>
                     <font-awesome-icon @click="deleteTicketType(ticketType.id)" class="hoverable-link me-3"
                                        :icon="['fas', 'trash']"/>
-                </template>
-                <template v-else>
+                </span>
+                <span v-else>
                     <font-awesome-icon @click="saveTicketType(ticketType.id)" class="hoverable-link me-3"
                                        :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
-                </template>
+                </span>
             </td>
         </tr>
         <tr class="text-center">
@@ -92,7 +92,7 @@ export default {
             newTicketType: {
                 id: 0,
                 name: "",
-                price: null,
+                price: 0,
             },
             showInput: false,
         }
@@ -110,7 +110,7 @@ export default {
         },
 
         saveTicketType(ticketTypeId) {
-            let ticketType = this.ticketTypes.find(ticketType => ticketType.id === ticketTypeId);
+            const ticketType = this.ticketTypes.find(ticketType => ticketType.id === ticketTypeId);
             if (ticketType && ticketType.name !== "") {
                 this.putTicketType(ticketType);
             }
@@ -147,12 +147,13 @@ export default {
         },
 
         addTicketType() {
-            if (this.newTicketType.name === "" || this.newTicketType.price === 0) {
-                this.errorMessage = "Palun sisesta kõik väljad"
+            if (this.newTicketType.name.trim() !== "" || this.newTicketType.price !== 0 && this.showInput) {
+                this.postTicketType();
+                this.getTicketTypes();
                 this.showInput = false;
             } else {
-                this.newTicketType.price = Number(this.newTicketType.price)
-                this.postTicketType()
+                this.errorMessage = "Pileti tüübi nimi ja hind ei tohi olla tühi"
+                this.$emit("event-error-message", this.errorMessage)
             }
         },
         toggleEditTicketType(index) {
@@ -173,7 +174,7 @@ export default {
         handleTicketTypeError(error) {
             if (error.response.status === 400) {
                 this.errorMessage = error.response.data.message
-                this.$emit("event-error-message", this.errorMessage)
+                this.$emit("ticket-type-table-error", this.errorMessage)
             } else {
                 router.push({path: "/error"})
             }

@@ -131,7 +131,7 @@ export default {
         },
 
         saveGenre(genreId) {
-            let genre = this.genres.find((genre) => genre.id === genreId);
+            const genre = this.genres.find((genre) => genre.id === genreId);
             if (genre && genre.name !== "") {
                 this.putGenre(genre);
             }
@@ -155,7 +155,7 @@ export default {
         handleGenreError(error) {
             if (error.response.status === 409 || error.response.status === 400) {
                 this.errorMessage = error.response.data.message;
-                this.$emit("event-error-message", this.errorMessage);
+                this.$emit("genre-table-error", this.errorMessage);
             }else {
                 router.push({path: '/error'})
             }

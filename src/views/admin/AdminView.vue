@@ -12,20 +12,19 @@
                 <div class="row admin-table">
                     <SeanceTable @seance-table-error="setErrorMessage" @seance-table-success="setSuccessMessage"/>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-6 col-md-4 admin-table">
-                        <GenreTable @event-error-message="setErrorMessage($event)"/>
-                    </div>
-                    <div class="col-2 d-none d-md-block"></div> <!-- Spacer column -->
-                    <div class="col-6 col-md-4 admin-table">
-                        <TicketTypeTable/>
-                    </div>
+                <div class="row admin-table">
+                    <RoomTable @room-table-error="setErrorMessage" @seance-table-success="setSuccessMessage"/>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col col-10 admin-table">
-                        <RoomTable/>
+                    <div class="col admin-table">
+                        <GenreTable @genre-table-error="setErrorMessage"/>
+                    </div>
+                    <div class="col-1 d-none d-md-block"></div> <!-- Spacer column -->
+                    <div class="col  admin-table">
+                        <TicketTypeTable @ticket-type-table-error="setErrorMessage"/>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -67,7 +66,10 @@ export default {
                 this.successMessage = '';
             }, 5000);
         }
-
+    },
+    beforeMount() {
+        if(sessionStorage.getItem('roleName') !== 'ROLE_ADMIN')
+            this.$router.push('/');
     }
 }
 </script>

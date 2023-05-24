@@ -12,7 +12,7 @@
         <tr>
             <th scope="col">Saal</th>
             <th scope="col">Seansside arv</th>
-            <th scope="col">Ridu</th>
+            <th scope="col">Ridade arv</th>
             <th scope="col">Istekohti reas</th>
             <th scope="col">Istekohti saalis</th>
             <th scope="col"></th>
@@ -25,18 +25,18 @@
                 <span v-else>{{ room.name }}</span>
             </td>
             <td>
-                <span>{{ room.numberOfSeances }}</span>
+                <span>{{ room.totalSeances }}</span>
             </td>
             <td>
-                <input v-model="room.numberOfRows" type="number" v-if="room.editing" class="w-50 input-field">
-                <span v-else>{{ room.numberOfRows }}</span>
+                <input v-model="room.rows" type="number" v-if="room.editing" class="w-50 input-field">
+                <span v-else>{{ room.rows }}</span>
             </td>
             <td>
-                <input v-model="room.numberOfCols" type="number" v-if="room.editing" class="w-50 input-field">
-                <span v-else>{{ room.numberOfCols }}</span>
+                <input v-model="room.cols" type="number" v-if="room.editing" class="w-50 input-field">
+                <span v-else>{{ room.cols }}</span>
             </td>
             <td>
-                <span>{{ room.numberOfSeats }}</span>
+                <span>{{ totalSeats[index] }}</span>
             </td>
             <td>
                 <template v-if="!room.editing">
@@ -104,14 +104,18 @@ export default {
                 {
                     id: 0,
                     name: "",
-                    numberOfSeances: 0,
+                    totalSeances: 0,
                     rows: 0,
                     cols: 0,
-                    seats: 0,
                     editing: false
                 }
             ],
-            newRoom: "",
+            totalSeats: [],
+            newRoom: {
+                name: "",
+                rows: 0,
+                cols: 0,
+            },
             showInput: false
         }
 
@@ -122,22 +126,17 @@ export default {
             this.$http.get("/room/all")
                 .then(response => {
                     this.rooms = response.data;
+                    this.totalSeats = this.rows * this.cols;
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
                 })
         },
 
-        postRoom() {
-            this.$http.post("/room/add", null, {
-                params: {
-                    name: this.newRoom.name,
-                    numberOfRows: this.newRoom.numberOfRows,
-                    numberOfCols: this.newRoom.numberOfCols,
-                }
-            }).then(() => {
-                this.rooms.push(this.newRoom)
+        postRoom(room) {
+            this.$http.post("/room/add", room).then(() => {
                 this.newRoom = "";
+                this.getAllRooms();
             }).catch(error => {
                 this.handleRoomError(error);
                 if (!this.showInput) {
@@ -148,10 +147,9 @@ export default {
         putRoom() {
             this.$http.put("/room/update", null, {
                 params: {
-                    id: this.newRoom.id,
                     name: this.newRoom.name,
-                    numberOfRows: this.newRoom.numberOfRows,
-                    numberOfSeats: this.newRoom.numberOfSeats,
+                    rows: this.newRoom.numberOfRows,
+                    cols: this.newRoom.numberOfSeats,
                 }
             }).then(() => {
                 this.rooms.push(this.newRoom)
@@ -164,22 +162,19 @@ export default {
             })
         },
 
-        addRoom() {
-            if (this.newRoom.name === "") {
-                this.errorMessage = "Saali nimi ei tohi olla tühi"
-                this.$emit("event-error-message", this.errorMessage)
-            } else if (this.newRoom.numberOfSeances === "") {
-                this.errorMessage = "Seansside arv ei tohi olla tühi"
-                this.$emit("event-error-message", this.errorMessage)
-            } else if (this.newRoom.numberOfRows === "") {
-                this.errorMessage = "Ridade arv ei tohi olla tühi"
-                this.$emit("event-error-message", this.errorMessage)
-            } else if (this.newRoom.numberOfSeats === "") {
-                this.errorMessage = "Istekohtade arv ei tohi olla tühi"
-                this.$emit("event-error-message", this.errorMessage)
-            } else {
-                this.postRoom()
+        saveRoom() {
+            if (!this.allFieldsFilled()) {
+                this.errorMessage = "All fields must be filled!"
+                return;
             }
+
+            this.postRoom()
+
+        },
+        allFieldsFilled() {
+            return this.newRoom.name !== "" &&
+                this.newRoom.rows !== "" &&
+                this.newRoom.cols !== ""
         },
         toggleEditRoom(index) {
             if (index === undefined) {
@@ -198,7 +193,6 @@ export default {
             this.newRoom = ""
             this.showInput = false;
         },
-
         handleRoomError(error) {
             if (error.response.status === 400) {
                 this.errorMessage = error.response.data.message
@@ -210,8 +204,9 @@ export default {
         deleteRoom(index) {
             this.$http.delete("/room/" + (index))
                 .then(() => {
-                    this.rooms.splice(index, 1)
-                    this.getAllRooms()
+                    this.rooms.splice(index, 1);
+                    this.getAllRooms();
+                    this.calculateTotalSeats();
                 }).catch(error => {
                 this.handleRoomError(error)
             })
@@ -222,6 +217,12 @@ export default {
                 this.newRoom = "";
             }
         },
+        calculateTotalSeats() {
+            for(let i = 0; i < this.rooms.length; i++) {
+                this.totalSeats.push(this.rooms[i].rows * this.rooms[i].cols);
+            }
+        }
+
 
     },
     beforeMount() {
@@ -229,8 +230,8 @@ export default {
     }
 }
 </script>
-<style scooped>
-.input-field{
+<style scoped>
+.input-field {
     border-radius: 5px;
 }
 </style>

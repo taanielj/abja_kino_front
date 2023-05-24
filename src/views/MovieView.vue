@@ -61,7 +61,7 @@ export default {
                 director: "",
                 description: "",
                 youtubeLink: "",
-                runtime: Number //minutes
+                runtime: 0,
             },
             image: "",
             runtimeHours: 0,
