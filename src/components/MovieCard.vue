@@ -36,7 +36,14 @@ export default defineComponent({
     name: "MovieCard",
     components: {MovieView, PosterImage},
     props: {
-        movieId: 0
+        movieId: {
+            type: Number,
+            default: 0
+        },
+        seanceId: {
+            type: Number,
+            default: 0
+        },
     },
     data() {
         return {
