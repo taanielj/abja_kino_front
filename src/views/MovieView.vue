@@ -3,41 +3,31 @@
         <div class="row">
             <div class="col justify-content-lg-start">
                 <div class="row mb-2">
-                    <h1>Pealkiri</h1>
+                    <h1 class="text-lg-start">
+                        {{ movieInfo.title}}
+                    </h1>
                 </div>
                 <div class="row mb-2">
-                    <PosterImage/>
+                    <PosterImage :image-data-base64="image" ref="posterImage"/>
                 </div>
                 <div class="row mb-2">
-                    <iframe width="560" height="200" src="https://www.youtube.com/embed/CwXOrWvPBPk"  allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    {{ movieInfo.genreName }}
+                </div>
+                <div class="row mb-2">
+                    {{ movieInfo.director }}
+                </div>
+                <div class="row mb-2">
+                    {{ runtimeHours }}h {{ runtimeMinutes }}min
+                </div>
+                <div class="row mb-2">
+                    <iframe width="560" height="200" src="{{movieInfo.youtubeLink}}"  allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="col">
                 {{ movieInfo.description}}
             </div>
         </div>
-        <div class="row">
-            <div class="column">
-                <div class="row mb-4 bg-info">
-                    <SeanceCard/>
-                </div>
 
-                <div class="row mb-4 bg-info">
-                    <SeanceCard/>
-                </div>
-
-                <div class="row mb-4 bg-info">
-                    <SeanceCard/>
-                </div>
-
-                <div class="row mb-4 bg-info">
-                    <SeanceCard/>
-                </div>
-
-
-
-            </div>
-        </div>
 
 
     </div>
@@ -53,9 +43,7 @@ export default {
     components: {SeanceCard, PosterImage},
     data() {
         return {
-            movieId: {
-                id: this.$route.params.id
-            },
+            movieId: this.$route.params.id,
             movieInfo: {
                 id: 0,
                 title: "Pealkiri",
@@ -63,6 +51,7 @@ export default {
                 posterImage: "",
                 director: "",
                 description: "",
+                youtubeLink: "",
                 runtime: Number //minutes
             },
             image: "",
@@ -76,6 +65,18 @@ export default {
                 .then(response => {
                     this.movieInfo = response.data;
                     this.image = this.movieInfo.posterImage;
+                    this.getGenre();
+                })
+                .catch(() => {
+                    router.push({path: "/error"})
+                })
+        },
+
+
+        getGenre() {
+            this.$http.get("/genre/" + this.movieInfo.genreId)
+                .then(response => {
+                    this.movieInfo.genreName = response.data;
                 })
                 .catch(() => {
                     router.push({path: "/error"})
