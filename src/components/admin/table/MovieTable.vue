@@ -1,5 +1,11 @@
 <template>
-    <DeleteMovieModal ref="deleteMovieModalRef" :movieId="selectedMovieId" :movieTitle="selectedMovieTitle" @movie-deleted="getAllMovies"/>
+    <DeleteMovieModal ref="deleteMovieModalRef"
+                      :movieId="selectedMovieId"
+                      :movieTitle="selectedMovieTitle"
+                      @movie-deleted="refreshAndEmitSuccessMessage"
+                      @delete-movie-error="setErrorMessage"
+
+    />
     <table class="table">
         <thead>
         <tr>
@@ -64,16 +70,40 @@ export default {
                     const errorResponseBody = error.response.data
                 })
         },
+
+        refreshAndEmitSuccessMessage(message) {
+            this.getAllMovies()
+            this.$emit("movie-table-success", message)
+        },
+
         navigateToEditMovie(id) {
-            router.push({path: "admin/edit-movie/" + id})
+            router.push({path: "admin/edit-movie/" + id});
         },
+
         navigateToAddMovie() {
-            router.push({path: "admin/add-movie"})
+            router.push({path: "admin/add-movie"});
         },
+
         openDeleteMovieModal(id, title) {
-            this.selectedMovieId = id
-            this.selectedMovieTitle = title
-            this.$refs.deleteMovieModalRef.$refs.modalRef.openModal()
+            this.selectedMovieId = id;
+            this.selectedMovieTitle = title;
+            this.$refs.deleteMovieModalRef.$refs.modalRef.openModal();
+        },
+
+        checkSeances() {
+            this.$http.get("/seance/admin-summary")
+                .then(response => {
+                    this.seances = response.data
+                    this.dateTimeToDateAndTime()
+                })
+                .catch(error => {
+                    const errorResponseBody = error.response.data
+                })
+        },
+
+        setErrorMessage(errorMessage) {
+            this.errorMessage = errorMessage;
+            this.$emit("movie-table-error", errorMessage);
         }
     },
     beforeMount() {

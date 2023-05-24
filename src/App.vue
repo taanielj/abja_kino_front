@@ -82,7 +82,7 @@ nav a.router-link-exact-active {
 }
 
 .content {
-    padding-top: 120px;
+    padding-top: 130px;
 }
 </style>
 <script setup>

@@ -7,10 +7,10 @@
                     Administraatori töölaud
                 </h1>
                 <div class="row admin-table">
-                    <MovieTable/>
+                    <MovieTable @movie-table-error="setErrorMessage" @movie-table-success="setSuccessMessage"/>
                 </div>
                 <div class="row admin-table">
-                    <SeanceTable/>
+                    <SeanceTable @seance-table-error="setErrorMessage" @seance-table-success="setSuccessMessage"/>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-6 col-md-4 admin-table">
@@ -58,7 +58,16 @@ export default {
             setTimeout(() => {
                 this.errorMessage = '';
             }, 5000);
+        },
+
+        setSuccessMessage(successMessage) {
+            this.successMessage = successMessage;
+
+            setTimeout(() => {
+                this.successMessage = '';
+            }, 5000);
         }
+
     }
 }
 </script>

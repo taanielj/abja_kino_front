@@ -1,14 +1,13 @@
 <template>
     <div class="container">
-        <AlertDanger :message="errorMessage"/>
-        <AlertSuccess :message="successMessage"/>
+
         <div class="row justify-content-center mb-4">
             <h1 v-if="isEdit">Muuda Filmi</h1>
             <h1 v-else>Lisa film</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col col-4">
-                <div class="row mb-2">
+                <div class="row mb-2 movie-poster">
                     <PosterImage :image-data-base64="this.image"/>
                 </div>
                 <div class="row justify-content-lg-center">
@@ -18,8 +17,8 @@
             <div class="col col-6">
                 <MovieDetailsInput @event-emit-movie-info="setMovieInfo" :movie="movieInfo"/>
             </div>
-
         </div>
+
         <div class="row justify-content-center mt-5 mb-5">
             <div class="col col-6">
                 <button @click="navigateBack" type="button" class="btn button btn-outline-secondary me-3">
@@ -33,9 +32,10 @@
                 </button>
             </div>
         </div>
+
+        <AlertDanger :message="errorMessage"/>
+        <AlertSuccess :message="successMessage"/>
     </div>
-
-
 </template>
 
 <script>
@@ -104,28 +104,42 @@ export default {
             this.resetMessageFields();
 
             if (!this.allFieldsFilled()) {
-                this.errorMessage = "Täida kõik väljad!";
+                this.setErrorMessage("Täida kõik väljad!")
                 return;
             }
             this.movieInfo.posterImage = this.image;
             this.$http.post("/movie/add", this.movieInfo
             ).then(() => {
-                this.successMessage = "Film lisatud!";
+                this.setSuccessMessage("Film lisatud!")
             }).catch(error => {
                 this.errorMessage = error.response.data.message;
             })
+        },
+
+        setSuccessMessage(message) {
+            this.successMessage = message;
+            setTimeout(() => {
+                this.successMessage = "";
+            }, 5000);
+        },
+
+        setErrorMessage(message) {
+            this.errorMessage = message;
+            setTimeout(() => {
+                this.errorMessage = "";
+            }, 5000);
         },
 
         editMovie() {
             this.resetMessageFields();
 
             if (!this.allFieldsFilled()) {
-                this.errorMessage = "Täida kõik väljad!";
+                this.setErrorMessage("Täida kõik väljad!")
                 return;
             }
             this.movieInfo.posterImage = this.image;
             this.$http.put("/movie/" + this.movieId, this.movieInfo)
-                .then(() => this.successMessage = "Film muudetud!")
+                .then(() => this.setSuccessMessage("Film muudetud!"))
                 .catch(error => this.errorMessage = error.response.data.message);
         },
 

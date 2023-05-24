@@ -23,14 +23,28 @@ export default defineComponent({
     props: {
         seanceId: Number
     },
+    data() {
+        return {
+            errorMessage: "",
+            successMessage: ""
+        }
+    },
     methods: {
         deleteSeance() {
-            this.$http.delete("/seance/" + this.movieId)
+            this.$http.delete("/seance/" + this.seanceId)
                 .then(response => {
-                    this.$emit('seance-deleted')
+                    this.successMessage = "Seanss kustutatud"
+                    this.$emit('seance-deleted', this.successMessage)
+                    this.$refs.modalRef.closeModal()
                 })
-                .catch(() => {
-                    router.push({path: "/error"})
+                .catch((error) => {
+                    if (error.response.status === 400) {
+                        this.errorMessage = error.response.data.message
+                        this.$emit('delete-seance-error', this.errorMessage)
+                        this.$refs.modalRef.closeModal()
+                    } else {
+                        router.push({path: "/error"})
+                    }
                 })
         },
 

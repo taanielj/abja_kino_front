@@ -24,16 +24,29 @@ export default defineComponent({
         movieId: Number,
         movieTitle: String
     },
+    data() {
+        return {
+            errorMessage: "",
+        }
+    },
 
     methods: {
         deleteMovie() {
             this.$http.delete("/movie/" + this.movieId)
                 .then(() => {
-                    this.$emit('movie-deleted')
+                    this.successMessage = "Film kustutatud";
+                    this.$emit('movie-deleted', this.successMessage)
                     this.$refs.modalRef.closeModal();
                 })
-                .catch(() => {
-                    router.push({path: "/error"})
+                .catch((error) => {
+                    if (error.response.status === 400) {
+                        this.errorMessage = error.response.data.message;
+                        this.$emit('delete-movie-error', this.errorMessage)
+                        this.$refs.modalRef.closeModal();
+                    } else {
+                        router.push({path: "/error"})
+                    }
+
                 })
         },
     }

@@ -1,5 +1,8 @@
 <template>
-    <DeleteSeanceModal ref="deleteSeanceRef" :seanceId="selectedSeanceId" @seance-deleted="getAllSeances"/>
+    <DeleteSeanceModal ref="deleteSeanceRef"
+                       :seanceId="selectedSeanceId"
+                       @seance-deleted="refreshAndEmitSuccessMessage"
+                       @delete-seance-error="setErrorMessage"/>
     <table class="table">
         <thead>
         <tr>
@@ -66,9 +69,10 @@ export default {
                     this.dateTimeToDateAndTime()
                 })
                 .catch(error => {
-                    const errorResponseBody = error.response.data
+                    console.log(error)
                 })
         },
+
         dateTimeToDateAndTime() {
             this.seances.forEach(seance => {
                 seance.date = seance.dateTime.substring(0, 10)
@@ -76,16 +80,33 @@ export default {
                 seance.timeMinutes = seance.dateTime.substring(14, 16)
             })
         },
+
         navigateToAddSeance() {
             router.push("/admin/add-seance")
         },
+
         openDeleteSeanceModal(seanceId) {
             this.selectedSeanceId = seanceId
             this.$refs.deleteSeanceRef.$refs.modalRef.openModal()
         },
+
         navigateToEditSeance(seanceId) {
             router.push({path: "/admin/edit-seance/" + seanceId})
-        }
+        },
+
+        setErrorMessage(errorMessage) {
+            this.$emit("seance-table-error", errorMessage)
+        },
+
+        setSuccessMessage(successMessage) {
+            this.$emit("seance-table-success", successMessage)
+        },
+
+        refreshAndEmitSuccessMessage() {
+            this.getAllSeances()
+            this.$emit("seance-table-success", "Seanss kustutatud")
+        },
+
 
     },
     mounted() {

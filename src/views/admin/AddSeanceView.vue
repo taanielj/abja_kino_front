@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+
         <div class="row justify-content-center mb-4">
             <h1 v-if="isEdit">Seansi muutmine</h1>
             <h1 v-else >Seansi lisamine</h1>
@@ -60,17 +61,23 @@
                 </button>
             </div>
         </div>
+        <AlertDanger :message="errorMessage"/>
+        <AlertSuccess :message="successMessage"/>
     </div>
+
+
 </template>
 
 <script>
 import MovieDropdown from "@/components/admin/dropdown/MovieDropdown.vue";
 import RoomDropdown from "@/components/admin/dropdown/RoomDropdown.vue";
 import router from "@/router";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 
 export default {
     name: "AddSeanceView",
-    components: {RoomDropdown, MovieDropdown},
+    components: {AlertSuccess, AlertDanger, RoomDropdown, MovieDropdown},
 
     data() {
         return {
@@ -103,7 +110,7 @@ export default {
             this.resetMessageFields();
 
             if(!this.allFieldsFilled()) {
-                this.errorMessage = "Täida kõik väljad!";
+                this.setErrorMessage("Täida kõik väljad!")
                 return;
             }
 
@@ -120,30 +127,42 @@ export default {
             this.resetMessageFields();
 
             if (!this.allFieldsFilled()) {
-                this.errorMessage = "Täida kõik väljad!";
+                this.setErrorMessage("Täida kõik väljad!");
                 return;
             }
 
             this.$http.put("/seance/" + this.seanceId, this.seanceInfo)
-                .then(() => this.successMessage = "Seanss muudetud!")
+                .then(() => this.setSuccessMessage("Seanss muudetud"))
                 .catch(error => this.errorMessage = error.response.data.message);
         },
 
         allFieldsFilled() {
-            return this.seanceInfo.movieId !== "" &&
-                this.seanceInfo.roomId !== "" &&
+            return this.seanceInfo.movieId !== 0 &&
+                this.seanceInfo.roomId !== 0 &&
                 this.seanceInfo.subtitles !== "" &&
                 this.seanceInfo.language !== "" &&
                 this.seanceInfo.subtitles !== "";
         },
 
-
-
-
         resetMessageFields() {
             this.successMessage = "";
             this.errorMessage = "";
         },
+
+        setSuccessMessage(message) {
+            this.successMessage = message;
+            setTimeout(() => {
+                this.successMessage = "";
+            }, 5000);
+        },
+
+        setErrorMessage(message) {
+            this.errorMessage = message;
+            setTimeout(() => {
+                this.errorMessage = "";
+            }, 5000);
+        },
+
         navigateBack() {
             router.push({path: "/admin"});
         },
