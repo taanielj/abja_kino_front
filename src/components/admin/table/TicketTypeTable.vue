@@ -30,7 +30,7 @@
                                        :icon="['fas', 'trash']"/>
                 </span>
                 <span v-else>
-                    <font-awesome-icon @click="saveTicketType(ticketType.id)" class="hoverable-link me-3"
+                    <font-awesome-icon @click="editTicketType(ticketType.id)" class="hoverable-link me-3"
                                        :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
@@ -48,7 +48,7 @@
             <td v-else></td>
             <td>
                 <template v-if="showInput">
-                    <font-awesome-icon @click="addTicketType" class="hoverable-link me-3"
+                    <font-awesome-icon @click="addNewTicketType" class="hoverable-link me-3"
                                        :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="toggleInput" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
@@ -85,7 +85,7 @@ export default {
                 {
                     id: 0,
                     name: "",
-                    price: null,
+                    price: 0,
                     editing: false,
                 }
             ],
@@ -109,19 +109,36 @@ export default {
                 })
         },
 
-        saveTicketType(ticketTypeId) {
+        editTicketType(ticketTypeId) {
             const ticketType = this.ticketTypes.find(ticketType => ticketType.id === ticketTypeId);
-            if (ticketType && ticketType.name !== "") {
-                this.putTicketType(ticketType);
-            }
-
+            this.putTicketType(ticketType);
 
         },
 
-        postTicketType() {
+        validateFieldsFilled(ticketType) {
+            this.errorMessage = "";
+            if(ticketType.name.trim() !== "" && ticketType.price !== 0) {
+                return true;
+            }
+            this.errorMessage = "Pileti tüübi nimi ja hind ei tohi olla tühi"
+            this.$emit("ticket-type-table-error", this.errorMessage)
+            return false;
+        },
+
+        addNewTicketType() {
+
+            if (!this.validateFieldsFilled(this.newTicketType)) {
+                return;
+            }
+
             this.$http.post("/ticket/add", this.newTicketType).then(() => {
 
-                this.newTicketType = "";
+                this.newTicketType = {
+                    id: 0,
+                    name: "",
+                    price: 0,
+                }
+                this.showInput = false;
                 this.getTicketTypes();
             })
                 .catch(error => {
@@ -133,10 +150,15 @@ export default {
         },
 
         putTicketType(ticketType) {
-            this.$http.put("/ticket/" + ticketType.id, ticketType, {
-            })
+
+            if(!this.validateFieldsFilled(ticketType)) {
+                return;
+            }
+
+            this.$http.put("/ticket/" + ticketType.id, ticketType, {})
                 .then(() => {
                     ticketType.editing = false;
+                    this.getTicketTypes();
                 })
                 .catch(error => {
                     this.handleTicketTypeError(error);
@@ -146,43 +168,32 @@ export default {
                 })
         },
 
-        addTicketType() {
-            if (this.newTicketType.name.trim() !== "" || this.newTicketType.price !== 0 && this.showInput) {
-                this.postTicketType();
-                this.getTicketTypes();
-                this.showInput = false;
-            } else {
-                this.errorMessage = "Pileti tüübi nimi ja hind ei tohi olla tühi"
-                this.$emit("event-error-message", this.errorMessage)
-            }
-        },
         toggleEditTicketType(index) {
             if (index === undefined) {
-                this.showInput = !this.showInput
+                this.showInput = !this.showInput;
             } else {
-                this.ticketTypes[index].editing = !this.ticketTypes[index].editing
+                this.ticketTypes[index].editing = !this.ticketTypes[index].editing;
             }
         },
         cancelEditing(index) {
-            const ticketType = this.ticketTypes[index]
+            const ticketType = this.ticketTypes[index];
             if (ticketType.id === undefined) {
                 this.ticketTypes.splice(index, 1)
             } else {
-                ticketType.editing = false
+                ticketType.editing = false;
             }
         },
         handleTicketTypeError(error) {
             if (error.response.status === 400) {
-                this.errorMessage = error.response.data.message
-                this.$emit("ticket-type-table-error", this.errorMessage)
+                this.errorMessage = error.response.data.message;
+                this.$emit("ticket-type-table-error", this.errorMessage);
             } else {
-                router.push({path: "/error"})
+                router.push({path: "/error"});
             }
         },
-        deleteTicketType(index) {
-            this.$http.delete("/ticket/types/" + (index))
+        deleteTicketType(ticketTypeId) {
+            this.$http.delete("/ticket/types/" + ticketTypeId)
                 .then(() => {
-                    this.ticketTypes.splice(index, 1)
                     this.getTicketTypes()
                 })
                 .catch(error => {
@@ -192,10 +203,34 @@ export default {
         toggleInput() {
             this.showInput = !this.showInput
             if (!this.showInput) {
-                this.newTicketType = ""
+                this.newTicketType = {
+                    id: 0,
+                    name: "",
+                    price: 0,
+                }
             }
         }
     },
+
+    watch: {
+        "newTicketType.price" (newVal, oldVal) {
+            if (newVal < 0 || newVal === null || newVal === undefined || newVal === "") {
+                this.newTicketType.price = 0
+            }
+        },
+        ticketTypes: {
+            handler(newVal, oldVal) {
+                newVal.forEach((ticketType, index) => {
+                    if (ticketType.price < 0 || ticketType.price === null || ticketType.price === undefined || ticketType.price === "") {
+                        ticketType.price = 0;
+                        this.ticketTypes.splice(index, 1, ticketType);
+                    }
+                })
+            },
+            deep: true
+        }
+    },
+
     beforeMount() {
         this.getTicketTypes()
     }

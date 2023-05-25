@@ -11,7 +11,7 @@
             <div class="col col-9 mb-3">
                 <input v-model="title" @input="updateField('title', $event)" type="text" class="form-control mb-2" id="title">
                 <input v-model="runtime" @input="updateField('runtime', $event)" type="number" class="form-control mb-2" id="runtime">
-                <input v-model="director" @input="updateField('director', $event)" type="text" class="form-control mb-2" id="director">
+                <input v-model="director" @input="updateField('director', $event)" type="text" class="form-control mb-2" id="director" required>
                 <input v-model="youtubeLink" @input="updateField('youtubeLink', $event)" type="text" class="form-control mb-2" id="youtube">
                 <GenreDropdown :genre="genreId" @event-emit-selected-genre-id="updateGenreId"/>
             </div>

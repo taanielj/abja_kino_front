@@ -46,7 +46,7 @@
                                        :icon="['fas', 'trash']"/>
                 </template>
                 <template v-else>
-                    <font-awesome-icon @click="putRoom(room.id)" class="hoverable-link me-3" :icon="['fas', 'save']"/>
+                    <font-awesome-icon @click="editRoom(room.id)" class="hoverable-link me-3" :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
                 </template>
@@ -62,11 +62,11 @@
             </td>
             <td v-else></td>
             <td v-if="showInput">
-                <input v-model="newRoom.rows" type="text" class="w-50 input-field ">
+                <input v-model="newRoom.rows" type="number" class="w-50 input-field ">
             </td>
             <td v-else></td>
             <td v-if="showInput">
-                <input v-model="newRoom.col" type="text" class="w-50 input-field">
+                <input v-model="newRoom.cols" type="number" class="w-50 input-field">
             </td>
             <td v-else></td>
             <td v-if="showInput"></td>
@@ -74,7 +74,7 @@
 
             <td>
                 <template v-if="showInput">
-                    <font-awesome-icon @click="addRoom" class="hoverable-link me-3" :icon="['fas', 'save']"/>
+                    <font-awesome-icon @click="addNewRoom" class="hoverable-link me-3" :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="toggleInput" class="hoverable-link me-3" :icon="['fas', 'times']"/>
                 </template>
                 <template v-else>
@@ -97,6 +97,11 @@ import router from "@/router";
 export default {
     name: "RoomTable",
     components: {FontAwesomeIcon, AlertDanger, Alert},
+    computed: {
+        totalSeats() {
+            return this.rooms.map(room => room.rows * room.cols);
+        }
+    },
     data() {
         return {
             errorMessage: "",
@@ -110,11 +115,11 @@ export default {
                     editing: false
                 }
             ],
-            totalSeats: [],
             newRoom: {
+                id: 0,
                 name: "",
-                rows: 0,
-                cols: 0,
+                rows: 1,
+                cols: 1,
             },
             showInput: false
         }
@@ -133,9 +138,27 @@ export default {
                 })
         },
 
-        postRoom(room) {
-            this.$http.post("/room/add", room).then(() => {
-                this.newRoom = "";
+        editRoom(roomId) {
+            const room = this.rooms.find(room => room.id === roomId);
+            this.putRoom(room);
+        },
+
+        addNewRoom() {
+
+            if (!this.validateFieldsFilled(this.newRoom)) {
+                return;
+            }
+
+
+            this.$http.post("/room", this.newRoom).then(() => {
+
+                this.newRoom = {
+                    name: "",
+                    rows: 1,
+                    cols: 1,
+                }
+
+                this.showInput = false;
                 this.getAllRooms();
             }).catch(error => {
                 this.handleRoomError(error);
@@ -144,17 +167,18 @@ export default {
                 }
             })
         },
-        putRoom() {
-            this.$http.put("/room/update", null, {
-                params: {
-                    name: this.newRoom.name,
-                    rows: this.newRoom.numberOfRows,
-                    cols: this.newRoom.numberOfSeats,
-                }
-            }).then(() => {
-                this.rooms.push(this.newRoom)
-                this.newRoom = "";
-            }).catch(error => {
+        putRoom(room) {
+
+            if(!this.validateFieldsFilled(room)) {
+                return;
+            }
+
+            this.$http.put("/room/" + room.id, room)
+                .then(() => {
+                    room.editing = false;
+                    this.getAllRooms();
+                })
+                .catch(error => {
                 this.handleRoomError(error);
                 if (!this.showInput) {
                     this.newRoom = "";
@@ -162,19 +186,14 @@ export default {
             })
         },
 
-        saveRoom() {
-            if (!this.allFieldsFilled()) {
-                this.errorMessage = "All fields must be filled!"
-                return;
+        validateFieldsFilled(room) {
+            this.errorMessage = "";
+            if (room.name.trim() !== "" && room.rows !== 0 && room.cols !== 0) {
+                return true;
             }
-
-            this.postRoom()
-
-        },
-        allFieldsFilled() {
-            return this.newRoom.name !== "" &&
-                this.newRoom.rows !== "" &&
-                this.newRoom.cols !== ""
+            this.errorMessage = "Kõik väljad peavad olema täidetud!";
+            this.$emit("room-table-error", this.errorMessage);
+            return false;
         },
         toggleEditRoom(index) {
             if (index === undefined) {
@@ -206,7 +225,6 @@ export default {
                 .then(() => {
                     this.rooms.splice(index, 1);
                     this.getAllRooms();
-                    this.calculateTotalSeats();
                 }).catch(error => {
                 this.handleRoomError(error)
             })
@@ -214,19 +232,45 @@ export default {
         toggleInput() {
             this.showInput = !this.showInput;
             if (!this.showInput) {
-                this.newRoom = "";
-            }
-        },
-        calculateTotalSeats() {
-            for(let i = 0; i < this.rooms.length; i++) {
-                this.totalSeats.push(this.rooms[i].rows * this.rooms[i].cols);
+                this.newRoom = {
+                    name: "",
+                    rows: 1,
+                    cols: 1,
+                };
             }
         }
-
 
     },
     beforeMount() {
         this.getAllRooms();
+    },
+    //col and row must be atleast 1:
+    watch: {
+        "newRoom.rows" (newVal) {
+            if (newVal < 1) {
+                this.newRoom.rows = 1;
+            }
+        },
+        "newRoom.cols" (newVal) {
+            if (newVal < 1) {
+                this.newRoom.cols = 1;
+            }
+        },
+        rooms: {
+            handler(editedRooms) {
+                editedRooms.forEach((room, index) => {
+                    if (room.rows < 1) {
+                        room.rows = 1;
+                        this.rooms.splice(index, 1, room);
+                    }
+                    if (room.cols < 1) {
+                        room.cols = 1;
+                        this.rooms.splice(index, 1, room);
+                    }
+                });
+            },
+            deep: true
+        }
     }
 }
 </script>
