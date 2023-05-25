@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-light-grey text-black border border-4 align-self-stretch card mb-3" style="max-width: 540px">
+    <div v-if="show" class="bg-light-grey text-black border border-4 align-self-stretch card mb-3" style="max-width: 540px">
         <div class="row g-0">
             <div class="col col-md-4">
                 <div class="poster-container">
@@ -33,6 +33,7 @@
 
         </div>
     </div>
+
 </template>
 
 
@@ -53,6 +54,7 @@ export default defineComponent({
     },
     data() {
         return {
+            show: false,
             seanceInfo: {
                 movieId: 0,
                 movieTitle: "",
@@ -90,6 +92,7 @@ export default defineComponent({
                 .then(response => {
                     this.seanceInfo = response.data;
                     this.runtimeToHoursMinutes();
+                    this.show = true;
 
 
                 })

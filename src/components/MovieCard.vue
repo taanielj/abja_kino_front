@@ -11,8 +11,8 @@
                     <h1 class="text-start hoverable-link" @click="gotoMovie(movieId)">
                         {{ movieInfo.title }}
                         <div class="col col-5">
-                            <div class="row text-lg-start" @click="gotoMovie(movieId)">
-                                <button type="button" class="btn btn-success">Vali seanss</button>
+                            <div class="row text-lg-start">
+                                <button type="button" class="btn btn-success" @click="gotoSeanceSection(movieId)">Vali seanss</button>
                             </div>
                         </div>
                     </h1>
@@ -69,8 +69,17 @@ export default defineComponent({
     },
     methods: {
         gotoMovie(id) {
-            router.push({name: 'MovieRoute', params: {id: id}})
+            router.push({name: 'MovieRoute', params: {id}});
         },
+        gotoSeanceSection(id) {
+            router.push({
+                name: 'MovieRoute',
+                params: { id },
+                query: { scrollTo: 'seances' }
+            });
+        },
+
+
 
         getMovie() {
             this.$http.get("/movie/" + this.movieId)

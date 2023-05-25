@@ -51,14 +51,20 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="seanceSelector">
-            <h2>Vali seanss</h2>
-        </div>
-        <div class="row">
-            <div v-for="seanceId in allMovieSeanceIds" class="col-md-6 p-2" :key="seanceId">
-                <SeanceCardSchedule :seance-id="seanceId"/>
+        <div v-if="allMovieSeanceIds.length !== 0">
+            <div class="row" id="seanceSelector" ref="seanceSelector">
+                <h2>Vali seanss</h2>
+            </div>
+            <div class="row">
+                <div v-for="seanceId in allMovieSeanceIds" class="col-md-6 p-2" :key="seanceId">
+                    <SeanceCardSchedule :seance-id="seanceId"/>
+                </div>
             </div>
         </div>
+        <div v-else class="alert alert-danger" role="alert">
+            Ühtegi seanssi ei leitud
+        </div>
+
     </div>
 </template>
 
@@ -144,6 +150,13 @@ export default {
         if (this.movieId !== 0) {
             this.getMovie();
             this.getAllMovieSeanceIds();
+
+
+            if (this.$route.query.scrollTo === 'seances') {
+                this.$nextTick(() => {
+                    this.$refs.seanceSelector.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
         }
     }
 }

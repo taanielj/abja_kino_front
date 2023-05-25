@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div v-if="allSeanceIds.length !== 0" class="container">
         <div class="row">
             <h1>Kinokava</h1>
         </div>
