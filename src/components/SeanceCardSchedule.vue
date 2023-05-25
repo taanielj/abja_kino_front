@@ -1,5 +1,6 @@
 <template>
-    <div v-if="show" class="bg-light-grey text-black border border-4 align-self-stretch card mb-3" style="max-width: 540px">
+    <div v-if="show"
+         class="schedule-card bg-light-grey text-black border border-4 align-self-stretch card mb-3">
         <div class="row g-0">
             <div class="col col-md-4">
                 <div class="poster-container">
@@ -42,10 +43,11 @@
 import {defineComponent} from 'vue'
 import PosterImage from "@/components/PosterImage.vue";
 import router from "@/router";
+import ScheduleView from "@/views/ScheduleView.vue";
 
 export default defineComponent({
     name: "SeanceCardSchedule",
-    components: {PosterImage},
+    components: {ScheduleView, PosterImage},
     props: {
         seanceId: {
             type: Number,
@@ -124,6 +126,18 @@ export default defineComponent({
 </script>
 
 <style>
+
+schedule-card {
+    max-width: 1500px;
+    max-height: 300px;
+}
+
+.poster-container img {
+    height: 300px;
+    object-fit: scale-down;
+}
+
+
 .bigger-text {
     font-size: 50px;
 }
@@ -144,17 +158,9 @@ export default defineComponent({
     background-color: #f2f2f2;
 }
 
-.poster-container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
 
-.poster-container img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
+
+
 
 .custom-button {
 

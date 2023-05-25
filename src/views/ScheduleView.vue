@@ -1,6 +1,6 @@
 <template>
     <div v-if="allSeanceIds.length !== 0" class="container">
-        <div class="row kinokava-container">
+        <div class="row kinokava poster-container">
             <h1 style="font-weight: bold">Kinokava</h1>
         </div>
         <div class="row justify-content-center d-flex">
