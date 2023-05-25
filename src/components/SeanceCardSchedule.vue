@@ -25,7 +25,7 @@
                     </p>
                     <p class="card-text mb-1 d-flex align-items-center custom-text-size">
                         <span class="me-auto">{{ runtimeHours }}h {{ runtimeMinutes }}min </span>
-                        <button type="button" @click="navigateToChooseSeance" class="btn btn-outline-secondary ">Vali
+                        <button type="button" class="btn btn-outline-secondary custom-button">Vali
                             seanss
                         </button>
                     </p>
@@ -160,6 +160,13 @@ export default defineComponent({
     height: 300px;
     object-fit: cover;
 }
+
+.custom-button {
+
+    width: 150px;
+    height: 50px;
+}
+
 
 </style>
 

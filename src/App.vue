@@ -2,7 +2,7 @@
     <nav>
         <div>
             <h1 style="font-weight: bold">Abja-Paluoja KINO
-                <font-awesome-icon :icon="['fad', 'camera-movie']" />
+                <i class="fa-light fa-camera-movie"></i>
             </h1>
 
         <router-link to="/">Kava</router-link>
@@ -37,7 +37,8 @@ import Modal from "@/components/modal/Modal.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 export default {
-    components: {LogoutModal, Modal},
+    name:"YourComponent",
+    components: {LogoutModal, Modal, FontAwesomeIcon},
     data() {
         return {
             userId: sessionStorage.getItem('userId'),
@@ -93,4 +94,5 @@ nav a.router-link-exact-active {
 }
 </style>
 <script setup>
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 </script>
