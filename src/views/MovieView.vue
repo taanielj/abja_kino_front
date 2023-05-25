@@ -43,7 +43,7 @@
                 <h2>{{ movieInfo.description }}</h2>
             </div>
         </div>
-        <div>
+        <div id="choose-seance-section" ref="chooseSeanceSection">
             Vali seanss
         </div>
 

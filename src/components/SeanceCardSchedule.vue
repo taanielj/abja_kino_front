@@ -1,5 +1,7 @@
 <template>
-    <div class="bg-light-grey text-black border border-4 align-self-stretch card mb-3" style="max-width: 540px">
+    <div v-if="seanceInfo.movieId !==0"
+         class="bg-light-grey text-black border border-4 align-self-stretch card mb-3"
+         style="max-width: 1500px; max-height: 300px">
         <div class="row g-0">
             <div class="col col-md-4">
                 <div class="poster-container">
@@ -9,11 +11,11 @@
             </div>
             <div class="col col-md-8">
                 <div class=" card-body text-start">
-                    <h5 class="card-title" >
+                    <h5 class="card-title">
                         <a class="text-black bigger-text bold-text mb-10" :href="'/movie/' + seanceInfo.movieId"
-                       style="text-decoration: none ">{{ seanceInfo.movieTitle }}</a></h5>
+                           style="text-decoration: none ">{{ seanceInfo.movieTitle }}</a></h5>
                     <p class="card-text custom-text-size">
-                        {{ formattedGenreName}}
+                        {{ formattedGenreName }}
                     </p>
                     <p class="card-text mb-1 gray-text custom-text-size">
                         Saal: {{ seanceInfo.roomName }}
@@ -23,15 +25,20 @@
                     </p>
                     <p class="card-text mb-1 d-flex align-items-center custom-text-size">
                         <span class="me-auto">{{ runtimeHours }}h {{ runtimeMinutes }}min </span>
-                        <button type="button" class="btn btn-outline-primary">Vali seanss</button>
+                        <button type="button" @click="navigateToChooseSeance" class="btn btn-outline-secondary ">Vali
+                            seanss
+                        </button>
                     </p>
                     <p class="custom-text-size gray-text">
-                    Keel: {{ seanceInfo.language }} - Subtiitrid: {{ seanceInfo.subtitles }}
+                        Keel: {{ seanceInfo.language }} - Subtiitrid: {{ seanceInfo.subtitles }}
                     </p>
                 </div>
             </div>
 
         </div>
+    </div>
+    <div v-else>
+        <p></p>
     </div>
 </template>
 
@@ -103,6 +110,9 @@ export default defineComponent({
             this.runtimeHours = Math.floor(this.seanceInfo.movieRuntime / 60)
             this.runtimeMinutes = this.seanceInfo.movieRuntime % 60
         },
+        navigateToChooseSeance() {
+            router.push({path: "/movie/" + this.seanceId})
+        }
 
 
     },
@@ -126,23 +136,28 @@ export default defineComponent({
 .bold-text {
     font-weight: bold;
 }
+
 .custom-text-size {
     font-size: 18px;
 }
+
 .gray-text {
     color: gray;
 }
+
 .bg-light-grey {
     background-color: #f2f2f2;
 }
+
 .poster-container {
     width: 100%;
-    max-height: 300px;
+    height: 100%;
     overflow: hidden;
 }
+
 .poster-container img {
     width: 100%;
-    height: 100%;
+    height: 300px;
     object-fit: cover;
 }
 
