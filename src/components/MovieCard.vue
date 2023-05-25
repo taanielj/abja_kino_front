@@ -11,7 +11,7 @@
                     <h1 class="text-start hoverable-link" @click="gotoMovie(movieId)">
                         {{ movieInfo.title }}
                         <div class="col col-5">
-                            <div class="row text-lg-start">
+                            <div class="row text-lg-start" @click="gotoMovie(movieId)">
                                 <button type="button" class="btn btn-success">Vali seanss</button>
                             </div>
                         </div>

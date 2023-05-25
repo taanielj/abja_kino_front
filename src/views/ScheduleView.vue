@@ -4,12 +4,11 @@
             <h1>Kinokava</h1>
         </div>
         <div class="row">
-<!--            <div class="d-flex flex-column justify-content-center">-->
                 <div v-for="seanceId in allSeanceIds" class="col-md-6 p-2" :key="seanceId">
                     <SeanceCardSchedule :seance-id="seanceId" />
                 </div>
 
-<!--            </div>-->
+
         </div>
     </div>
 

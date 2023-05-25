@@ -38,14 +38,12 @@
 
 <script>
 import {defineComponent} from 'vue'
-import MovieCard from "@/components/MovieCard.vue";
 import PosterImage from "@/components/PosterImage.vue";
-import SeanceCard from "@/components/SeanceCard.vue";
 import router from "@/router";
 
 export default defineComponent({
     name: "SeanceCardSchedule",
-    components: {PosterImage, MovieCard, SeanceCard},
+    components: {PosterImage},
     props: {
         seanceId: {
             type: Number,

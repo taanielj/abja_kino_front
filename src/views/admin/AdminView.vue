@@ -35,14 +35,13 @@ import GenreTable from "@/components/admin/table/GenreTable.vue";
 import TicketTypeTable from "@/components/admin/table/TicketTypeTable.vue";
 import AllMoviesView from "@/views/AllMoviesView.vue";
 import MovieTable from "@/components/admin/table/MovieTable.vue";
-import SeanceCard from "@/components/SeanceCard.vue";
 import SeanceTable from "@/components/admin/table/SeanceTable.vue";
 import RoomTable from "@/components/admin/table/RoomTable.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 export default {
 
-    components: {AlertDanger, RoomTable, SeanceTable, SeanceCard, MovieTable, AllMoviesView, TicketTypeTable, GenreTable},
+    components: {AlertDanger, RoomTable, SeanceTable, MovieTable, AllMoviesView, TicketTypeTable, GenreTable},
 
     name: "AdminView",
     data() {
