@@ -1,5 +1,10 @@
 <template>
     <nav>
+        <div>
+            <h1 style="font-weight: bold">Abja-Paluoja KINO
+                <i class="fa-light fa-camera-movie"></i>
+            </h1>
+
         <router-link to="/">Kava</router-link>
         |
         <router-link to="/movies">Filmid</router-link>
@@ -15,6 +20,7 @@
 
             <router-link to="/logout" @click="handleLogout">Logi välja</router-link>
         </template>
+        </div>
     </nav>
     <div class="content">
         <router-view @event-update-nav-menu="updateNavMenu"/>
@@ -28,9 +34,11 @@
 <script>
 import LogoutModal from "@/components/modal/LogoutModal.vue";
 import Modal from "@/components/modal/Modal.vue";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 export default {
-    components: {LogoutModal, Modal},
+    name:"YourComponent",
+    components: {LogoutModal, Modal, FontAwesomeIcon},
     data() {
         return {
             userId: sessionStorage.getItem('userId'),
@@ -82,8 +90,9 @@ nav a.router-link-exact-active {
 }
 
 .content {
-    padding-top: 130px;
+    padding-top: 200px;
 }
 </style>
 <script setup>
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 </script>

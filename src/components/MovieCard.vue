@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-dark text-light">
+    <div v-if="movieInfo.id !==0" class="bg-dark text-light">
         <div class="row justify-content-lg-start">
             <div class="col col-3">
                 <div class="row movie-poster">
@@ -28,6 +28,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div v-else>
+        <p></p>
     </div>
 </template>
 
