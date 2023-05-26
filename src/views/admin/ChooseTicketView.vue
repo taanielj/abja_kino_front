@@ -1,8 +1,8 @@
 <template>
 
     <div class="card section">
-        <div class="card-header " style="width: 60%">
-            <ul class="nav nav-pills card-header-pills justify-content-center">
+        <div class="card-body justify-content-center movie-template "  style="width: 900px; background-color: darkgrey">
+            <div class="nav nav-pills card-header-pills justify-content-center" style="">
                 <li class="nav-item">
                     <a class="nav-link active">Piletid</a>
                 </li>
@@ -12,20 +12,20 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-disabled="true">Kinnitus</a>
                 </li>
-            </ul>
+            </div>
         </div>
         <div class="card-body justify-content-center movie-template">
-            <div class="card " style="width: 100%;">
+            <div class="card " style="width: 100%; background-color: lightgrey">
                 <div class="row g-5">
-                    <div class="col-md-4 poster-container">
+                    <div class="col-md-3 poster-container">
                         <PosterImage :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{ seanceInfo.movieTitle }}</h5>
-                            <p class="card-text"><small class="text-muted">{{ seanceInfo.movieGenreName }} |
-                                {{ seanceInfo.movieRuntime }}</small></p>
-                            <p class="card-text">{{ seanceInfo.dateTime }}| Saal: {{ seanceInfo.roomName }}</p>
+                            <p class="card-text"><small class="text-muted">{{ formattedGenreName }} |
+                                {{ runtimeHours }}h {{ runtimeMinutes }}min</small></p>
+                            <p class="card-text">{{ formatDate(seanceInfo.dateTime) }}| Saal: {{ seanceInfo.roomName }}</p>
                             <p class="card-text">Keel: {{ seanceInfo.language }} | Subtiitrid:
                                 {{ seanceInfo.subtitles }} </p>
                         </div>
@@ -36,7 +36,7 @@
                 <li class="list-group-item mt-5 text-body">Vali piletid</li>
                 <div v-for="ticketType in ticketTypes" class="row">
                     <div class="col-9">
-                        {{ ticketType.name }}
+                       <span class="text-start" > {{ ticketType.name }}</span>
                     </div>
                     <div class="col">
                         {{ ticketType.price }}
@@ -93,11 +93,12 @@ export default defineComponent({
         }
 
     },
-    computed: {
-        formattedGenreName() {
-            return this.seanceInfo.movieGenreName.charAt(0).toUpperCase() + this.seanceInfo.movieGenreName.slice(1);
-        },
+    computed:{
+        formattedGenreName(){
+            return this.seanceInfo.movieGenreName.charAt(0).toUpperCase()+ this.seanceInfo.movieGenreName.slice(1);
+        }
     },
+
     methods: {
         getSeanceInfo() {
             this.$http.get("/seance/" + this.seanceId)
@@ -111,12 +112,6 @@ export default defineComponent({
                     // router.push({path: "/error"});
                 })
         },
-
-        setAmountToZero() {
-            this.ticketTypes.forEach(ticketType => {
-                ticketType.amount = 0;
-            })
-        },
         formatDate(dateTime) {
             const date = new Date(dateTime);
             const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
@@ -129,6 +124,12 @@ export default defineComponent({
         runtimeToHoursMinutes() {
             this.runtimeHours = Math.floor(this.seanceInfo.movieRuntime / 60)
             this.runtimeMinutes = this.seanceInfo.movieRuntime % 60
+        },
+
+        setAmountToZero() {
+            this.ticketTypes.forEach(ticketType => {
+                ticketType.amount = 0;
+            })
         },
         getTicketTypes() {
             this.$http.get("/ticket/types")
@@ -157,12 +158,15 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
 }
+
 
 .section {
     display: flow;
     align-items: center;
     width: 100%;
+    background-color: lightgrey;
 }
 
 .poster-container {

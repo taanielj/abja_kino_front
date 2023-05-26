@@ -136,11 +136,19 @@ schedule-card {
     max-height: 300px;
 }
 
-.poster-container img {
-    height: 300px;
-    object-fit: scale-down;
-}
+.poster-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;}
 
+
+.poster-container img{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    object-fit: cover;
+}
 
 .bigger-text {
     font-size: 50px;
@@ -160,12 +168,6 @@ schedule-card {
 
 .bg-light-grey {
     background-color: #f2f2f2;
-}
-
-.poster-container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
 }
 
 
