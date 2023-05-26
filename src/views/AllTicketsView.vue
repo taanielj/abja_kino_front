@@ -11,7 +11,7 @@
                             <h2 class="card-title text-black bold-text">Aktiivsed piletid</h2>
                         </div>
                         <div class="card-body text-success">
-                            <div v-for="tickedId in ticketIds">
+                            <div v-for="tickedId in activeTicketIds">
                                 <TicketCard :ticketId="tickedId" :key="tickedId"/>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                             <h2 class="card-title text-black bold-text">Kasutatud piletid</h2>
                         </div>
                         <div class="card-body text-success">
-                            <div v-for="tickedId in ticketIds">
+                            <div v-for="tickedId in expiredTicketIds">
                                 <TicketCard :ticketId="tickedId" :key="tickedId"/>
                             </div>
                         </div>
@@ -43,6 +43,7 @@
 <script>
 
 import TicketCard from "@/components/TicketCard.vue";
+import router from "@/router";
 
 export default {
     name: "AllTicketsView",
@@ -51,19 +52,40 @@ export default {
         return {
             show: true,
             userId: localStorage.userId,
-            ticketIds: [0]
+            activeTicketIds: [0],
+            expiredTicketIds: [0]
+
+
 
         }
 
 
     },
     methods: {
-        getTicketIds() {
 
+        getActiveTicketIds() {
+            this.$http.get("/ticket/all-active-ids-by-user/" + this.userId)
+                .then(response => {
+                    this.activeTicketIds = response.data
+                })
+                .catch(() => {
+                    router.push({path:"/error"})
+                })
+        },
+
+        getExpiredTicketIds() {
+            this.$http.get("/ticket/all-expired-ids-by-user/" + this.userId)
+                .then(response => {
+                    this.expiredTicketIds = response.data
+                })
+                .catch(() => {
+                    router.push({path:"/error"})
+                })
         },
     },
     mounted() {
-        this.getTicketIds();
+        this.getActiveTicketIds();
+        this.getExpiredTicketIds();
     }
 }
 </script>
