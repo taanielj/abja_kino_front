@@ -22,7 +22,6 @@
 import {defineComponent} from 'vue'
 import ScheduleView from "@/views/ScheduleView.vue";
 import PosterImage from "@/components/PosterImage.vue";
-import router from "@/router";
 
 export default defineComponent({
     name: "ChooseTicketView",

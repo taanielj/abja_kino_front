@@ -61,7 +61,7 @@ const routes = [
         path: '/admin/edit-movie/:id',
         name: 'EditMovieRoute',
         component: AddMovieView
-    },,
+    },
     {
         path: '/admin/add-movie/',
         name: 'AddMovieRoute',
