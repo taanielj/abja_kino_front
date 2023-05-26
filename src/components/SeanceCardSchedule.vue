@@ -24,7 +24,7 @@
                     </p>
                     <p class="card-text mb-1 d-flex align-items-center custom-text-size">
                         <span class="me-auto">{{ runtimeHours }}h {{ runtimeMinutes }}min </span>
-                        <button type="button" class="btn btn-outline-secondary custom-button">Vali
+                        <button type="button" class="btn btn-outline-secondary custom-button" @click="goToTickets">Vali
                             seanss
                         </button>
                     </p>
@@ -107,6 +107,10 @@ export default defineComponent({
             this.runtimeHours = Math.floor(this.seanceInfo.movieRuntime / 60)
             this.runtimeMinutes = this.seanceInfo.movieRuntime % 60
         },
+        goToTickets() {
+            router.push({path: '/choose-ticket/' + this.seanceId})
+        },
+
         navigateToChooseSeance() {
             router.push({path: "/movie/" + this.seanceId})
         }
@@ -158,7 +162,11 @@ schedule-card {
     background-color: #f2f2f2;
 }
 
-
+.poster-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
 
 
 
