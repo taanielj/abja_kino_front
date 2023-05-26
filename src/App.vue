@@ -43,14 +43,14 @@ export default {
     data() {
         return {
             navHeight: "20vh",
-            userId: sessionStorage.getItem('userId'),
-            roleName: sessionStorage.getItem('roleName')
+            userId: localStorage.getItem('userId'),
+            roleName: localStorage.getItem('roleName')
         }
     },
     methods: {
         updateNavMenu() {
-            this.userId = sessionStorage.getItem('userId')
-            this.roleName = sessionStorage.getItem('roleName')
+            this.userId = localStorage.getItem('userId')
+            this.roleName = localStorage.getItem('roleName')
         },
 
         handleLogout() {

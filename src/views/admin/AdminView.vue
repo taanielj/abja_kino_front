@@ -73,7 +73,7 @@ export default {
         }
     },
     beforeMount() {
-        if(sessionStorage.getItem('roleName') !== 'ROLE_ADMIN')
+        if(localStorage.getItem('roleName') !== 'ROLE_ADMIN')
             this.$router.push('/');
     }
 }

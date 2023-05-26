@@ -22,7 +22,7 @@ export default {
     components: {Modal},
     methods: {
         executeLogout() {
-            sessionStorage.clear()
+            localStorage.clear()
             this.$refs.modalRef.closeModal()
             this.$emit('event-update-nav-menu')
             router.push({name: 'ScheduleRoute'})

@@ -59,8 +59,8 @@ export default {
 
 
             }).then(response => {
-                sessionStorage.setItem("userId", response.data.userId);
-                sessionStorage.setItem("roleName", response.data.roleName);
+                localStorage.setItem("userId", response.data.userId);
+                localStorage.setItem("roleName", response.data.roleName);
                 this.$emit('event-update-nav-menu')
                 router.push({name: 'ScheduleRoute'})
             }).catch(error => {

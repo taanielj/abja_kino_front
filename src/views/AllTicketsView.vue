@@ -50,7 +50,7 @@ export default {
     data() {
         return {
             show: true,
-            userId: sessionStorage.userId,
+            userId: localStorage.userId,
             ticketIds: [0]
 
         }
