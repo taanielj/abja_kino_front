@@ -17,7 +17,7 @@ import {defineComponent} from 'vue'
 import PosterImage from "@/components/PosterImage.vue";
 import SeanceCardFull from "@/components/SeanceCardSchedule.vue";
 
-export default defineComponent({
+export default {
     name: "SeanceView",
     components: {SeanceCardFull, PosterImage},
     data() {
@@ -37,7 +37,7 @@ export default defineComponent({
             }
         }
     },
-})
+}
 </script>
 
 

@@ -1,8 +1,9 @@
 <template>
     <nav>
         <div>
-            <h1 style="font-weight: bold">Abja-Paluoja KINO
-                <i class="fa-light fa-camera-movie"></i>
+            <h1 id="cinema-name">
+                Abja-Paluoja KINO <font-awesome-icon :icon="['fa-light', 'fa-camera-movie']"/>
+
             </h1>
 
         <router-link to="/">Kava</router-link>
@@ -41,6 +42,7 @@ export default {
     components: {LogoutModal, Modal, FontAwesomeIcon},
     data() {
         return {
+            navHeight: "20vh",
             userId: sessionStorage.getItem('userId'),
             roleName: sessionStorage.getItem('roleName')
         }
@@ -54,6 +56,15 @@ export default {
         handleLogout() {
             this.$refs.logoutModalRef.$refs.modalRef.openModal()
         },
+        adjustNavHeight() {
+            const windowHeight = window.innerHeight;
+            const nav = document.querySelector('nav');
+            if (nav) {
+                const navOffsetTop = nav.offsetTop;
+                const newNavHeight = windowHeight - navOffsetTop + 'px';
+                this.navHeight = newNavHeight;
+            }
+        }
     }
 
 }
@@ -66,18 +77,24 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    font-size: 25px;
+    font-size: 2vw;
+}
+
+#cinema-name {
+    font-size: 3vw;
+    font-weight: bold;
 }
 
 nav {
     position: fixed;
     background-color: lightgray;
-    padding: 30px;
-    font-size: 40px;
+    padding: 2vw;
+    font-size: 2vw;
     width: 100%;
     transition: top 0.3s;
     z-index: 9999;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* add a box shadow */
+    box-shadow: 0 0.2vw 0.8vw rgba(0,0,0,0.2); /* changed from px to vw */
+    height: 20vh;
 }
 
 nav a {
@@ -90,9 +107,12 @@ nav a.router-link-exact-active {
 }
 
 .content {
-    padding-top: 200px;
+    padding-top: 25vh;
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        height: auto;
+    }
 }
 </style>
-<script setup>
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-</script>

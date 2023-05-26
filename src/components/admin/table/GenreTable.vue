@@ -85,8 +85,8 @@ export default {
                 .then(response => {
                     this.genres = response.data
                 })
-                .catch(error => {
-                    this.handleGenreError(error)
+                .catch(() => {
+                    this.errorMessage = "Database connection error";
                 })
         },
         postGenre () {
@@ -114,6 +114,7 @@ export default {
                 }
             }).then(() => {
                 genre.editing = false;
+                this.$emit("genre-table-success");
             }).catch(error => {
                 this.handleGenreError(error);
                 if (!this.showInput) {

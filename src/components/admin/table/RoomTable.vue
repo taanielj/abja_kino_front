@@ -1,17 +1,15 @@
 <template>
     <table class="table">
         <colgroup>
+            <col style="rcawidth: 20%">
             <col style="width: 20%">
-            <col style="width: 15%">
-            <col style="width: 15%">
-            <col style="width: 15%">
-            <col style="width: 15%">
+            <col style="width: 20%">
+            <col style="width: 20%">
             <col style="width: 10%">
         </colgroup>
         <thead>
         <tr>
             <th scope="col">Saal</th>
-            <th scope="col">Seansside arv</th>
             <th scope="col">Ridade arv</th>
             <th scope="col">Istekohti reas</th>
             <th scope="col">Istekohti saalis</th>
@@ -23,9 +21,6 @@
             <td>
                 <input v-model="room.name" type="text" v-if="room.editing" class="w-50 input-field">
                 <span v-else>{{ room.name }}</span>
-            </td>
-            <td>
-                <span>{{ room.totalSeances }}</span>
             </td>
             <td>
                 <input v-model="room.rows" type="number" v-if="room.editing" class="w-50 input-field">
@@ -70,7 +65,6 @@
             </td>
             <td v-else></td>
             <td v-if="showInput"></td>
-            <td v-else></td>
 
             <td>
                 <template v-if="showInput">
@@ -109,7 +103,6 @@ export default {
                 {
                     id: 0,
                     name: "",
-                    totalSeances: 0,
                     rows: 0,
                     cols: 0,
                     editing: false
@@ -133,8 +126,8 @@ export default {
                     this.rooms = response.data;
                     this.totalSeats = this.rows * this.cols;
                 })
-                .catch(error => {
-                    const errorResponseBody = error.response.data
+                .catch(() => {
+                    this.errorMessage = "Database connection error";
                 })
         },
 
@@ -159,11 +152,16 @@ export default {
                 }
 
                 this.showInput = false;
+
                 this.getAllRooms();
+
             }).catch(error => {
                 this.handleRoomError(error);
                 if (!this.showInput) {
-                    this.newRoom = "";
+                    this.newRoom = {
+                        name: "",
+                        rows: 1,
+                        cols: 1,}
                 }
             })
         },
@@ -176,13 +174,11 @@ export default {
             this.$http.put("/room/" + room.id, room)
                 .then(() => {
                     room.editing = false;
+                    this.$emit("room-table-success")
                     this.getAllRooms();
                 })
                 .catch(error => {
                 this.handleRoomError(error);
-                if (!this.showInput) {
-                    this.newRoom = "";
-                }
             })
         },
 
@@ -209,13 +205,17 @@ export default {
             } else {
                 room.editing = false
             }
-            this.newRoom = ""
+            this.newRoom = {
+                name: "",
+                rows: 1,
+                cols: 1,
+            }
             this.showInput = false;
         },
         handleRoomError(error) {
-            if (error.response.status === 400) {
+            if (error.response.status === 400 || error.response.status === 409) {
                 this.errorMessage = error.response.data.message
-                this.$emit("event-error-message", this.errorMessage)
+                this.$emit("room-table-error", this.errorMessage)
             } else {
                 router.push({path: "/error"})
             }

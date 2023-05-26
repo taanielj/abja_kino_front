@@ -184,7 +184,7 @@ export default {
             }
         },
         handleTicketTypeError(error) {
-            if (error.response.status === 400) {
+            if (error.response.status === 400 || error.response.status === 409) {
                 this.errorMessage = error.response.data.message;
                 this.$emit("ticket-type-table-error", this.errorMessage);
             } else {

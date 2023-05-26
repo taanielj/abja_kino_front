@@ -97,7 +97,7 @@ export default {
     methods: {
 
         getSeance() {
-            this.$http.get("/seance/" + this.seanceId)
+            this.$http.get("/seance/admin/" + this.seanceId)
                 .then(response => {
                     this.seanceInfo = response.data;
                 })

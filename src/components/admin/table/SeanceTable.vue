@@ -68,8 +68,8 @@ export default {
                     this.seances = response.data
                     this.dateTimeToDateAndTime()
                 })
-                .catch(error => {
-                    console.log(error)
+                .catch(() => {
+                    this.errorMessage = "Database connection error"
                 })
         },
 

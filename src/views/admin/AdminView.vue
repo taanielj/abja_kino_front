@@ -7,17 +7,17 @@
                     Administraatori töölaud
                 </h1>
                 <div class="row admin-table">
-                    <MovieTable @movie-table-error="setErrorMessage" @movie-table-success="setSuccessMessage"/>
+                    <MovieTable @movie-table-error="setErrorMessage" @movie-table-success="refreshSeanceTable" ref="movieTableRef"/>
                 </div>
                 <div class="row admin-table">
-                    <SeanceTable @seance-table-error="setErrorMessage" @seance-table-success="setSuccessMessage"/>
+                    <SeanceTable @seance-table-error="setErrorMessage" ref="seanceTableRef" @seance-table-success="setSuccessMessage"/>
                 </div>
                 <div class="row admin-table">
-                    <RoomTable @room-table-error="setErrorMessage" @seance-table-success="setSuccessMessage"/>
+                    <RoomTable @room-table-error="setErrorMessage" @room-table-success="refreshSeanceTable"/>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col admin-table">
-                        <GenreTable @genre-table-error="setErrorMessage"/>
+                        <GenreTable @genre-table-error="setErrorMessage" @genre-table-success="refreshMovieTable"/>
                     </div>
                     <div class="col-1 d-none d-md-block"></div> <!-- Spacer column -->
                     <div class="col  admin-table">
@@ -64,6 +64,12 @@ export default {
             setTimeout(() => {
                 this.successMessage = '';
             }, 5000);
+        },
+        refreshSeanceTable() {
+            this.$refs.seanceTableRef.getAllSeances();
+        },
+        refreshMovieTable() {
+            this.$refs.movieTableRef.getAllMovies();
         }
     },
     beforeMount() {

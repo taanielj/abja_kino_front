@@ -66,8 +66,8 @@ export default {
                 .then(response => {
                     this.movies = response.data
                 })
-                .catch(error => {
-                    const errorResponseBody = error.response.data
+                .catch(() => {
+                    this.errorMessage = "Database connection error"
                 })
         },
 

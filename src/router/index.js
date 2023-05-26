@@ -9,6 +9,7 @@ import ErrorView from "@/views/ErrorView.vue";
 import SeanceView from "@/views/SeanceView.vue";
 import AllMoviesView from "@/views/AllMoviesView.vue";
 import AddSeanceView from "@/views/admin/AddSeanceView.vue";
+import SelectSeatsView from "@/views/SelectSeatsView.vue";
 
 const routes = [
 
@@ -73,6 +74,11 @@ const routes = [
         name: 'errorRoute',
         component: ErrorView
     },
+    {
+        path: '/select-seats/:seanceId',
+        name: 'SelectSeatsRoute',
+        component: SelectSeatsView
+    }
 
 
 ]
