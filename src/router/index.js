@@ -10,7 +10,7 @@ import SeanceView from "@/views/SeanceView.vue";
 import AllMoviesView from "@/views/AllMoviesView.vue";
 import AllTicketsView from "@/views/AllTicketsView.vue";
 import AddSeanceView from "@/views/admin/AddSeanceView.vue";
-import chooseTicketView from "@/views/admin/ChooseTicketView.vue";
+import chooseTicketView from "@/views/ChooseTicketView.vue";
 import SelectSeatsView from "@/views/SelectSeatsView.vue";
 
 
@@ -61,7 +61,7 @@ const routes = [
         path: '/admin/edit-movie/:id',
         name: 'EditMovieRoute',
         component: AddMovieView
-    },,
+    },
     {
         path: '/admin/add-movie/',
         name: 'AddMovieRoute',
