@@ -1,7 +1,8 @@
 <template>
     <table class="table">
+
         <colgroup>
-            <col style="rcawidth: 20%">
+            <col style="width: 20%">
             <col style="width: 20%">
             <col style="width: 20%">
             <col style="width: 20%">
@@ -52,10 +53,7 @@
                 <input v-model="newRoom.name" type="text" class="w-50 input-field">
             </td>
             <td v-else></td>
-            <td v-if="showInput">
 
-            </td>
-            <td v-else></td>
             <td v-if="showInput">
                 <input v-model="newRoom.rows" type="number" class="w-50 input-field ">
             </td>
@@ -64,7 +62,12 @@
                 <input v-model="newRoom.cols" type="number" class="w-50 input-field">
             </td>
             <td v-else></td>
-            <td v-if="showInput"></td>
+            <td v-if="showInput">
+                <span>{{ newRoom.rows * newRoom.cols }}</span>
+            </td>
+            <td v-else></td>
+
+
 
             <td>
                 <template v-if="showInput">
@@ -223,6 +226,11 @@ export default {
             if (error.response.status === 400 || error.response.status === 409) {
                 this.errorMessage = error.response.data.message
                 this.$emit("room-table-error", this.errorMessage)
+                this.resetFields();
+                //set editing false:
+                this.rooms.forEach(room => room.editing = false)
+                this.getAllRooms();
+
             } else {
                 router.push({path: "/error"})
             }

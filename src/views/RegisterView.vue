@@ -36,10 +36,11 @@
 <script>
 import router from "@/router";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 
 export default {
     name: "RegisterView",
-    components: {AlertDanger},
+    components: {AlertSuccess, AlertDanger},
     data() {
         return {
             matchingPassword: '',
@@ -84,7 +85,7 @@ export default {
                     && this.registrationRequest.email !== ''
         },
         postNewClient() {
-            this.$http.post('/user/register', this.registrationRequest
+            this.$http.post('/api/v1/user/register', this.registrationRequest
             ).then((response) => {
 
                 localStorage.setItem("userId", response.data.userId);

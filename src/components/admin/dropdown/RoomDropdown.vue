@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import {getAuthHeader} from "@/utils";
+
 export default {
     name: "RoomDropdown",
     props: ['room'],
@@ -31,13 +33,14 @@ export default {
             this.selectedRoomId = roomId
         },
 
-        getRooms: function () {
-            this.$http.get("/api/v1/room/all")
+        getRooms() {
+            this.$http.get("/api/v1/room/all", {headers: getAuthHeader()})
                 .then(response => {
                     this.rooms = response.data
                 })
                 .catch(error => {
-                    const errorResponseBody = error.response.data
+                       console.log(error)
+
                 })
         },
     },
@@ -52,6 +55,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>

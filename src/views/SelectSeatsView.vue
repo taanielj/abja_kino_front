@@ -40,6 +40,7 @@
 
 import router from "@/router";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "SelectSeatsView",
@@ -86,7 +87,7 @@ export default {
 
     methods: {
         getRoomSeance() {
-            this.$http.get("/api/v1/room/seance/" + this.seanceId)
+            this.$http.get("/api/v1/room/seance/" + this.seanceId, {headers: getAuthHeader()})
                 .then(response => {
                     this.roomSeance = response.data;
                 })
@@ -96,10 +97,10 @@ export default {
         },
 
         selectSeat(seat) {
-            // Get the currently selected seats
+
             let selectedSeats = this.roomSeance.seats.filter(s => s.selected);
 
-            // If the seat is already selected, check if it's on the edge before deselecting
+
             if (seat.selected) {
                 let selectedSeatsInSameRow = selectedSeats.filter(s => s.row === seat.row);
 
@@ -111,11 +112,11 @@ export default {
                         seat.selected = false;
                     }
                 } else {
-                    // If it's the only selected seat in the row, allow deselection
+
                     seat.selected = false;
                 }
             } else {
-                // If there are selected seats, check if the new seat is adjacent to any of them
+
                 if (selectedSeats.length > 0) {
                     let selectedSeatsInSameRow = selectedSeats.filter(s => s.row === seat.row);
 
@@ -128,7 +129,7 @@ export default {
                         }
                     }
                 } else {
-                    // If there are no selected seats, select the seat
+
                     seat.selected = true;
                 }
             }

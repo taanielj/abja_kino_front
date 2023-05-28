@@ -74,6 +74,7 @@ import RoomDropdown from "@/components/admin/dropdown/RoomDropdown.vue";
 import router from "@/router";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "AddSeanceView",
@@ -97,7 +98,7 @@ export default {
     methods: {
 
         getSeance() {
-            this.$http.get("/api/v1/seance/admin/" + this.seanceId)
+            this.$http.get("/api/v1/seance/admin/" + this.seanceId, {headers: getAuthHeader()})
                 .then(response => {
                     this.seanceInfo = response.data;
                 })
@@ -114,8 +115,8 @@ export default {
                 return;
             }
 
-            this.$http.post("/api/v1/seance", this.seanceInfo)
-                .then(response => {
+            this.$http.post("/api/v1/seance", this.seanceInfo, {headers: getAuthHeader()})
+                .then(() => {
                     this.successMessage = "Seanss lisatud";
                 })
                 .catch(error => {
@@ -131,7 +132,7 @@ export default {
                 return;
             }
 
-            this.$http.put("/api/v1/seance/" + this.seanceId, this.seanceInfo)
+            this.$http.put("/api/v1/seance/" + this.seanceId, this.seanceInfo, {headers: getAuthHeader()})
                 .then(() => this.setSuccessMessage("Seanss muudetud"))
                 .catch(error => this.errorMessage = error.response.data.message);
         },
@@ -183,6 +184,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>

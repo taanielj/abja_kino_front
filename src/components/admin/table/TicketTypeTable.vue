@@ -1,5 +1,5 @@
 <template>
-    <table class="table">
+    <table class="table" aria-description="Table with TicketTypes in the database">
         <colgroup>
             <col style="width: 50%">
             <col style="width: 25%">
@@ -133,7 +133,7 @@ export default {
                 return;
             }
 
-            this.$http.post("/api/v1/ticket/add", this.newTicketType, {headers: getAuthHeader()})
+            this.$http.post("/api/v1/ticket/type/add", this.newTicketType, {headers: getAuthHeader()})
                     .then(() => {
 
                         this.newTicketType = {
@@ -158,16 +158,14 @@ export default {
                 return;
             }
 
-            this.$http.put("/api/v1/ticket/" + ticketType.id, ticketType, {headers: getAuthHeader()})
+            this.$http.put("/api/v1/ticket/type/" + ticketType.id, ticketType, {headers: getAuthHeader()})
                     .then(() => {
                         ticketType.editing = false;
                         this.getTicketTypes();
                     })
                     .catch(error => {
                         this.handleTicketTypeError(error);
-                        if (!this.showInput) {
-                            this.newTicketType = "";
-                        }
+
                     })
         },
 
@@ -189,13 +187,19 @@ export default {
         handleTicketTypeError(error) {
             if (error.response.status === 400 || error.response.status === 409) {
                 this.errorMessage = error.response.data.message;
+                if (!this.showInput) {
+                    this.newTicketType = {
+                        id: 0,
+                        name: "",
+                        price: 0,}
+                }
                 this.$emit("ticket-type-table-error", this.errorMessage);
             } else {
                 router.push({path: "/error"});
             }
         },
         deleteTicketType(ticketTypeId) {
-            this.$http.delete("/api/v1/ticket/types/" + ticketTypeId, {headers: getAuthHeader()})
+            this.$http.delete("/api/v1/ticket/type/" + ticketTypeId, {headers: getAuthHeader()})
                     .then(() => {
                         this.getTicketTypes()
                     })
@@ -216,13 +220,13 @@ export default {
     },
 
     watch: {
-        "newTicketType.price"(newVal, oldVal) {
+        "newTicketType.price"(newVal) {
             if (newVal < 0 || newVal === null || newVal === undefined || newVal === "") {
                 this.newTicketType.price = 0
             }
         },
         ticketTypes: {
-            handler(newVal, oldVal) {
+            handler(newVal) {
                 newVal.forEach((ticketType, index) => {
                     if (ticketType.price < 0 || ticketType.price === null || ticketType.price === undefined || ticketType.price === "") {
                         ticketType.price = 0;
