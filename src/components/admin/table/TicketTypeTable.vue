@@ -69,6 +69,7 @@ import AlertDanger from "@/components/alert/AlertDanger.vue";
 import Alert from "@/components/alert/Alert.vue";
 import router from "@/router";
 import index from "vuex";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "TicketTypeTable",
@@ -100,13 +101,14 @@ export default {
 
     methods: {
         getTicketTypes() {
-            this.$http.get("/ticket/types")
-                .then(response => {
-                    this.ticketTypes = response.data
-                })
-                .catch(error => {
-                    const errorResponseBody = error.response.data
-                })
+
+            this.$http.get("/api/v1/ticket/type/all", {headers: getAuthHeader()})
+                    .then(response => {
+                        this.ticketTypes = response.data
+                    })
+                    .catch(error => {
+                        this.handleTicketTypeError(error);
+                    })
         },
 
         editTicketType(ticketTypeId) {
@@ -117,7 +119,7 @@ export default {
 
         validateFieldsFilled(ticketType) {
             this.errorMessage = "";
-            if(ticketType.name.trim() !== "" && ticketType.price !== 0) {
+            if (ticketType.name.trim() !== "" && ticketType.price !== 0) {
                 return true;
             }
             this.errorMessage = "Pileti tüübi nimi ja hind ei tohi olla tühi"
@@ -131,41 +133,42 @@ export default {
                 return;
             }
 
-            this.$http.post("/ticket/add", this.newTicketType).then(() => {
+            this.$http.post("/api/v1/ticket/add", this.newTicketType, {headers: getAuthHeader()})
+                    .then(() => {
 
-                this.newTicketType = {
-                    id: 0,
-                    name: "",
-                    price: 0,
-                }
-                this.showInput = false;
-                this.getTicketTypes();
-            })
-                .catch(error => {
-                    this.handleTicketTypeError(error);
-                    if (!this.showInput) {
-                        this.newTicketType = "";
-                    }
-                })
+                        this.newTicketType = {
+                            id: 0,
+                            name: "",
+                            price: 0,
+                        }
+                        this.showInput = false;
+                        this.getTicketTypes();
+                    })
+                    .catch(error => {
+                        this.handleTicketTypeError(error);
+                        if (!this.showInput) {
+                            this.newTicketType = "";
+                        }
+                    })
         },
 
         putTicketType(ticketType) {
 
-            if(!this.validateFieldsFilled(ticketType)) {
+            if (!this.validateFieldsFilled(ticketType)) {
                 return;
             }
 
-            this.$http.put("/ticket/" + ticketType.id, ticketType, {})
-                .then(() => {
-                    ticketType.editing = false;
-                    this.getTicketTypes();
-                })
-                .catch(error => {
-                    this.handleTicketTypeError(error);
-                    if (!this.showInput) {
-                        this.newTicketType = "";
-                    }
-                })
+            this.$http.put("/api/v1/ticket/" + ticketType.id, ticketType, {headers: getAuthHeader()})
+                    .then(() => {
+                        ticketType.editing = false;
+                        this.getTicketTypes();
+                    })
+                    .catch(error => {
+                        this.handleTicketTypeError(error);
+                        if (!this.showInput) {
+                            this.newTicketType = "";
+                        }
+                    })
         },
 
         toggleEditTicketType(index) {
@@ -192,13 +195,13 @@ export default {
             }
         },
         deleteTicketType(ticketTypeId) {
-            this.$http.delete("/ticket/types/" + ticketTypeId)
-                .then(() => {
-                    this.getTicketTypes()
-                })
-                .catch(error => {
-                    this.handleTicketTypeError(error)
-                })
+            this.$http.delete("/api/v1/ticket/types/" + ticketTypeId, {headers: getAuthHeader()})
+                    .then(() => {
+                        this.getTicketTypes()
+                    })
+                    .catch(error => {
+                        this.handleTicketTypeError(error)
+                    })
         },
         toggleInput() {
             this.showInput = !this.showInput
@@ -213,7 +216,7 @@ export default {
     },
 
     watch: {
-        "newTicketType.price" (newVal, oldVal) {
+        "newTicketType.price"(newVal, oldVal) {
             if (newVal < 0 || newVal === null || newVal === undefined || newVal === "") {
                 this.newTicketType.price = 0
             }

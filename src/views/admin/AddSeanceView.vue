@@ -97,7 +97,7 @@ export default {
     methods: {
 
         getSeance() {
-            this.$http.get("/seance/admin/" + this.seanceId)
+            this.$http.get("/api/v1/seance/admin/" + this.seanceId)
                 .then(response => {
                     this.seanceInfo = response.data;
                 })
@@ -114,7 +114,7 @@ export default {
                 return;
             }
 
-            this.$http.post("/seance", this.seanceInfo)
+            this.$http.post("/api/v1/seance", this.seanceInfo)
                 .then(response => {
                     this.successMessage = "Seanss lisatud";
                 })
@@ -131,7 +131,7 @@ export default {
                 return;
             }
 
-            this.$http.put("/seance/" + this.seanceId, this.seanceInfo)
+            this.$http.put("/api/v1/seance/" + this.seanceId, this.seanceInfo)
                 .then(() => this.setSuccessMessage("Seanss muudetud"))
                 .catch(error => this.errorMessage = error.response.data.message);
         },

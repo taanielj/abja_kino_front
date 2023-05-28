@@ -2,25 +2,26 @@
     <nav>
         <div>
             <h1 id="cinema-name">
-                Abja-Paluoja KINO <font-awesome-icon :icon="['fa-light', 'fa-camera-movie']"/>
+                Abja-Paluoja KINO
+                <font-awesome-icon :icon="['fa-light', 'fa-camera-movie']"/>
 
             </h1>
 
-        <router-link to="/">Kava</router-link>
-        |
-        <router-link to="/movies">Filmid</router-link>
-        |
-        <router-link v-if="userId === null" to="/login">Logi Sisse</router-link>
-        <template v-else>
-            <router-link to="/tickets">Piletid</router-link>
+            <router-link to="/">Kava</router-link>
             |
-            <template v-if="roleName === 'ROLE_ADMIN'">
-                <router-link to="/admin">Admin</router-link>
+            <router-link to="/movies">Filmid</router-link>
+            |
+            <router-link v-if="userId === null" to="/login">Logi Sisse</router-link>
+            <template v-else>
+                <router-link to="/tickets">Piletid</router-link>
                 |
-            </template>
+                <template v-if="roleName === 'ADMIN'">
+                    <router-link to="/admin">Admin</router-link>
+                    |
+                </template>
 
-            <router-link to="/logout" @click="handleLogout">Logi välja</router-link>
-        </template>
+                <router-link to="/logout" @click="handleLogout">Logi välja</router-link>
+            </template>
         </div>
     </nav>
     <div class="content">
@@ -37,8 +38,9 @@ import LogoutModal from "@/components/modal/LogoutModal.vue";
 import Modal from "@/components/modal/Modal.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
+
 export default {
-    name:"YourComponent",
+    name: "YourComponent",
     components: {LogoutModal, Modal, FontAwesomeIcon},
     data() {
         return {
@@ -93,7 +95,7 @@ nav {
     width: 100%;
     transition: top 0.3s;
     z-index: 9999;
-    box-shadow: 0 0.2vw 0.8vw rgba(0,0,0,0.2); /* changed from px to vw */
+    box-shadow: 0 0.2vw 0.8vw rgba(0, 0, 0, 0.2); /* changed from px to vw */
     height: 20vh;
 }
 

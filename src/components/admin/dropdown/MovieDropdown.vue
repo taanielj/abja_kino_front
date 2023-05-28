@@ -28,7 +28,7 @@ export default {
 
 
         getMovies() {
-            this.$http.get("/movie/all")
+            this.$http.get("/api/v1/movie/all")
                 .then(response => {
                     this.movies = response.data
                 })

@@ -48,7 +48,7 @@ export default defineComponent({
             })
         },
         getTicketTypes() {
-            this.$http.get("/ticket/types")
+            this.$http.get("/api/v1/ticket/types")
                 .then(response => {
                     this.ticketTypes = response.data;
                     this.setAmountToZero();

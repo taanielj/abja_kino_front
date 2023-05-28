@@ -24,7 +24,8 @@
                                        :icon="['fas', 'trash']"/>
                 </template>
                 <template v-else>
-                    <font-awesome-icon @click="saveGenre(genre.id)" class="hoverable-link me-3" :icon="['fas', 'save']"/>
+                    <font-awesome-icon @click="saveGenre(genre.id)" class="hoverable-link me-3"
+                                       :icon="['fas', 'save']"/>
                     <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
                 </template>
@@ -56,6 +57,7 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import alert from "@/components/alert/Alert.vue";
 import router from "@/router";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "GenreTable",
@@ -81,20 +83,21 @@ export default {
     },
     methods: {
         getGenres() {
-            this.$http.get("/genre/all")
-                .then(response => {
-                    this.genres = response.data
-                })
-                .catch(() => {
-                    this.errorMessage = "Database connection error";
-                })
+
+
+            this.$http.get("/api/v1/genre/all", {headers: getAuthHeader()})
+                    .then(response => {
+                        this.genres = response.data
+                    })
+                    .catch(() => {
+                        this.errorMessage = "Database connection error";
+                    })
         },
-        postGenre () {
-            this.$http.post("/genre/add", null, {
-                    params: {
-                        genreName: this.newGenre
+        postGenre() {
+            this.$http.post("/api/v1/genre", null, {
+                        params: {genreName: this.newGenre},
+                        headers: getAuthHeader()
                     }
-                }
             ).then(() => {
                 this.getGenres();
                 this.newGenre = "";
@@ -106,21 +109,23 @@ export default {
             })
         },
 
-        putGenre (genre) {
-            this.$http.put("/genre/" + genre.id, null,  {
-
-                params: {
-                    genreName: genre.name
-                }
-            }).then(() => {
-                genre.editing = false;
-                this.$emit("genre-table-success");
-            }).catch(error => {
-                this.handleGenreError(error);
-                if (!this.showInput) {
-                    this.newGenre = "";
-                }
-            })
+        putGenre(genre) {
+            this.$http
+                    .put("/api/v1/genre/" + genre.id, null, {
+                                params: {genreName: genre.name},
+                                headers: getAuthHeader()
+                            }
+                    )
+                    .then(() => {
+                        genre.editing = false;
+                        this.$emit("genre-table-success");
+                    })
+                    .catch(error => {
+                        this.handleGenreError(error);
+                        if (!this.showInput) {
+                            this.newGenre = "";
+                        }
+                    })
         },
 
         addGenre() {
@@ -157,20 +162,20 @@ export default {
             if (error.response.status === 409 || error.response.status === 400) {
                 this.errorMessage = error.response.data.message;
                 this.$emit("genre-table-error", this.errorMessage);
-            }else {
+            } else {
                 router.push({path: '/error'})
             }
 
         },
         deleteGenre(index) {
-            this.$http.delete("/genre/"+ (index))
-                .then(() => {
-                    this.genres.splice(index, 1);
-                    this.getGenres();
-                })
-                .catch(error => {
-                    this.handleGenreError(error);
-                })
+            this.$http.delete("/api/v1/genre/" + (index), {headers: getAuthHeader()})
+                    .then(() => {
+                        this.genres.splice(index, 1);
+                        this.getGenres();
+                    })
+                    .catch(error => {
+                        this.handleGenreError(error);
+                    })
 
 
         },
@@ -188,7 +193,7 @@ export default {
 }
 </script>
 <style>
-.input-field{
+.input-field {
     border-radius: 5px;
 }
 </style>

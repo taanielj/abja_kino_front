@@ -86,7 +86,7 @@ export default {
 
     methods: {
         getRoomSeance() {
-            this.$http.get("/room/seance/" + this.seanceId)
+            this.$http.get("/api/v1/room/seance/" + this.seanceId)
                 .then(response => {
                     this.roomSeance = response.data;
                 })

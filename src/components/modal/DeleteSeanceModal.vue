@@ -31,7 +31,7 @@ export default defineComponent({
     },
     methods: {
         deleteSeance() {
-            this.$http.delete("/seance/" + this.seanceId)
+            this.$http.delete("/api/v1/seance/" + this.seanceId)
                 .then(response => {
                     this.successMessage = "Seanss kustutatud"
                     this.$emit('seance-deleted', this.successMessage)

@@ -42,7 +42,7 @@ export default {
     },
     methods: {
         getTicket() {
-            this.$http.get("/ticket/" + this.ticketId)
+            this.$http.get("/api/v1/ticket/" + this.ticketId)
                 .then(response => {
                     this.ticketInfo = response;
                 })

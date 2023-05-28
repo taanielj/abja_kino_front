@@ -32,7 +32,7 @@ export default {
         },
 
         getRooms: function () {
-            this.$http.get("/room/all")
+            this.$http.get("/api/v1/room/all")
                 .then(response => {
                     this.rooms = response.data
                 })

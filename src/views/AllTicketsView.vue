@@ -64,7 +64,7 @@ export default {
     methods: {
 
         getActiveTicketIds() {
-            this.$http.get("/ticket/all-active-ids-by-user/" + this.userId)
+            this.$http.get("/api/v1/ticket/all-active-ids-by-user/" + this.userId)
                 .then(response => {
                     this.activeTicketIds = response.data
                 })
@@ -74,7 +74,7 @@ export default {
         },
 
         getExpiredTicketIds() {
-            this.$http.get("/ticket/all-expired-ids-by-user/" + this.userId)
+            this.$http.get("/api/v1/ticket/all-expired-ids-by-user/" + this.userId)
                 .then(response => {
                     this.expiredTicketIds = response.data
                 })

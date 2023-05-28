@@ -41,6 +41,7 @@
 import router from "@/router";
 import DeleteMovieModal from "@/components/modal/DeleteMovieModal.vue";
 import DeleteSeanceModal from "@/components/modal/DeleteSeanceModal.vue";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "SeanceTable",
@@ -63,7 +64,7 @@ export default {
     },
     methods: {
         getAllSeances() {
-            this.$http.get("/seance/admin-summary")
+            this.$http.get("/api/v1/seance/admin-summary", {headers : getAuthHeader()})
                 .then(response => {
                     this.seances = response.data
                     this.dateTimeToDateAndTime()

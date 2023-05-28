@@ -32,7 +32,7 @@ export default defineComponent({
 
     methods: {
         deleteMovie() {
-            this.$http.delete("/movie/" + this.movieId)
+            this.$http.delete("/api/v1/movie/" + this.movieId)
                 .then(() => {
                     this.successMessage = "Film kustutatud";
                     this.$emit('movie-deleted', this.successMessage)

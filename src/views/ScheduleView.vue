@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         getAllSeanceIds() {
-            this.$http.get("/seance/all-future-id")
+            this.$http.get("/api/v1/seance/all-future-id")
                 .then(response => {
                     this.allSeanceIds = response.data;
                 })

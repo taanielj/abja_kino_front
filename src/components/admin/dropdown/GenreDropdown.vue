@@ -29,7 +29,7 @@ export default {
         },
 
         getGenres: function () {
-            this.$http.get("/genre/all")
+            this.$http.get("/api/v1/genre/all")
                 .then(response => {
                     this.genres = response.data
                 })

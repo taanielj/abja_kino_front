@@ -106,7 +106,7 @@ export default {
         },
 
         getMovie() {
-            this.$http.get("/movie/" + this.movieId)
+            this.$http.get("/api/v1/movie/" + this.movieId)
                 .then(response => {
                     this.movieInfo = response.data;
                     this.image = this.movieInfo.posterImage;
@@ -120,7 +120,7 @@ export default {
         },
 
         getAllMovieSeanceIds() {
-            this.$http.get("/seance/all-future/" + this.movieId)
+            this.$http.get("/api/v1/seance/all-future/" + this.movieId)
                 .then(response => {
                     this.allMovieSeanceIds = response.data;
                 })
@@ -131,7 +131,7 @@ export default {
 
 
         getGenre() {
-            this.$http.get("/genre/" + this.movieInfo.genreId)
+            this.$http.get("/api/v1/genre/" + this.movieInfo.genreId)
                 .then(response => {
                     this.movieInfo.genreName = response.data;
                 })

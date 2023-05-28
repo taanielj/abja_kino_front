@@ -87,6 +87,7 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import Alert from "@/components/alert/Alert.vue";
 import router from "@/router";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "RoomTable",
@@ -121,65 +122,68 @@ export default {
     },
     methods: {
         getAllRooms() {
-            this.$http.get("/room/all")
-                .then(response => {
-                    this.rooms = response.data;
-                    this.totalSeats = this.rows * this.cols;
-                })
-                .catch(() => {
-                    this.errorMessage = "Database connection error";
-                })
+            this.$http.get("/api/v1/room/all", {headers: getAuthHeader()})
+                    .then(response => {
+                        this.rooms = response.data;
+                        this.totalSeats = this.rows * this.cols;
+                    })
+                    .catch(() => {
+                        this.errorMessage = "Database connection error";
+                    })
         },
 
         editRoom(roomId) {
             const room = this.rooms.find(room => room.id === roomId);
+            if (!this.validateFieldsFilled(room)) {
+                return;
+            }
+
+
             this.putRoom(room);
         },
 
         addNewRoom() {
-
             if (!this.validateFieldsFilled(this.newRoom)) {
                 return;
             }
 
-
-            this.$http.post("/room", this.newRoom).then(() => {
-
-                this.newRoom = {
-                    name: "",
-                    rows: 1,
-                    cols: 1,
-                }
-
-                this.showInput = false;
-
-                this.getAllRooms();
-
-            }).catch(error => {
-                this.handleRoomError(error);
-                if (!this.showInput) {
-                    this.newRoom = {
-                        name: "",
-                        rows: 1,
-                        cols: 1,}
-                }
-            })
+            this.postRoom();
         },
+
+        postRoom() {
+            this.$http.post("/api/v1/room", this.newRoom, {headers: getAuthHeader()})
+                    .then(() => this.resetFields())
+                    .catch(error => {
+                        this.handleRoomError(error);
+                        this.resetFields();
+                    })
+        },
+
         putRoom(room) {
+            this.$http.put("/api/v1/room/" + room.id, room, {headers: getAuthHeader()})
+                    .then(() => {
+                        room.editing = false;
+                        this.$emit("room-table-success")
+                        this.getAllRooms();
+                    })
+                    .catch(error => this.handleRoomError(error))
+        },
 
-            if(!this.validateFieldsFilled(room)) {
-                return;
+
+        deleteRoom(index) {
+            this.$http.delete("/api/v1/room/" + (index), {headers: getAuthHeader()})
+                    .then(() => this.getAllRooms())
+                    .catch(error => this.handleRoomError(error))
+        },
+
+        resetFields() {
+            this.newRoom = {
+                name: "",
+                rows: 1,
+                cols: 1,
             }
-
-            this.$http.put("/room/" + room.id, room)
-                .then(() => {
-                    room.editing = false;
-                    this.$emit("room-table-success")
-                    this.getAllRooms();
-                })
-                .catch(error => {
-                this.handleRoomError(error);
-            })
+            this.showInput = false;
+            this.getAllRooms()
         },
 
         validateFieldsFilled(room) {
@@ -191,6 +195,7 @@ export default {
             this.$emit("room-table-error", this.errorMessage);
             return false;
         },
+
         toggleEditRoom(index) {
             if (index === undefined) {
                 this.showInput = !this.showInput
@@ -198,6 +203,7 @@ export default {
                 this.rooms[index].editing = !this.rooms[index].editing
             }
         },
+
         cancelEditing(index) {
             const room = this.rooms[index]
             if (room.name === undefined) {
@@ -212,6 +218,7 @@ export default {
             }
             this.showInput = false;
         },
+
         handleRoomError(error) {
             if (error.response.status === 400 || error.response.status === 409) {
                 this.errorMessage = error.response.data.message
@@ -220,15 +227,7 @@ export default {
                 router.push({path: "/error"})
             }
         },
-        deleteRoom(index) {
-            this.$http.delete("/room/" + (index))
-                .then(() => {
-                    this.rooms.splice(index, 1);
-                    this.getAllRooms();
-                }).catch(error => {
-                this.handleRoomError(error)
-            })
-        },
+
         toggleInput() {
             this.showInput = !this.showInput;
             if (!this.showInput) {
@@ -244,14 +243,14 @@ export default {
     beforeMount() {
         this.getAllRooms();
     },
-    //col and row must be atleast 1:
+
     watch: {
-        "newRoom.rows" (newVal) {
+        "newRoom.rows"(newVal) {
             if (newVal < 1) {
                 this.newRoom.rows = 1;
             }
         },
-        "newRoom.cols" (newVal) {
+        "newRoom.cols"(newVal) {
             if (newVal < 1) {
                 this.newRoom.cols = 1;
             }

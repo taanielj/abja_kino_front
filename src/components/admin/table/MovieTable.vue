@@ -41,6 +41,7 @@
 
 import router from "@/router";
 import DeleteMovieModal from "@/components/modal/DeleteMovieModal.vue";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "MovieTable",
@@ -62,7 +63,10 @@ export default {
     },
     methods: {
         getAllMovies() {
-            this.$http.get("/movie/admin-summary")
+
+
+
+            this.$http.get("/api/v1/movie/admin-summary", {headers: getAuthHeader()})
                 .then(response => {
                     this.movies = response.data
                 })
@@ -90,16 +94,7 @@ export default {
             this.$refs.deleteMovieModalRef.$refs.modalRef.openModal();
         },
 
-        checkSeances() {
-            this.$http.get("/seance/admin-summary")
-                .then(response => {
-                    this.seances = response.data
-                    this.dateTimeToDateAndTime()
-                })
-                .catch(error => {
-                    const errorResponseBody = error.response.data
-                })
-        },
+
 
         setErrorMessage(errorMessage) {
             this.errorMessage = errorMessage;

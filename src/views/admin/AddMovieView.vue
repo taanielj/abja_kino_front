@@ -45,6 +45,7 @@ import ImageInput from "@/components/admin/ImageInput.vue";
 import router from "@/router";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "AddMovieView",
@@ -90,7 +91,7 @@ export default {
         },
 
         getMovie() {
-            this.$http.get("/movie/" + this.movieId)
+            this.$http.get("/api/v1/movie/" + this.movieId, {headers: getAuthHeader()})
                 .then(response => {
                     this.movieInfo = response.data;
                     this.image = this.movieInfo.posterImage;
@@ -108,7 +109,8 @@ export default {
                 return;
             }
             this.movieInfo.posterImage = this.image;
-            this.$http.post("/movie/add", this.movieInfo
+
+            this.$http.post("/api/v1/movie/add", this.movieInfo, {headers: getAuthHeader()}
             ).then(() => {
                 this.setSuccessMessage("Film lisatud!")
             }).catch(error => {
@@ -138,7 +140,7 @@ export default {
                 return;
             }
             this.movieInfo.posterImage = this.image;
-            this.$http.put("/movie/" + this.movieId, this.movieInfo)
+            this.$http.put("/api/v1/movie/" + this.movieId, this.movieInfo, {headers: getAuthHeader()})
                 .then(() => this.setSuccessMessage("Film muudetud!"))
                 .catch(error => this.errorMessage = error.response.data.message);
         },

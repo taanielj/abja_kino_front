@@ -91,7 +91,7 @@ export default defineComponent({
             return `${formattedTime} ${formattedDate} `;
         },
         getSeanceInfo() {
-            this.$http.get("/seance/" + this.seanceId)
+            this.$http.get("/api/v1/seance/" + this.seanceId)
                 .then(response => {
                     this.seanceInfo = response.data;
                     this.runtimeToHoursMinutes();

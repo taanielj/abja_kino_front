@@ -23,7 +23,7 @@ export default defineComponent({
     },
     methods: {
         getAllMovieIds() {
-            this.$http.get("/movie/all-ids")
+            this.$http.get("/api/v1/movie/ids")
                 .then(response => {
                     this.allMovieIds = response.data;
                 })

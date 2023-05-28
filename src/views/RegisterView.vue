@@ -12,20 +12,20 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Parool</label>
                     <input v-model="registrationRequest.password" type="password" class="form-control" id="password">
-                </div >
+                </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Parool uuesti</label>
                     <input v-model="matchingPassword" type="password" class="form-control" id="password">
-                </div >
+                </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">E-posti aadress</label>
                     <input v-model="registrationRequest.email" type="email" class="form-control" id="password" placeholder="example@gmail.com">
-                </div >
+                </div>
                 <div class="row justify-content-center">
                     <div class="">
-                         <button @click="navigateBack" type="submit" class="btn btn-outline-success">Tagasi</button>
+                        <button @click="navigateBack" type="submit" class="btn btn-outline-success">Tagasi</button>
                         <span style="margin-left: 50px"></span>
-                         <button @click="registerNewClient" type="submit" class="btn btn-outline-success">Registreeri</button>
+                        <button @click="registerNewClient" type="submit" class="btn btn-outline-success">Registreeri</button>
                     </div>
                 </div>
             </div>
@@ -50,10 +50,7 @@ export default {
                 password: "",
                 email: "",
             },
-            errorResponse: {
-                message: "",
-                errorCode: 0
-            }
+
         };
     },
     methods: {
@@ -73,7 +70,7 @@ export default {
                 return
             }
 
-            if(!this.allRequiredFieldsAreFilled()){
+            if (!this.allRequiredFieldsAreFilled()) {
                 this.errorMessage = "Täida kõik väljad"
                 return
             }
@@ -83,24 +80,23 @@ export default {
         },
         allRequiredFieldsAreFilled() {
             return this.registrationRequest.username !== ''
-                && this.registrationRequest.password !== ''
-                && this.registrationRequest.email !== ''
-
+                    && this.registrationRequest.password !== ''
+                    && this.registrationRequest.email !== ''
         },
         postNewClient() {
             this.$http.post('/user/register', this.registrationRequest
-                ).then((response) => {
+            ).then((response) => {
 
                 localStorage.setItem("userId", response.data.userId);
                 localStorage.setItem("roleName", response.data.roleName);
                 this.$emit('event-update-nav-menu')
                 router.push({name: 'ScheduleRoute'})
-                    this.navigateBack()
-                })
-                .catch(error => {
+                this.navigateBack()
+            })
+                    .catch(error => {
 
-                    this.handleRegistrationError(error);
-                })
+                        this.handleRegistrationError(error);
+                    })
 
         },
         handleRegistrationError(error) {

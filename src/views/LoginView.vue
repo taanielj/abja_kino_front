@@ -1,20 +1,20 @@
 <template>
     <div class="container text-center">
         <AlertDanger :message="message"/>
-        <div @keydown.enter="login" class="row justify-content-center">
+        <div class="row justify-content-center" @keydown.enter="login">
             <div class="col col-3 mt-5">
                 <div class="mb-3">
-                    <label for="username" class="form-label">Kasutajanimi</label>
-                    <input v-model="username" type="text" class="form-control" id="username">
+                    <label class="form-label" for="username">Kasutajanimi</label>
+                    <input id="username" v-model="loginRequest.username" class="form-control" type="text">
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Salasõna</label>
-                    <input v-model="password" type="password" class="form-control" id="password">
-                </div >
+                    <label class="form-label" for="password">Salasõna</label>
+                    <input id="password" v-model="loginRequest.password" class="form-control" type="password">
+                </div>
                 <div class="mb-3">
                     <router-link to="/register">Registreeri</router-link>
                 </div>
-                <button @click="login" type="submit" class="btn btn-primary">Logi sisse</button>
+                <button class="btn btn-primary" type="submit" @click="login">Logi sisse</button>
             </div>
         </div>
     </div>
@@ -23,6 +23,8 @@
 <script>
 import router from "@/router";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import Cookies from 'js-cookie';
+
 export default {
     name: "LoginView",
     components: {AlertDanger},
@@ -31,45 +33,42 @@ export default {
             username: "",
             password: "",
             message: "",
-            errorResponse:{
-                message: "",
-                errorCode: 0
-
+            loginRequest: {
+                username: "",
+                password: ""
             }
         };
     },
     methods: {
         login() {
             this.message = "";
-            if (this.username === "" || this.password === "") {
+            if (this.loginRequest.username === "" || this.loginRequest.password === "") {
                 this.message = "Täida kõik väljad";
             } else {
                 this.sendLoginRequest();
             }
         },
-
         sendLoginRequest() {
+            this.$http.post("/api/v1/user/login", this.loginRequest)
+                    .then(response => {
 
 
-            this.$http.get("/user/login", {
-                params: {
-                    username: this.username,
-                    password: this.password
-                },
-
-
-            }).then(response => {
-                localStorage.setItem("userId", response.data.userId);
-                localStorage.setItem("roleName", response.data.roleName);
-                this.$emit('event-update-nav-menu')
-                router.push({name: 'ScheduleRoute'})
-            }).catch(error => {
-                if (error.response.data.errorCode === 401) {
-                    this.message = error.response.data.message;
-                } else {
-                    router.push({name: 'errorRoute'})
-                }
-            })
+                        localStorage.setItem("userId", response.data.userId);
+                        localStorage.setItem("roleName", response.data.roleName);
+                        localStorage.setItem("jwt", response.data.token);
+                        this.$emit('event-update-nav-menu')
+                        router.push({name: 'ScheduleRoute'})
+                    })
+                    .catch(error => {
+                        if (error.response.data.errorCode === 401 || error.response.data.errorCode === 403)
+                        {
+                            this.message = error.response.data.message;
+                        }
+                    else
+                        {
+                            router.push({name: 'errorRoute'})
+                        }
+                    })
         },
     }
 }
