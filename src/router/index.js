@@ -12,6 +12,7 @@ import AllTicketsView from "@/views/AllTicketsView.vue";
 import AddSeanceView from "@/views/admin/AddSeanceView.vue";
 import chooseTicketView from "@/views/ChooseTicketView.vue";
 import SelectSeatsView from "@/views/SelectSeatsView.vue";
+import ConfirmTicketsView from "@/views/ConfirmTicketsView.vue";
 
 
 const routes = [
@@ -91,6 +92,11 @@ const routes = [
         path: '/select-seats/:seanceId',
         name: 'SelectSeatsRoute',
         component: SelectSeatsView
+    },
+    {
+        path: '/confirm-tickets/:seanceId',
+        name: 'ConfirmTicketsRoute',
+        component: ConfirmTicketsView
     }
 
 

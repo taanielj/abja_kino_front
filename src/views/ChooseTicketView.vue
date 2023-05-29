@@ -6,13 +6,19 @@
                 <SeanceNavbarCard :seanceId="seanceId"></SeanceNavbarCard>
             </div>
             <div class="col ">
-                <SeanceMovieCard :seanceId="seanceId"></SeanceMovieCard>
+                <SeanceMovieCard
+                        :seanceId="seanceId"
+                        @event-seance-loaded="seanceId = $event"
+                />
             </div>
             <div class="col mt-md-5">
-                <SeanceTicketCard :seanceId="seanceId"></SeanceTicketCard>
+                <SeanceTicketCard ref="seanceTicketCard"
+                                  :seanceId="seanceId"
+                                  @event-ticket-types-changed="ticketTypes = $event"
+                />
             </div>
             <div>
-                <button href="#" class="btn btn-secondary btn-lg">Kinnita piletid</button>
+                <button href="#" @click="navigateToSeats" class="btn btn-secondary btn-lg">Kinnita piletid</button>
 
             </div>
         </div>
@@ -27,10 +33,30 @@ import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 import SeanceTicketCard from "@/components/SeanceTicketCard.vue";
 
 export default {
-    components: { SeanceNavbarCard, SeanceMovieCard, SeanceTicketCard },
+    data() {
+        return {
+            seanceId: 0,
+            ticketTypes: [
+                {
+                    name: "",
+                    price: 0,
+                    amount: 0,
+                }
+            ]
+        }
+    },
+    name: "ChooseTicketView",
+    components: {SeanceNavbarCard, SeanceMovieCard, SeanceTicketCard},
     methods: {
         navigateToSeats() {
-            this.$router.push({ path: '/select-seats/:' + this.seanceId });
+            const ticketTypes = this.$refs.seanceTicketCard.ticketTypes;
+
+            if (!ticketTypes.some(ticketType => ticketType.amount > 0)) {
+                alert("Vali vähemalt üks pilet!");
+                return;
+            }
+            sessionStorage.setItem("ticketTypes", JSON.stringify(ticketTypes));
+            this.$router.push({path: '/select-seats/' + this.seanceId});
         }
     },
 }
@@ -45,7 +71,8 @@ export default {
     border-top: none;
     border-left: none;
 }
-.btn-lg{
+
+.btn-lg {
     font-size: 20px;
     padding: 10px 20px;
 }

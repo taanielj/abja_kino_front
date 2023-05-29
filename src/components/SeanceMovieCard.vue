@@ -24,11 +24,12 @@ import ScheduleView from "@/views/ScheduleView.vue";
 import PosterImage from "@/components/PosterImage.vue";
 
 export default defineComponent({
-    name: "ChooseTicketView",
+    name: "SeanceMovieCard",
     components: {ScheduleView, PosterImage},
 
     data() {
         return {
+            errorMessage: "",
             showSeanceInfo: false,
             seanceId: this.$route.params.id,
             show: false,
@@ -62,9 +63,11 @@ export default defineComponent({
                     this.runtimeToHoursMinutes();
                     this.show = true;
                     this.showSeanceInfo = true;
+                    this.$emit('event-seance-loaded', this.seanceId);
                 })
                 .catch(() => {
-                    // router.push({path: "/error"});
+                    this.errorMessage = "Seansi andmed puuduvad";
+                    this.$emit('event-seance-error', this.errorMessage);
                 })
         },
         formatDate(dateTime) {

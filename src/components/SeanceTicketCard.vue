@@ -1,16 +1,19 @@
 <template>
     <div class=" text-block">
         <div class="text-heading">Vali piletid</div>
-        <div v-for="ticketType in ticketTypes" class="row text text-start">
-            <li class="list-group  col-9">
-                {{ ticketType.name }}
-            </li>
-            <li class="list-group col">
-                {{ ticketType.price }}
-            </li>
-            <li class="list-group col ">
-                <input type="number" v-model="ticketType.amount" class="form-control my-input">
-            </li>
+        <div v-for="(ticketType) in ticketTypes" class="row text text-start">
+            <ul>
+                <li class="list-group  col-9">
+                    {{ ticketType.name }}
+                </li>
+                <li class="list-group col">
+                    {{ ticketType.price }}
+                </li>
+                <li class="list-group col ">
+                    <input type="number" v-model="ticketType.amount" class="form-control my-input">
+                </li>
+            </ul>
+
         </div>
     </div>
 </template>
@@ -21,12 +24,11 @@ import ScheduleView from "@/views/ScheduleView.vue";
 import PosterImage from "@/components/PosterImage.vue";
 
 export default defineComponent({
-    name: "ChooseTicketView",
+    name: "SeanceTicketCard",
     components: {ScheduleView, PosterImage},
-
     data() {
         return {
-
+            errorMessage: "",
             ticketTypes: [
                 {
                     name: "",
@@ -55,7 +57,8 @@ export default defineComponent({
                     this.setAmountToZero();
                 })
                 .catch(() => {
-                    // router.push({path: "/error"});
+                    this.errorMessage = "Piletite tüüpide laadimine ebaõnnestus";
+                    this.$emit('event-ticket-types-error', this.errorMessage);
                 })
         }
     },
@@ -69,6 +72,8 @@ export default defineComponent({
     watch: {
         ticketTypes: {
             handler(val) {
+                console.log("ticketTypes changed");
+                this.$emit('event-ticket-types-changed', this.ticketTypes);
                 val.forEach(ticketType => {
                     if (ticketType.amount < 0) {
                         ticketType.amount = 0;
@@ -76,7 +81,8 @@ export default defineComponent({
                 })
             },
             deep: true
-        }
+        },
+
     }
 
 })

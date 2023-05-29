@@ -1,15 +1,18 @@
 <template>
     <div class="border">
         <div class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link active">Piletid</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Tehing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Kinnitus</a>
-            </li>
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link active">Piletid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Tehing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Kinnitus</a>
+                </li>
+            </ul>
+
         </div>
     </div>
 </template>
@@ -18,10 +21,9 @@
 import {defineComponent} from 'vue'
 import ScheduleView from "@/views/ScheduleView.vue";
 import PosterImage from "@/components/PosterImage.vue";
-import router from "@/router";
 
 export default defineComponent({
-    name: "ChooseTicketView",
+    name: "SeanceNavbarCard",
     components: {ScheduleView, PosterImage},
 
 

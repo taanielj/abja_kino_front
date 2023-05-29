@@ -32,6 +32,19 @@
                 EKRAAN
             </div>
         </div>
+
+        <!--        buttons: back, confirm seats-->
+        <div class="row justify-content-center my-buttons mt-5">
+            <div class="col">
+                <button class="btn btn-secondary btn-lg" @click="navigateToChooseTickets">Tagasi</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary btn-lg" @click="navigateToConfirm">Kinnita</button>
+
+            </div>
+
+
+        </div>
     </div>
 </template>
 
@@ -51,13 +64,14 @@ export default {
     data() {
         return {
             seanceId: this.$route.params.seanceId,
-            boughtTickets: 5,
+            boughtTickets: 0,
             roomSeance: {
                 roomName: "",
                 rows: 0,
                 cols: 0,
                 seats: [
                     {
+                        seatId: 0,
                         row: 0,
                         col: 0,
                         available: false,
@@ -66,11 +80,27 @@ export default {
                 ]
             },
 
-            ticketInfo: {
-                ticketTypeId: 0,
-                seatId: 0,
-                seanceId: 0,
-            }
+            ticketTypes: [
+                {
+                    name: "",
+                    price: 0,
+                    amount: 0,
+                }
+            ],
+            ticketTypeNames: [],
+
+            userTickets: [
+                {
+                    userId: 0,
+                    row: 0,
+                    col: 0,
+                    roomName: "",
+                    seanceId: 0,
+                    ticketTypeName: "",
+                }
+
+            ],
+
 
         }
     },
@@ -86,6 +116,47 @@ export default {
     },
 
     methods: {
+
+        navigateToChooseTickets() {
+            sessionStorage.removeItem("ticketTypes")
+            router.push({path: `/choose-ticket/${this.seanceId}`})
+        },
+
+        navigateToConfirm() {
+            this.userTickets = this.getSelectedTickets();
+
+            if (this.ticketTypeNames.length !== 0) {
+                alert("Vali kõik piletid!")
+                return;
+            }
+
+            sessionStorage.setItem("userTickets", JSON.stringify(this.userTickets));
+            router.push({path: `/confirm-tickets/${this.seanceId}`})
+        },
+
+        getSelectedTickets() {
+            let selectedTickets = [];
+            for (const seat of this.roomSeance.seats) {
+                if (seat.selected) {
+
+                    let selectedSeat = {
+                        userId: Number(localStorage.getItem("userId")),
+                        row: seat.row,
+                        col: seat.col,
+                        room: this.roomSeance.roomName,
+                        seanceId: Number(this.seanceId),
+                        ticketTypeName: "",
+                    }
+                    selectedSeat.ticketTypeName = this.ticketTypeNames[0];
+                    this.ticketTypeNames.shift();
+
+                    selectedTickets.push(selectedSeat);
+
+                }
+            }
+            return selectedTickets;
+        },
+
         getRoomSeance() {
             this.$http.get("/api/v1/room/seance/" + this.seanceId, {headers: getAuthHeader()})
                 .then(response => {
@@ -103,31 +174,52 @@ export default {
             }
             let selectedSeatsInRow = this.rowSelectedSeats.get(seat.row) || [];
 
-            let minCol = Math.min(...selectedSeatsInRow.map(s => s.col));
-            let maxCol = Math.max(...selectedSeatsInRow.map(s => s.col));
+            let minCol = selectedSeatsInRow.length > 0 ? Math.min(...selectedSeatsInRow.map(s => s.col)) : undefined;
+            let maxCol = selectedSeatsInRow.length > 0 ? Math.max(...selectedSeatsInRow.map(s => s.col)) : undefined;
 
             if (seat.selected) {
                 if (selectedSeatsInRow.length <= 1 || seat.col === minCol || seat.col === maxCol) {
                     seat.selected = false;
                     this.boughtTickets++;
 
-
-                    if (seat.col === minCol - 1 || seat.col === maxCol + 1) {
-                        seat.selected = true;
-                    }
+                    selectedSeatsInRow = selectedSeatsInRow.filter(s => s.col !== seat.col);
+                    this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
                 }
             } else {
-                // If there are no selected seats, select the seat
-                seat.selected = true;
-                this.boughtTickets--;
-                selectedSeatsInRow.push(seat);
-                this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
+                if (this.boughtTickets > 0 && (selectedSeatsInRow.length === 0 || seat.col === minCol - 1 || seat.col === maxCol + 1)) {
+                    seat.selected = true;
+                    this.boughtTickets--;
+                    selectedSeatsInRow.push(seat);
+                    this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
+                }
             }
         }
 
     },
     mounted() {
-        this.getRoomSeance();
+        if (!sessionStorage.getItem("ticketTypes")) {
+            this.navigateToChooseTickets()
+        } else {
+            this.ticketTypes = JSON.parse(sessionStorage.getItem("ticketTypes"));
+
+            this.ticketTypes.forEach(ticketType => {
+                this.boughtTickets += ticketType.amount;
+            })
+
+            for (let ticketType of this.ticketTypes) {
+                while (ticketType.amount > 0) {
+                    this.ticketTypeNames.push(ticketType.name)
+                    ticketType.amount--;
+                }
+            }
+
+
+            this.getRoomSeance();
+        }
+
+    },
+    beforeDestroy() {
+        sessionStorage.removeItem("ticketTypes")
     }
 }
 
@@ -148,7 +240,7 @@ export default {
     align-items: center;
     overflow-x: auto;
     width: 100%;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 
 
 }
@@ -202,4 +294,5 @@ export default {
     text-shadow: 0 0 8px white;
     transform: perspective(100px) rotateX(60deg);
 }
+
 </style>
