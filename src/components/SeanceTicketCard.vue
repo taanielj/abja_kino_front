@@ -9,7 +9,7 @@
                 {{ ticketType.price }}
             </li>
             <li class="list-group col ">
-                <input type="number" v-model="ticketType.amount" class="form-control input-group my-input">
+                <input type="number" v-model="ticketType.amount" class="form-control my-input">
             </li>
         </div>
     </div>
