@@ -20,7 +20,7 @@
                          alt="Available seat"/>
                     <img v-else class="seat-image" src="@/assets/red_seat.png" alt="Unavailable seat"/>
                     <div class="seat-number">
-                        {{ seat.col}}
+                        {{ seat.col }}
                     </div>
                 </div>
             </div>
@@ -40,6 +40,7 @@
 
 import router from "@/router";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "SelectSeatsView",
@@ -97,7 +98,7 @@ export default {
 
         selectSeat(seat) {
 
-            if(!this.rowSelectedSeats) {
+            if (!this.rowSelectedSeats) {
                 this.rowSelectedSeats = new Map();
             }
             let selectedSeatsInRow = this.rowSelectedSeats.get(seat.row) || [];
@@ -111,20 +112,19 @@ export default {
                     this.boughtTickets++;
 
 
-                        if (seat.col === minCol - 1 || seat.col === maxCol + 1) {
-                            seat.selected = true;
-                        }
+                    if (seat.col === minCol - 1 || seat.col === maxCol + 1) {
+                        seat.selected = true;
                     }
-                } else {
-                    // If there are no selected seats, select the seat
-                    seat.selected = true;
-                    this.boughtTickets--;
-                    selectedSeatsInRow.push(seat);
-                    this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
                 }
+            } else {
+                // If there are no selected seats, select the seat
+                seat.selected = true;
+                this.boughtTickets--;
+                selectedSeatsInRow.push(seat);
+                this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
             }
         }
-        ,
+
     },
     mounted() {
         this.getRoomSeance();

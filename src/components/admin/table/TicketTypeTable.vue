@@ -15,11 +15,11 @@
         <tbody>
         <tr v-for="(ticketType, index ) in ticketTypes" :key="index" class="text-center">
             <td>
-                <input v-model="ticketType.name" type="text" v-if="ticketType.editing" class="w-50" input-field>
+                <input v-model="ticketType.name" type="text" v-if="ticketType.editing" class="w-50">
                 <span v-else>{{ ticketType.name }} </span>
             </td>
             <td>
-                <input v-model="ticketType.price" type="number" v-if="ticketType.editing" class="w-50" input-field>
+                <input v-model="ticketType.price" type="number" v-if="ticketType.editing" class="w-50">
                 <span v-else>{{ ticketType.price }}</span>
             </td>
             <td>
@@ -101,7 +101,6 @@ export default {
 
     methods: {
         getTicketTypes() {
-
             this.$http.get("/api/v1/ticket/type/all", {headers: getAuthHeader()})
                     .then(response => {
                         this.ticketTypes = response.data
