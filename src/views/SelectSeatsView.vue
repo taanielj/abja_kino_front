@@ -14,7 +14,7 @@
         <div class="seats">
             <div class="row" v-for="(row, rowIndex) in organizedSeats" :key="`row-${rowIndex}`">
                 <div v-for="(seat, seatIndex) in row" :key="`seat-${seatIndex}`" class="seat hoverable-link"
-                     :class="{ 'disabled': !seat.available }" @click="selectSeat(seat)">
+                     :class="{ 'disabled': !seat.available }" @click="toggleSeat(seat)">
                     <img v-if="seat.selected" class="seat-image" src="@/assets/grey_seat.png" alt="Selected_seat"/>
                     <img v-else-if="seat.available" class="seat-image" src="@/assets/green_seat.png"
                          alt="Available seat"/>
@@ -166,45 +166,36 @@ export default {
                 })
         },
 
-        selectSeat(seat) {
+        toggleSeat(seat) {
             if (!this.rowSelectedSeats) {
                 this.rowSelectedSeats = new Map();
             }
 
-            let selectedSeatsInRow = this.rowSelectedSeats.get(seat.row) || [];
-            // Only consider available seats or already selected seats.
-            let allSeatsInRow = this.roomSeance.seats.filter(s => s.row === seat.row && (s.available || s.selected));
-
-            if (seat.selected) {
-                let seatIndex = allSeatsInRow.findIndex(s => s.col === seat.col);
-                let nextSeat = allSeatsInRow[seatIndex + 1];
-                let previousSeat = allSeatsInRow[seatIndex - 1];
-
-                // The seat can be deselected if it is not between two selected seats.
-                if (!((nextSeat && nextSeat.selected) && (previousSeat && previousSeat.selected))) {
-                    seat.selected = false;
-                    this.boughtTickets++;
-                    selectedSeatsInRow = selectedSeatsInRow.filter(s => s.col !== seat.col);
-                    this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
-                }
-            } else {
-                if (seat.available && this.boughtTickets > 0) {
-                    let seatIndex = allSeatsInRow.findIndex(s => s.col === seat.col);
-                    let nextSeat = allSeatsInRow[seatIndex + 1];
-                    let previousSeat = allSeatsInRow[seatIndex - 1];
-
-                    // A seat can be selected if there are remaining tickets to buy, and it is either the first seat to be selected,
-                    // next to another selected seat or at the ends of a selected range.
-                    if (selectedSeatsInRow.length === 0 ||
-                        (nextSeat && nextSeat.selected) ||
-                        (previousSeat && previousSeat.selected)) {
-                        seat.selected = true;
-                        this.boughtTickets--;
-                        selectedSeatsInRow.push(seat);
-                        this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
-                    }
-                }
+            if(!seat.available) {
+                return;
             }
+
+            let selectedSeatsInRow = this.rowSelectedSeats.get(seat.row) || [];
+            let allSeatsInRow = this.roomSeance.seats.filter(s => s.row === seat.row && (s.available || s.selected));
+            let seatIndex = allSeatsInRow.findIndex(s => s.col === seat.col);
+            let nextSeat = allSeatsInRow[seatIndex + 1];
+            let previousSeat = allSeatsInRow[seatIndex - 1];
+
+            if (seat.selected && !((nextSeat && nextSeat.selected) && (previousSeat && previousSeat.selected))) {
+                seat.selected = false;
+                this.boughtTickets++;
+                selectedSeatsInRow = selectedSeatsInRow.filter(s => s.col !== seat.col);
+                this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
+                return;
+            }
+
+            if (this.boughtTickets > 0 && (selectedSeatsInRow.length === 0 || nextSeat?.selected || previousSeat?.selected)) {
+                seat.selected = true;
+                this.boughtTickets--;
+                selectedSeatsInRow.push(seat);
+                this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
+            }
+
         }
 
     },
