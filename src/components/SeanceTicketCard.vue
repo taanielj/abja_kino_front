@@ -8,8 +8,8 @@
             <li class="list-group col">
                 {{ ticketType.price }}
             </li>
-            <li class="list-group col">
-                <input type="number" v-model="ticketType.amount" class="form-control my-input">
+            <li class="list-group col ">
+                <input type="number" v-model="ticketType.amount" class="form-control input-group my-input">
             </li>
         </div>
     </div>
@@ -87,6 +87,7 @@ export default defineComponent({
     width: 100%;
     height: 1px;
     background-color: lightgrey;
+    margin-bottom: 10px;
     margin-top: 10px;
 }
 .my-input{
@@ -95,5 +96,6 @@ export default defineComponent({
     padding: 5px;
     border: 1px solid lightgrey;
     border-radius: unset;
+
 }
 </style>

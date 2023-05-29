@@ -28,6 +28,11 @@ import SeanceTicketCard from "@/components/SeanceTicketCard.vue";
 
 export default {
     components: { SeanceNavbarCard, SeanceMovieCard, SeanceTicketCard },
+    methods: {
+        navigateToSeats() {
+            this.$router.push({ path: '/select-seats/:' + this.seanceId });
+        }
+    },
 }
 
 </script>
