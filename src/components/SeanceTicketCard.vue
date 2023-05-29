@@ -41,6 +41,7 @@ export default defineComponent({
     },
 
     methods: {
+        confirmTickets(){},
 
         setAmountToZero() {
             this.ticketTypes.forEach(ticketType => {
@@ -48,7 +49,7 @@ export default defineComponent({
             })
         },
         getTicketTypes() {
-            this.$http.get("/api/v1/ticket/types")
+            this.$http.get("/api/v1/ticket/type/all")
                 .then(response => {
                     this.ticketTypes = response.data;
                     this.setAmountToZero();
@@ -63,7 +64,21 @@ export default defineComponent({
             this.getTicketTypes();
         }
 
+    },
+    // prevent ticketTypes from going below zero
+    watch: {
+        ticketTypes: {
+            handler(val) {
+                val.forEach(ticketType => {
+                    if (ticketType.amount < 0) {
+                        ticketType.amount = 0;
+                    }
+                })
+            },
+            deep: true
+        }
     }
+
 })
 </script>
 
