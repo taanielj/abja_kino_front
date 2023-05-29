@@ -2,18 +2,15 @@
     <div class=" text-block">
         <div class="text-heading">Vali piletid</div>
         <div v-for="(ticketType) in ticketTypes" class="row text text-start">
-            <ul>
-                <li class="list-group  col-9">
-                    {{ ticketType.name }}
-                </li>
-                <li class="list-group col">
-                    {{ ticketType.price }}
-                </li>
-                <li class="list-group col ">
-                    <input type="number" v-model="ticketType.amount" class="form-control my-input">
-                </li>
-            </ul>
-
+            <li class="list-group  col-9">
+                {{ ticketType.name }}
+            </li>
+            <li class="list-group col">
+                {{ ticketType.price }}
+            </li>
+            <li class="list-group col ">
+                <input type="number" v-model="ticketType.amount" class="form-control my-input">
+            </li>
         </div>
     </div>
 </template>
@@ -43,7 +40,8 @@ export default defineComponent({
     },
 
     methods: {
-        confirmTickets(){},
+        confirmTickets() {
+        },
 
         setAmountToZero() {
             this.ticketTypes.forEach(ticketType => {
@@ -89,21 +87,23 @@ export default defineComponent({
 </script>
 
 <style>
-.text-block
-{
+.text-block {
     font-size: 35px;
     font-weight: bold;
     margin-bottom: 100px;
 }
-.text-heading{
+
+.text-heading {
     margin-bottom: 50px;
 }
+
 .text {
     font-size: 25px;
     margin-top: 10px;
 }
-.text-start:after{
-    content:"";
+
+.text-start:after {
+    content: "";
     display: block;
     width: 100%;
     height: 1px;
@@ -111,7 +111,8 @@ export default defineComponent({
     margin-bottom: 10px;
     margin-top: 10px;
 }
-.my-input{
+
+.my-input {
     font-family: 'Cinzel', Avenir, Helvetica, Arial, sans-serif;
     font-size: 20px;
     padding: 5px;

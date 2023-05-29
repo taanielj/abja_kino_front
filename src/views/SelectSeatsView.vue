@@ -92,13 +92,12 @@ export default {
             userTickets: [
                 {
                     userId: 0,
-                    row: 0,
-                    col: 0,
-                    roomName: "",
+                    seatCol: 0,
+                    seatRow: 0,
+                    seanceRoomName: "",
                     seanceId: 0,
                     ticketTypeName: "",
                 }
-
             ],
 
 
@@ -141,9 +140,9 @@ export default {
 
                     let selectedSeat = {
                         userId: Number(localStorage.getItem("userId")),
-                        row: seat.row,
-                        col: seat.col,
-                        room: this.roomSeance.roomName,
+                        seatRow: seat.row,
+                        seatCol: seat.col,
+                        seanceRoomName: this.roomSeance.roomName,
                         seanceId: Number(this.seanceId),
                         ticketTypeName: "",
                     }

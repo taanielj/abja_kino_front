@@ -1,7 +1,6 @@
 <template>
     <div class="border">
         <div class="nav nav-pills">
-            <ul>
                 <li class="nav-item">
                     <a class="nav-link active">Piletid</a>
                 </li>
@@ -11,7 +10,6 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-disabled="true">Kinnitus</a>
                 </li>
-            </ul>
 
         </div>
     </div>
