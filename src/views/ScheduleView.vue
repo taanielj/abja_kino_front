@@ -1,10 +1,10 @@
 <template>
-    <div v-if="allSeanceIds.length !== 0" class="container">
-        <div class="row kinokava poster-container">
+    <div v-if="allSeanceIds.length !== 0" class="row justify-content-center">
+        <div class="row kinokava ">
             <h1 style="font-weight: bold">Kinokava</h1>
         </div>
         <div class="row justify-content-center d-flex">
-            <div class="col-12">
+            <div class="col col-10 p-2 w-75">
                 <div v-for="seanceId in allSeanceIds" :key="seanceId">
                     <SeanceCardSchedule :seance-id="seanceId"/>
                 </div>
