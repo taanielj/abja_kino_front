@@ -20,7 +20,7 @@
                          alt="Available seat"/>
                     <img v-else class="seat-image" src="@/assets/red_seat.png" alt="Unavailable seat"/>
                     <div class="seat-number">
-                        {{ seat.col + 1 }}
+                        {{ seat.col}}
                     </div>
                 </div>
             </div>
@@ -40,7 +40,6 @@
 
 import router from "@/router";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {getAuthHeader} from "@/utils";
 
 export default {
     name: "SelectSeatsView",
@@ -51,7 +50,7 @@ export default {
     data() {
         return {
             seanceId: this.$route.params.seanceId,
-
+            boughtTickets: 5,
             roomSeance: {
                 roomName: "",
                 rows: 0,
@@ -98,39 +97,30 @@ export default {
 
         selectSeat(seat) {
 
-            let selectedSeats = this.roomSeance.seats.filter(s => s.selected);
+            if(!this.rowSelectedSeats) {
+                this.rowSelectedSeats = new Map();
+            }
+            let selectedSeatsInRow = this.rowSelectedSeats.get(seat.row) || [];
 
+            let minCol = Math.min(...selectedSeatsInRow.map(s => s.col));
+            let maxCol = Math.max(...selectedSeatsInRow.map(s => s.col));
 
             if (seat.selected) {
-                let selectedSeatsInSameRow = selectedSeats.filter(s => s.row === seat.row);
-
-                if (selectedSeatsInSameRow.length > 1) {
-                    let minCol = Math.min(...selectedSeatsInSameRow.map(s => s.col));
-                    let maxCol = Math.max(...selectedSeatsInSameRow.map(s => s.col));
-
-                    if (seat.col === minCol || seat.col === maxCol) {
-                        seat.selected = false;
-                    }
-                } else {
-
+                if (selectedSeatsInRow.length <= 1 || seat.col === minCol || seat.col === maxCol) {
                     seat.selected = false;
-                }
-            } else {
+                    this.boughtTickets++;
 
-                if (selectedSeats.length > 0) {
-                    let selectedSeatsInSameRow = selectedSeats.filter(s => s.row === seat.row);
-
-                    if (selectedSeatsInSameRow.length > 0) {
-                        let minCol = Math.min(...selectedSeatsInSameRow.map(s => s.col));
-                        let maxCol = Math.max(...selectedSeatsInSameRow.map(s => s.col));
 
                         if (seat.col === minCol - 1 || seat.col === maxCol + 1) {
                             seat.selected = true;
                         }
                     }
                 } else {
-
+                    // If there are no selected seats, select the seat
                     seat.selected = true;
+                    this.boughtTickets--;
+                    selectedSeatsInRow.push(seat);
+                    this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
                 }
             }
         }
