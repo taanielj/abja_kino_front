@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="text text-wrap">
         <input ref="imageInputRef" type="file" v-on:change="handleImage" accept="image/x-png,image/jpeg,image/gif">
     </div>
 </template>

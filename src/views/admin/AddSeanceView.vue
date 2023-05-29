@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container ">
 
         <div class="row justify-content-center mb-4">
             <h1 v-if="isEdit">Seansi muutmine</h1>
