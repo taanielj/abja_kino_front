@@ -5,14 +5,14 @@
                 <h1 class="text-black bigger-text bold-text">
                     Minu piletid
                 </h1>
-                <div class="col col-md-auto">
+                <div v-if="activeTicketIds.length !==0" class="col col-md-auto">
                     <div class="card border-success mb-3" style="max-width: 80rem;">
                         <div class="card-header bg-warning border-success">
                             <h2 class="card-title text-black bold-text">Aktiivsed piletid</h2>
                         </div>
                         <div class="card-body text-success">
                             <div v-for="tickedId in activeTicketIds">
-                                <TicketCard :ticketId="tickedId" :key="tickedId"/>
+                                <TicketCard @event-show="showActive = true" :ticketId="tickedId" :key="tickedId"/>
                             </div>
                         </div>
                         <div class="card-footer bg-transparent border-success">
@@ -22,14 +22,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col col-md-auto">
+                <div v-if="expiredTicketIds.length !==0" class="col col-md-auto">
                     <div class="card border-success mb-3" style="max-width: 80rem;">
                         <div class="card-header bg-secondary border-success">
                             <h2 class="card-title text-black bold-text">Kasutatud piletid</h2>
                         </div>
                         <div class="card-body text-success">
                             <div v-for="tickedId in expiredTicketIds">
-                                <TicketCard :ticketId="tickedId" :key="tickedId"/>
+                                <TicketCard @event-show="showExpired = true" :ticketId="tickedId" :key="tickedId"/>
                             </div>
                         </div>
                     </div>
@@ -51,10 +51,11 @@ export default {
     data() {
         return {
             show: true,
+            showActive: false,
+            showExpired: false,
             userId: localStorage.userId,
             activeTicketIds: [0],
             expiredTicketIds: [0]
-
 
 
         }
@@ -69,7 +70,7 @@ export default {
                     this.activeTicketIds = response.data
                 })
                 .catch(() => {
-                    router.push({path:"/error"})
+                    router.push({path: "/error"})
                 })
         },
 
@@ -79,7 +80,7 @@ export default {
                     this.expiredTicketIds = response.data
                 })
                 .catch(() => {
-                    router.push({path:"/error"})
+                    router.push({path: "/error"})
                 })
         },
     },
