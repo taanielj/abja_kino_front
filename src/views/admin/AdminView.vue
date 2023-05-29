@@ -24,6 +24,9 @@
                         <TicketTypeTable @ticket-type-table-error="setErrorMessage"/>
                     </div>
                 </div>
+                <div>
+                    <UserTable @user-table-error="setErrorMessage"/>
+                </div>
 
             </div>
         </div>
@@ -38,10 +41,11 @@ import MovieTable from "@/components/admin/table/MovieTable.vue";
 import SeanceTable from "@/components/admin/table/SeanceTable.vue";
 import RoomTable from "@/components/admin/table/RoomTable.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import UserTable from "@/components/admin/table/UserTable.vue";
 
 export default {
 
-    components: {AlertDanger, RoomTable, SeanceTable, MovieTable, AllMoviesView, TicketTypeTable, GenreTable},
+    components: {UserTable, AlertDanger, RoomTable, SeanceTable, MovieTable, AllMoviesView, TicketTypeTable, GenreTable},
 
     name: "AdminView",
     data() {
@@ -83,7 +87,6 @@ export default {
 
 .admin-table {
     background-color: #fff;
-    //border-radius: 20px;
     margin-bottom: 20px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* add a box shadow */
     transition: box-shadow 0.3s ease-in-out; /* optional: add a transition for a smooth hover effect */
