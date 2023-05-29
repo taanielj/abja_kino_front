@@ -1,19 +1,49 @@
 <template>
     <div class="container text-start">
         <div class="row mb-3">
-            <div class="col col-3">
-                <label for="title" class="form-label">Pealkiri</label>
-                <label for="runtime" class="form-label">Pikkus (Min)</label>
-                <label for="director" class="form-label">Režissöör</label>
-                <label for="youtube" class="form-label">Youtube link</label>
-                <label for="genre" class="form-label">Žanr</label>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label for="title" class="form-label justify-content-center ">Pealkiri</label>
+                </div>
+                <div class="col-6 justify-content-end mt-2">
+                    <input v-model="title" @input="updateField('title', $event)" type="text" class="form-control mb-2"
+                           id="title">
+                </div>
             </div>
-            <div class="col col-9 mb-3">
-                <input v-model="title" @input="updateField('title', $event)" type="text" class="form-control mb-2" id="title">
-                <input v-model="runtime" @input="updateField('runtime', $event)" type="number" class="form-control mb-2" id="runtime">
-                <input v-model="director" @input="updateField('director', $event)" type="text" class="form-control mb-2" id="director" required>
-                <input v-model="youtubeLink" @input="updateField('youtubeLink', $event)" type="text" class="form-control mb-2" id="youtube">
-                <GenreDropdown :genre="genreId" @event-emit-selected-genre-id="updateGenreId"/>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label for="runtime" class="form-label">Pikkus (Min)</label>
+                </div>
+                <div class="col-6 justify-content-end mt-2">
+                    <input v-model="runtime" @input="updateField('runtime', $event)" type="number"
+                           class="form-control mb-2" id="runtime">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label for="director" class="form-label">Režissöör</label>
+                </div>
+                <div class="col-6 justify-content-end mt-2">
+                    <input v-model="director" @input="updateField('director', $event)" type="text"
+                           class="form-control mb-2" id="director" required>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label for="youtube" class="form-label">Youtube link</label>
+                </div>
+                <div class="col-6 justify-content-end mt-2">
+                    <input v-model="youtubeLink" @input="updateField('youtubeLink', $event)" type="text"
+                           class="form-control mb-2" id="youtube">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label for="genre" class="form-label">Žanr</label>
+                </div>
+                <div class="col-6 justify-content-end mt-2">
+                    <GenreDropdown :genre="genreId" @event-emit-selected-genre-id="updateGenreId"/>
+                </div>
             </div>
         </div>
         <div class="row mb-3 text-start">

@@ -6,15 +6,15 @@
             <h1 v-else>Lisa film</h1>
         </div>
         <div class="row justify-content-center">
-            <div class="col col-4">
-                <div class="row mb-2 movie-poster">
+            <div class="col col-3  mx-lg-5 ">
+                <div class="row mb-2 poster-container">
                     <PosterImage :image-data-base64="image"/>
                 </div>
                 <div class="row justify-content-lg-center">
                     <ImageInput ref="imageInputRef" @event-emit-base64="setImageData"/>
                 </div>
             </div>
-            <div class="col col-6">
+            <div class="col col-7 ">
                 <MovieDetailsInput @event-emit-movie-info="setMovieInfo" :movie="movieInfo"/>
             </div>
         </div>

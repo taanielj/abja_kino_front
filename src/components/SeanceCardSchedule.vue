@@ -27,11 +27,14 @@
                         Keel: {{ seanceInfo.language }} - Subtiitrid: {{ seanceInfo.subtitles }}
                     </p>
                 </div>
-            </div>
-            <div>
-                <button type="button" class="btn btn-outline-secondary custom-button" @click="goToTickets">Vali
-                    seanss
-                </button>
+                <div class="d-flex justify-content-end">
+<!--                    <button type="button" class="btn btn-outline-secondary custom-button me-2" @click="">Vaata-->
+<!--                        Terilerit-->
+<!--                    </button>-->
+                    <button type="button" class="btn btn-outline-secondary custom-button" @click="goToTickets">Vali
+                        seanss
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -130,13 +133,6 @@ export default defineComponent({
 </script>
 
 <style>
-
-schedule-card {
-    max-width: 1500px;
-    max-height: 300px;
-}
-
-
 .poster-container img {
     width: 100%;
 

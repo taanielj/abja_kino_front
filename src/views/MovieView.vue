@@ -7,7 +7,7 @@
                 </h1>
             </div>
             <div class="col col-5">
-                <div class="row mb-2">
+                <div class="row mb-2 poster-container">
                     <PosterImage :image-data-base64="image" ref="posterImage"/>
                 </div>
             </div>
