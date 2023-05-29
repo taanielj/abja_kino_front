@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">{{ seanceInfo.movieTitle }}</h5>
+                    <h1 class="card-title">{{ seanceInfo.movieTitle }}</h1>
                     <p class="card-text"><small class="text-muted">{{ formattedGenreName }} |
                         {{ runtimeHours }}h {{ runtimeMinutes }}min</small></p>
                     <p class="card-text">{{ formatDate(seanceInfo.dateTime) }}| Saal: {{ seanceInfo.roomName }}</p>
@@ -100,12 +100,7 @@ export default defineComponent({
     padding: 10px;
     margin-bottom: 10px;
 }
-.poster-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50%;
-}
+
 
 .card-title {
     font-size: 30px;

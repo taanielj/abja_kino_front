@@ -1,18 +1,15 @@
 <template>
     <div v-if="show"
-         class="schedule-card bg-light-grey text-black border border-4 align-self-stretch card mb-3">
+         class="bg-light-grey text-black border border-4 align-self-stretch card mb-3">
         <div class="row g-0">
-            <div class="col col-md-4">
-                <div class="poster-container">
+            <div class=" col-md-3 poster-container">
                     <PosterImage :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
-                </div>
-
             </div>
             <div class="col col-md-8">
                 <div class=" card-body text-start">
-                    <h5 class="card-title">
+                    <h1 class="card-title hoverable-link">
                         <a class="text-black bigger-text bold-text mb-10" :href="'/movie/' + seanceInfo.movieId"
-                           style="text-decoration: none ">{{ seanceInfo.movieTitle }}</a></h5>
+                           style="text-decoration: none ">{{ seanceInfo.movieTitle }}</a></h1>
                     <p class="card-text custom-text-size">
                         {{ formattedGenreName }}
                     </p>
@@ -24,14 +21,17 @@
                     </p>
                     <p class="card-text mb-1 d-flex align-items-center custom-text-size">
                         <span class="me-auto">{{ runtimeHours }}h {{ runtimeMinutes }}min </span>
-                        <button type="button" class="btn btn-outline-secondary custom-button" @click="goToTickets">Vali
-                            seanss
-                        </button>
+
                     </p>
                     <p class="custom-text-size gray-text">
                         Keel: {{ seanceInfo.language }} - Subtiitrid: {{ seanceInfo.subtitles }}
                     </p>
                 </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-secondary custom-button" @click="goToTickets">Vali
+                    seanss
+                </button>
             </div>
 
         </div>
@@ -136,18 +136,10 @@ schedule-card {
     max-height: 300px;
 }
 
-.poster-container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    position: relative;}
 
-
-.poster-container img{
+.poster-container img {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    object-fit: cover;
+
 }
 
 .bigger-text {
@@ -169,7 +161,6 @@ schedule-card {
 .bg-light-grey {
     background-color: #f2f2f2;
 }
-
 
 
 .custom-button {

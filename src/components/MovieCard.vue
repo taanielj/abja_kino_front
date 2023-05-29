@@ -1,30 +1,30 @@
 <template>
-    <div v-if="movieInfo.id !==0" class="bg-dark text-light">
-        <div class="row justify-content-lg-start">
-            <div class="col col-3">
-                <div class="row movie-poster">
-                    <PosterImage :image-data-base64="image" ref="posterImage"/>
-                </div>
+    <div v-if="movieInfo.id !==0" class="card " style="background-color: lightgrey">
+        <div class="row g-5">
+            <div class=" col-md-3 poster-container">
+                <PosterImage :image-data-base64="image" ref="posterImage"/>
             </div>
-            <div class="col col-5">
-                <div class="row text-lg-start">
-                    <h1 class="text-start hoverable-link" @click="gotoMovie(movieId)">
-                        {{ movieInfo.title }}
-                        <div class="col col-5">
-                            <div class="row text-lg-start">
-                                <button type="button" class="btn btn-success" @click="gotoSeanceSection(movieId)">Vali seanss</button>
-                            </div>
-                        </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title hoverable-link">
+                        <a @click="gotoMovie(movieId)">{{ movieInfo.title }}</a>
                     </h1>
-                    <p class="text-start">
+                    <p class="card-text">
                         {{ movieInfo.director }}
                     </p>
-                    <p class="text-start">
-                        {{ movieInfo.genreName }} {{ runtimeHours }}h {{ runtimeMinutes }}min
+                    <p class="card-text">
+                        {{ formattedGenreName }} {{ runtimeHours }}h {{ runtimeMinutes }}min
                     </p>
-                    <p class="text-start">
-                        {{ movieInfo.description }}
+                    <p class="card-text"><small class="text-muted">
+                        {{ movieInfo.description }} </small>
                     </p>
+                    <p class="">
+                        {{  }}
+                    </p>
+                    <div class="button-container">
+                    <button type="button" class="btn btn-success " @click="gotoSeanceSection(movieId)">Vali seanss
+                    </button>
+                </div>
                 </div>
             </div>
         </div>
@@ -57,8 +57,8 @@ export default defineComponent({
         return {
             movieInfo: {
                 id: 0,
-                title: "Pealkiri",
-                genreName: "Action",
+                title: "",
+                genreName: "",
                 genreId: "",
                 posterImage: "",
                 director: "",
@@ -70,6 +70,12 @@ export default defineComponent({
             runtimeMinutes: 0
         }
     },
+    computed: {
+        formattedGenreName() {
+            if(this.movieInfo.genreName)
+            return this.movieInfo.genreName.charAt(0).toUpperCase() + this.movieInfo.genreName.slice(1);
+        },
+    },
     methods: {
         gotoMovie(id) {
             router.push({name: 'MovieRoute', params: {id}});
@@ -77,11 +83,10 @@ export default defineComponent({
         gotoSeanceSection(id) {
             router.push({
                 name: 'MovieRoute',
-                params: { id },
-                query: { scrollTo: 'seances' }
+                params: {id},
+                query: {scrollTo: 'seances'}
             });
         },
-
 
 
         getMovie() {
@@ -124,4 +129,33 @@ export default defineComponent({
 })
 </script>
 
+<style>
+.card {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
 
+
+.card-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.card-text {
+    font-size: 20px;
+    font-weight: normal;
+    text-align: left;
+}
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.card-body{
+    text-align: left;
+    text-clolor: grey;
+}
+</style>
