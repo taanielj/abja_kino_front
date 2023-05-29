@@ -34,7 +34,7 @@ export default {
         }
     },
     methods:{
-        confirmTickets(){
+        postTickets(){
             this.$http.post("/api/v1/ticket/purchase", this.userTickets, {headers: getAuthHeader()})
                 .then(() => {
                     router.push({path:"/tickets"})
@@ -44,9 +44,9 @@ export default {
                 })
         }
     },
-    mounted() {
+    beforeMount() {
         this.userTickets = JSON.parse(sessionStorage.getItem("userTickets"));
-        this.confirmTickets();
+        this.postTickets();
     }
 
 }

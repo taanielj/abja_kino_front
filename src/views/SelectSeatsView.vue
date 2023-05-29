@@ -167,29 +167,42 @@ export default {
         },
 
         selectSeat(seat) {
-
             if (!this.rowSelectedSeats) {
                 this.rowSelectedSeats = new Map();
             }
-            let selectedSeatsInRow = this.rowSelectedSeats.get(seat.row) || [];
 
-            let minCol = selectedSeatsInRow.length > 0 ? Math.min(...selectedSeatsInRow.map(s => s.col)) : undefined;
-            let maxCol = selectedSeatsInRow.length > 0 ? Math.max(...selectedSeatsInRow.map(s => s.col)) : undefined;
+            let selectedSeatsInRow = this.rowSelectedSeats.get(seat.row) || [];
+            // Only consider available seats or already selected seats.
+            let allSeatsInRow = this.roomSeance.seats.filter(s => s.row === seat.row && (s.available || s.selected));
 
             if (seat.selected) {
-                if (selectedSeatsInRow.length <= 1 || seat.col === minCol || seat.col === maxCol) {
+                let seatIndex = allSeatsInRow.findIndex(s => s.col === seat.col);
+                let nextSeat = allSeatsInRow[seatIndex + 1];
+                let previousSeat = allSeatsInRow[seatIndex - 1];
+
+                // The seat can be deselected if it is not between two selected seats.
+                if (!((nextSeat && nextSeat.selected) && (previousSeat && previousSeat.selected))) {
                     seat.selected = false;
                     this.boughtTickets++;
-
                     selectedSeatsInRow = selectedSeatsInRow.filter(s => s.col !== seat.col);
                     this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
                 }
             } else {
-                if (this.boughtTickets > 0 && (selectedSeatsInRow.length === 0 || seat.col === minCol - 1 || seat.col === maxCol + 1)) {
-                    seat.selected = true;
-                    this.boughtTickets--;
-                    selectedSeatsInRow.push(seat);
-                    this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
+                if (seat.available && this.boughtTickets > 0) {
+                    let seatIndex = allSeatsInRow.findIndex(s => s.col === seat.col);
+                    let nextSeat = allSeatsInRow[seatIndex + 1];
+                    let previousSeat = allSeatsInRow[seatIndex - 1];
+
+                    // A seat can be selected if there are remaining tickets to buy, and it is either the first seat to be selected,
+                    // next to another selected seat or at the ends of a selected range.
+                    if (selectedSeatsInRow.length === 0 ||
+                        (nextSeat && nextSeat.selected) ||
+                        (previousSeat && previousSeat.selected)) {
+                        seat.selected = true;
+                        this.boughtTickets--;
+                        selectedSeatsInRow.push(seat);
+                        this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
+                    }
                 }
             }
         }
