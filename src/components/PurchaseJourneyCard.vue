@@ -55,7 +55,7 @@ export default defineComponent({
     background-color: darkgrey;
     color: white;
     border-radius: 5px;
-    font-size: 25px;
+    font-size: 3.5vh;
     font-weight: normal;
     justify-content: center;
     width: 100%;

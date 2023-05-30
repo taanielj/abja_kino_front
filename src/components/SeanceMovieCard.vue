@@ -1,10 +1,10 @@
 <template>
-    <div v-if="show" class="card" style="width: 100%; background-color: lightgrey">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <PosterImage class="card-img overlap-border" :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
+    <div v-if="show">
+        <div class="d-flex flex-row custom-card">
+            <div>
+                <PosterImage class="custom-image-card" :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
             </div>
-            <div class="col-md-8">
+            <div>
                 <div class="card-body">
                     <h1 class="card-title">{{ seanceInfo.movieTitle }}</h1>
                     <p class="card-text"><small class="text-muted">{{ formattedGenreName }} |
@@ -17,6 +17,7 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -98,22 +99,24 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.card {
 
+
+.custom-card {
     height: 30vh;
-    overflow: hidden;
+    overflow: clip;
     position: relative;
+    border-radius: 5px;
+    width: 100%;
+    background-color: rgba(173, 216, 230, 0.7);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
-.card-img.overlap-border {
-    object-fit: contain !important;
-    position: relative;
-    left: -16%;
-    top: -10px;
-    width: 100%;
+.custom-image-card{
+    padding-right: 20px;
+    object-fit: contain;
     height: 30vh !important;
-    border-radius: 0;
 }
+
 </style>
 
 
