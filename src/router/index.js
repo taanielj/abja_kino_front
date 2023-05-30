@@ -6,13 +6,12 @@ import MovieView from "@/views/MovieView.vue";
 import AdminView from "@/views/admin/AdminView.vue";
 import AddMovieView from "@/views/admin/AddMovieView.vue";
 import ErrorView from "@/views/ErrorView.vue";
-import SeanceView from "@/views/SeanceView.vue";
 import AllMoviesView from "@/views/AllMoviesView.vue";
 import AllTicketsView from "@/views/AllTicketsView.vue";
 import AddSeanceView from "@/views/admin/AddSeanceView.vue";
 import chooseTicketView from "@/views/ChooseTicketView.vue";
 import SelectSeatsView from "@/views/SelectSeatsView.vue";
-import ConfirmTicketsView from "@/views/ConfirmTicketsView.vue";
+import PurchaseView from "@/views/PurchaseView.vue";
 
 
 const routes = [
@@ -44,12 +43,7 @@ const routes = [
         component: MovieView
     },
     {
-        path: '/seance/:id',
-        name: 'SeanceRoute',
-        component: SeanceView
-    },
-    {
-        path: '/choose-ticket/:id',
+        path: '/choose-ticket/:seanceId',
         name: 'ChooseTicketRoute',
         component: chooseTicketView
     },
@@ -96,7 +90,7 @@ const routes = [
     {
         path: '/confirm-tickets/:seanceId',
         name: 'ConfirmTicketsRoute',
-        component: ConfirmTicketsView
+        component: PurchaseView
     }
 
 

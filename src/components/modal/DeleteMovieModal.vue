@@ -14,11 +14,11 @@
 
 <script>
 
-import {defineComponent} from 'vue'
 import Modal from "@/components/modal/Modal.vue";
 import router from "@/router";
 
-export default defineComponent({
+export default {
+    name: 'DeleteMovieModal',
     components: {Modal},
     props: {
         movieId: Number,
@@ -51,7 +51,7 @@ export default defineComponent({
         },
     }
 
-})
+}
 
 </script>
 

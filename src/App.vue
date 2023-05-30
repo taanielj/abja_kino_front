@@ -1,4 +1,4 @@
-<template>
+<template id="app">
     <nav>
         <div>
             <h1 id="cinema-name">
@@ -63,8 +63,7 @@ export default {
             const nav = document.querySelector('nav');
             if (nav) {
                 const navOffsetTop = nav.offsetTop;
-                const newNavHeight = windowHeight - navOffsetTop + 'px';
-                this.navHeight = newNavHeight;
+                this.navHeight = windowHeight - navOffsetTop + 'px';
             }
         }
     }
@@ -79,7 +78,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    font-size: 40px;
+    font-size: 25px;
 }
 
 #cinema-name {
@@ -105,7 +104,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-    color: #42b983;
+    color: #b98342;
 }
 
 .content {

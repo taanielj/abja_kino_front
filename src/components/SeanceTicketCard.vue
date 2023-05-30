@@ -1,16 +1,16 @@
 <template>
-    <div class=" text-block">
+    <div v-if="show" class=" text-block">
         <div class="text-heading">Vali piletid</div>
         <div v-for="(ticketType) in ticketTypes" class="row text text-start">
-            <li class="list-group  col-9">
+            <span class="list-group  col-9">
                 {{ ticketType.name }}
-            </li>
-            <li class="list-group col">
+            </span>
+            <span class="list-group col">
                 {{ ticketType.price }}
-            </li>
-            <li class="list-group col ">
+            </span>
+            <span class="list-group col ">
                 <input type="number" v-model="ticketType.amount" class="form-control my-input">
-            </li>
+            </span>
         </div>
     </div>
 </template>
@@ -23,6 +23,9 @@ import PosterImage from "@/components/PosterImage.vue";
 export default defineComponent({
     name: "SeanceTicketCard",
     components: {ScheduleView, PosterImage},
+    props:{
+        show: false
+    },
     data() {
         return {
             errorMessage: "",

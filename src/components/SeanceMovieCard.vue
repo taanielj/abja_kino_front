@@ -1,5 +1,5 @@
 <template>
-    <div class="card" style="width: 100%; background-color: lightgrey">
+    <div v-if="show" class="card" style="width: 100%; background-color: lightgrey">
         <div class="row g-5">
             <div class="col-md-3 poster-container">
                 <PosterImage :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
@@ -26,12 +26,13 @@ import PosterImage from "@/components/PosterImage.vue";
 export default defineComponent({
     name: "SeanceMovieCard",
     components: {ScheduleView, PosterImage},
+    props:{
+        seanceId: 0,
+    },
 
     data() {
         return {
             errorMessage: "",
-            showSeanceInfo: false,
-            seanceId: this.$route.params.id,
             show: false,
             seanceInfo: {
                 movieId: 0,
@@ -62,7 +63,6 @@ export default defineComponent({
                     this.seanceInfo = response.data;
                     this.runtimeToHoursMinutes();
                     this.show = true;
-                    this.showSeanceInfo = true;
                     this.$emit('event-seance-loaded', this.seanceId);
                 })
                 .catch(() => {
@@ -85,33 +85,14 @@ export default defineComponent({
         },
     },
     mounted() {
-        if (this.seanceId !== 0) {
-            this.getSeanceInfo();
-        }
+        this.$nextTick().then(() => {
+            if (this.seanceId !== 0) {
+                this.getSeanceInfo();
+            }
+        });
+
 
     }
 })
 </script>
 
-<style>
-.card{
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-
-.card-title {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: left;
-}
-
-.card-text {
-    font-size: 20px;
-    font-weight: normal;
-    text-align: left;
-}
-
-</style>
