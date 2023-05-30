@@ -112,7 +112,7 @@ export default {
     computed: {
         organizedSeats() {
             let seats = [];
-            for (let i = 0; i < this.roomSeance.rows; i++) {
+            for (let i = 1; i <= this.roomSeance.rows; i++) {
                 seats[i] = this.roomSeance.seats.filter(seat => seat.row === i);
             }
             return seats;

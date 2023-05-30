@@ -1,7 +1,7 @@
 
 
 .hoverable-link:hover {
-    color: #66F;
+    color: #999;
     text-decoration: none;
     transition: all 0.4s ease-in-out;
     cursor: pointer;
@@ -146,3 +146,8 @@
 }
 
 
+.trailer {
+    aspect-ratio: 16/9;
+    width: 73%;
+
+}
