@@ -1,5 +1,5 @@
 <template>
-    <div class="container text-start">
+    <div class="container">
         <div class="row mb-3">
             <div class="row mb-2">
                 <div class="col-3">
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-3 text-start">
+        <div class="row mb-3">
             <label for="description" class="form-label">Sisesta filmi kirjeldus:</label>
             <textarea v-model="description" @input="updateField('description', $event)" type="text" class="form-control textarea"
                       id="description"
