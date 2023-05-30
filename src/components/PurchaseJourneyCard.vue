@@ -1,6 +1,6 @@
 <template>
     <div class="purchase-journey">
-        <div class="nav nav-pills">
+        <div class="nav nav-pills spaced-buttons">
             <span v-if="journey === 'piletid'" class="nav-item">
                 <a class="nav-link active">Piletid</a>
             </span>
@@ -42,7 +42,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 .purchase-journey {
     border: none;
     border-radius: 5px;
@@ -55,12 +55,17 @@ export default defineComponent({
     background-color: darkgrey;
     color: white;
     border-radius: 5px;
-    font-size: 25px;
+    font-size: 3.5vh;
     font-weight: normal;
     justify-content: center;
     width: 100%;
     padding: 10px 0;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.spaced-buttons {
+    display: flex;
+    justify-content: space-around;
 }
 
 </style>

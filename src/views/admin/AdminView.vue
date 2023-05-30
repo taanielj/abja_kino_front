@@ -1,8 +1,8 @@
 <template>
     <div class="container text-center">
         <AlertDanger :message="errorMessage"/>
-        <div class="row">
-            <div class="col">
+        <div class="row justify-content-center">
+            <div class="col col-9">
                 <h1>
                     Administraatori töölaud
                 </h1>
@@ -24,7 +24,7 @@
                         <TicketTypeTable @ticket-type-table-error="setErrorMessage"/>
                     </div>
                 </div>
-                <div>
+                <div class="row admin-table">
                     <UserTable @user-table-error="setErrorMessage"/>
                 </div>
 

@@ -1,23 +1,20 @@
 <template>
-    <div v-if="show">
-        <div class="d-flex flex-row custom-card">
-            <div>
-                <PosterImage class="custom-image-card" :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
+    <div class="card mb-3 position-relative" v-if="show" :style="{ height: cardHeight }">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <poster-image :src="seanceInfo.moviePosterImage" class="card-img overlap-border" alt="Movie Poster"/>
             </div>
-            <div>
+            <div class="col-md-8">
                 <div class="card-body">
-                    <h1 class="card-title">{{ seanceInfo.movieTitle }}</h1>
-                    <p class="card-text"><small class="text-muted">{{ formattedGenreName }} |
-                        {{ runtimeHours }}h {{ runtimeMinutes }}min</small></p>
-                    <p class="card-text">{{ formatDate(seanceInfo.dateTime) }}| Saal: {{ seanceInfo.roomName }}</p>
-                    <p class="card-text">Keel: {{ seanceInfo.language }} | Subtiitrid:
-                        {{ seanceInfo.subtitles }} </p>
+                    <h5 class="card-title">{{ seanceInfo.movieTitle }}</h5>
+                    <p class="card-text">{{ seanceInfo.movieGenreName }}</p>
+                    <p class="card-text">
+                        <small class="text-muted">{{ formatDate(seanceInfo.dateTime) }}</small>
+                    </p>
                 </div>
-
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -26,7 +23,7 @@ import ScheduleView from "@/views/ScheduleView.vue";
 import PosterImage from "@/components/PosterImage.vue";
 
 export default defineComponent({
-    name: "SeanceMovieCard",
+    name: "TestCard",
     components: {ScheduleView, PosterImage},
     props:{
         seanceId: 0,
@@ -98,25 +95,21 @@ export default defineComponent({
 })
 </script>
 
+
 <style scoped>
+.card {
+    /* You can adjust this to match the fixed height of your preference */
+    --card-height: 400px;
+    overflow: hidden; /* This will ensure the image doesn't go outside the card */
+}
 
-
-.custom-card {
-    height: 30vh;
-    overflow: clip;
+.card-img.overlap-border {
+    object-fit: cover;
     position: relative;
-    border-radius: 5px;
-    width: 100%;
-    background-color: rgba(173, 216, 230, 0.7);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    left: -10px;
+    top: -10px;
+    width: calc(100% + 10px);
+    height: calc(100% + 20px);
+    border-radius: 0;
 }
-
-.custom-image-card{
-    padding-right: 20px;
-    object-fit: contain;
-    height: 30vh !important;
-}
-
 </style>
-
-

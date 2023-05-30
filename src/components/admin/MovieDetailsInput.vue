@@ -1,5 +1,5 @@
 <template>
-    <div class="container*">
+    <div class="container">
         <div class="row mb-3">
             <div class="row mb-2">
                 <div class="col-3">
@@ -29,28 +29,33 @@
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-3">
+                <div class="col col-3">
                     <label for="youtube" class="form-label">Youtube link</label>
                 </div>
-                <div class="col-6 justify-content-end mt-2">
+                <div class="col col-6 justify-content-end mt-2">
                     <input v-model="youtubeLink" @input="updateField('youtubeLink', $event)" type="text"
                            class="form-control mb-2" id="youtube">
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-3">
+                <div class="col col-3">
                     <label for="genre" class="form-label">Žanr</label>
                 </div>
-                <div class="col-6 justify-content-end mt-2">
+                <div class="col col-6 justify-content-end mt-2">
                     <GenreDropdown :genre="genreId" @event-emit-selected-genre-id="updateGenreId"/>
                 </div>
             </div>
+            <div class="row mb-3 text-start">
+                <div class="col col-11">
+                    <label for="description" class="form-label">Sisesta filmi kirjeldus:</label>
+                    <textarea v-model="description" @input="updateField('description', $event)" type="text" class="form-control"
+                              id="description"
+                              rows="9"></textarea>
+                </div>
+
+            </div>
         </div>
-        <div class="row mb-3 text-start">
-            <label for="description" class="form-label">Sisesta filmi kirjeldus:</label>
-            <textarea v-model="description" @input="updateField('description', $event)" type="text" class="form-control" id="description"
-                      rows="9"></textarea>
-        </div>
+
     </div>
 </template>
 
@@ -107,3 +112,9 @@ export default {
     }
 }
 </script>
+<style scoped>
+.form-label {
+    font-size: 1.5rem;
+}
+
+</style>
