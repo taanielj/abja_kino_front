@@ -6,17 +6,20 @@
             <h1 class="text-black bigger-text bold-text">
                 Minu piletid
             </h1>
-            <div class="row justify-content-center" v-if="activeTicketIds.length === 0 && expiredTicketIds.length === 0">
+            <div class="row justify-content-center"
+                 v-if="activeTicketIds.length === 0 && expiredTicketIds.length === 0">
                 Te ei ole ostnud ühtegi piletit
             </div>
             <div v-if="activeTicketIds.length > 0" class="col col-md-auto">
                 <div class="card border-success mb-3" style="max-width: 80rem;">
                     <div class="card-header bg-warning border-success">
-                        <h2 class="card-title text-black bold-text">Aktiivsed piletid</h2>
+                        <h2 class="card-title text-center text-black">Aktiivsed piletid</h2>
                     </div>
                     <div class="card-body text-success">
-                        <div v-for="tickedId in activeTicketIds">
-                            <TicketCard :ticketId="tickedId" :key="tickedId"/>
+                        <div class="d-inline-flex flex-wrap">
+                            <div v-for="tickedId in activeTicketIds" class="m-1">
+                                <TicketCard :ticketId="tickedId" :key="tickedId"/>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-success">
@@ -29,11 +32,13 @@
             <div v-if="expiredTicketIds.length > 0" class="col col-md-auto">
                 <div class="card border-success mb-3" style="max-width: 80rem;">
                     <div class="card-header bg-secondary border-success">
-                        <h2 class="card-title text-black bold-text">Kasutatud piletid</h2>
+                        <h2 class="card-title text-black">Kasutatud piletid</h2>
                     </div>
-                    <div class="card-body text-success">
-                        <div v-for="tickedId in expiredTicketIds">
-                            <TicketCard :ticketId="tickedId" :key="tickedId"/>
+                    <div class="d-inline-flex flex-wrap">
+                        <div class="card-body text-success">
+                            <div v-for="tickedId in expiredTicketIds" class="m-1">
+                                <TicketCard :ticketId="tickedId" :key="tickedId"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,22 +72,22 @@ export default {
 
         getActiveTicketIds() {
             this.$http.get("/api/v1/ticket/all-active-ids-by-user/" + this.userId, {headers: getAuthHeader()})
-                    .then(response => {
-                        this.activeTicketIds = response.data
-                    })
-                    .catch(() => {
-                        router.push({path: "/error"})
-                    })
+                .then(response => {
+                    this.activeTicketIds = response.data
+                })
+                .catch(() => {
+                    router.push({path: "/error"})
+                })
         },
 
         getExpiredTicketIds() {
             this.$http.get("/api/v1/ticket/all-expired-ids-by-user/" + this.userId, {headers: getAuthHeader()})
-                    .then(response => {
-                        this.expiredTicketIds = response.data
-                    })
-                    .catch(() => {
-                        router.push({path: "/error"})
-                    })
+                .then(response => {
+                    this.expiredTicketIds = response.data
+                })
+                .catch(() => {
+                    router.push({path: "/error"})
+                })
         },
     },
     mounted() {

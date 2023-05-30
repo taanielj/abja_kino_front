@@ -24,9 +24,21 @@
                             @tickets-loaded="formattedSum = $event"
                     />
 
-                    <div v-if="showRest">
-                        <button href="#" @click="openConfirmModal" class="btn btn-secondary btn-lg">Osta</button>
+                    <div class="row m-5" v-if="showRest">
+                        <div class="col">
+                            <button href="#" @click="cancelPurchase" class="btn btn-secondary btn-lg me-1">
+                                Tühista
+                            </button>
+
+                        </div>
+                        <div class="col">
+                            <button href="#" @click="openConfirmModal" class="btn btn-primary btn-lg">
+                                Osta
+                            </button>
+
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -75,9 +87,11 @@ export default {
         loadRestOfPage() {
             this.showRest = true;
         },
+
         openConfirmModal() {
             this.$refs.confirmModalRef.$refs.modalRef.openModal();
         },
+
         postTickets() {
             this.$http.post("/api/v1/ticket/purchase", this.userTickets, {headers: getAuthHeader()}
             ).then(() => {
@@ -86,6 +100,11 @@ export default {
             }).catch(() => {
                 router.push({path: "/error"});
             })
+        },
+
+        cancelPurchase() {
+            sessionStorage.removeItem("userTickets");
+            router.push({path:"/"})
         },
 
     },
