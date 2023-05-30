@@ -10,12 +10,9 @@
                     </div>
                 </div>
                 <div class="col col-6 text-lg-start">
-                    <div class="row mb-2 text-black">
-                        <h2>{{ movieInfo.description }}</h2>
-                    </div>
                     <div class="row mb-3">
                         <div class="text-lg-start text-black bigger-text text-bold">
-                            Filmi info
+                            <h1>Filmi info</h1>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -32,6 +29,10 @@
                         <div class="text-lg-start text-black bigger-text">
                             Filmi pikkus: {{ runtimeHours }}h {{ runtimeMinutes }}min
                         </div>
+                    </div>
+
+                    <div class="row mb-2 text-black">
+                        <h2>{{ movieInfo.description }}</h2>
                     </div>
                 </div>
             </div>
