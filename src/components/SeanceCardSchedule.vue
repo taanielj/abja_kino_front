@@ -37,6 +37,7 @@
                 </div>
             </div>
 
+
         </div>
     </div>
 </template>
@@ -158,9 +159,7 @@ export default defineComponent({
     background-color: #f2f2f2;
 }
 
-
 .custom-button {
-
     width: 150px;
     height: 50px;
 }
