@@ -48,7 +48,7 @@
         </div>
         <div class="row mb-3 text-start">
             <label for="description" class="form-label">Sisesta filmi kirjeldus:</label>
-            <textarea v-model="description" @input="updateField('description', $event)" type="text" class="form-control" id="description"
+            <textarea v-model="description" @input="updateField('description', $event)" type="text" class="form-control custom-control " id="description"
                       rows="9"></textarea>
         </div>
     </div>
@@ -107,3 +107,11 @@ export default {
     }
 }
 </script>
+<style>
+.form-label {
+    font-size: 1.5rem;
+}
+.custom-control{
+    width: 85%;
+}
+</style>

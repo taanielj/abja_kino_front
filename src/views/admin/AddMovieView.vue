@@ -21,13 +21,13 @@
 
         <div class="row justify-content-center mt-5 mb-5">
             <div class="col col-6">
-                <button @click="navigateBack" type="button" class="btn button btn-outline-secondary me-3">
+                <button @click="navigateBack" type="button" class="btn button btn-outline-secondary custom-button me-3">
                     Tagasi
                 </button>
-                <button v-if="isEdit" @click="editMovie" type="button" class="btn button btn-outline-success me-3">
+                <button v-if="isEdit" @click="editMovie" type="button" class="btn button btn-outline-success custom-button me-3">
                     Muuda
                 </button>
-                <button v-else @click="addMovie" type="button" class="btn button btn-outline-success me-3">
+                <button v-else @click="addMovie" type="button" class="btn button btn-outline-success custom-button me-3">
                     Lisa
                 </button>
             </div>
