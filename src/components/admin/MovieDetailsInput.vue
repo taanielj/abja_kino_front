@@ -108,3 +108,11 @@ export default {
     }
 }
 </script>
+<style scoped>
+.form-label {
+    font-size: 1.5rem;
+}
+.custom-control{
+    width: 85%;
+}
+</style>
