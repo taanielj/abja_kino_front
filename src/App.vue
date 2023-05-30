@@ -80,7 +80,14 @@ export default {
     color: #2c3e50;
     font-size: 25px;
     background-image: url('./assets/background_picture.jpg');
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
 }
+
 
 #cinema-name {
     font-size: 3vw;

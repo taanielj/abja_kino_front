@@ -13,7 +13,23 @@
                     <p class="card-text">Keel: {{ seanceInfo.language }} | Subtiitrid:
                         {{ seanceInfo.subtitles }} </p>
                 </div>
-
+                <div  class="d-flex">
+                    <button v-if="journey === 'schedule'"
+                            type="button"
+                            class="btn btn-outline-secondary custom-button me-2"
+                            @click=""
+                    >
+                        Vaata Treilerit
+                    </button>
+                    <button v-if="journey === 'schedule' || journey === 'movie'"
+                            type="button"
+                            class="btn btn-outline-secondary custom-button"
+                            @click="goToTickets"
+                    >
+                        Vali
+                        seanss
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -24,12 +40,14 @@
 import {defineComponent} from 'vue'
 import ScheduleView from "@/views/ScheduleView.vue";
 import PosterImage from "@/components/PosterImage.vue";
+import router from "@/router";
 
 export default defineComponent({
     name: "SeanceMovieCard",
     components: {ScheduleView, PosterImage},
     props:{
         seanceId: 0,
+        journey: ""
     },
 
     data() {
@@ -85,6 +103,17 @@ export default defineComponent({
             this.runtimeHours = Math.floor(this.seanceInfo.movieRuntime / 60)
             this.runtimeMinutes = this.seanceInfo.movieRuntime % 60
         },
+
+
+        goToTickets() {
+            if (localStorage.getItem("userId") === null) {
+                router.push({path: '/login'})
+                return;
+            }
+
+            router.push({path: '/choose-ticket/' + this.seanceId})
+        }
+
     },
     mounted() {
         this.$nextTick().then(() => {
@@ -97,26 +126,5 @@ export default defineComponent({
     }
 })
 </script>
-
-<style scoped>
-
-
-.custom-card {
-    height: 30vh;
-    overflow: clip;
-    position: relative;
-    border-radius: 5px;
-    width: 100%;
-    background-color: rgba(173, 216, 230, 0.7);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-}
-
-.custom-image-card{
-    padding-right: 20px;
-    object-fit: contain;
-    height: 30vh !important;
-}
-
-</style>
 
 

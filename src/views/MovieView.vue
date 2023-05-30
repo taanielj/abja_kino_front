@@ -1,62 +1,80 @@
 <template>
+    <div v-if="show">
+        <div class="row justify-content-center">
+            <div class="card">
 
-    <div class="card">
-        <h1 class="card-header text-black bigger-text bold-text"> {{ movieInfo.title }} </h1>
-        <div class="card-body">
-            <div class="row">
-                <div class="col col-5">
-                    <div class="row mb-2 poster-container">
-                        <PosterImage :image-data-base64="image" ref="posterImage"/>
-                    </div>
-                </div>
-                <div class="col col-6 text-lg-start">
-                    <div class="row mb-2 text-black">
-                        <h2>{{ movieInfo.description }}</h2>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="text-lg-start text-black bigger-text text-bold">
-                            Filmi info
+                <h1 class="card-header text-black bigger-text bold-text">
+                    {{ movieInfo.title }}
+                </h1>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col col-5">
+                            <div class="row mb-2 poster-container">
+                                <PosterImage :image-data-base64="image" ref="posterImage"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="text-lg-start text-black bigger-text">
-                            Žanr: {{ movieInfo.genreName }}
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="text-lg-start text-black bigger-text">
-                            Režissöör: {{ movieInfo.director }}
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="text-lg-start text-black bigger-text">
-                            Filmi pikkus: {{ runtimeHours }}h {{ runtimeMinutes }}min
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="col col-6 text-lg-start">
+                            <div class="row mb-3">
+                                <div class="text-lg-start text-black bigger-text text-bold">
+                                    Filmi info
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="text-lg-start text-black bigger-text">
+                                    Žanr: {{ movieInfo.genreName }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="text-lg-start text-black bigger-text">
+                                    Režissöör: {{ movieInfo.director }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="text-lg-start text-black bigger-text">
+                                    Filmi pikkus: {{ runtimeHours }}h {{ runtimeMinutes }}min
+                                </div>
+                            </div>
 
-            <div class="row mb-2">
-                <iframe
-                        title="YouTube video with movie trailer"
-                        v-if="showIframe"
-                        width="560"
-                        height="600"
-                        :src="movieInfo.youtubeLink"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen></iframe>
+                            <div class="row mb-2 text-black">
+                                <h2>{{ movieInfo.description }}</h2>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
             </div>
         </div>
-    </div>
+        <div class="row justify-content-center">
+            <div class="card trailer">
+                <iframe class="card-body"
+                        title="YouTube video with movie trailer"
+                        v-if="showIframe"
+                        :src="movieInfo.youtubeLink"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen>
 
-    <div class="card">
-        <div v-if="allMovieSeanceIds.length !== 0">
-            <div class="row" id="seanceSelector" ref="seanceSelector">
-                <h2 class="card-header text-black bigger-text">Vali seanss</h2>
+                </iframe>
             </div>
-            <div class="row">
-                <div v-for="seanceId in allMovieSeanceIds" class="col-md-6 p-2" :key="seanceId">
-                    <SeanceCardSchedule :seance-id="seanceId"/>
+
+        </div>
+
+
+        <div v-if="allMovieSeanceIds.length !== 0" class="row justify-content-center">
+            <div class="custom-card title">
+                Vali seanss
+            </div>
+
+            <div class="col col-10 p-2 w-75">
+                <div class="d-flex flex-wrap">
+                    <div v-for="seanceId in allMovieSeanceIds" :key="seanceId" class="col-md-6">
+                        <SeanceMovieCard
+                                class="seance-card"
+                                :seanceId="seanceId"
+                                :journey="journey"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,6 +84,7 @@
     </div>
 
 
+
 </template>
 
 <script>
@@ -73,12 +92,15 @@ import PosterImage from "@/components/PosterImage.vue";
 import router from "@/router";
 import MovieCard from "@/components/MovieCard.vue";
 import SeanceCardSchedule from "@/components/SeanceCardSchedule.vue";
+import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 
 export default {
     name: "MovieView",
-    components: {SeanceCardSchedule, MovieCard, PosterImage},
+    components: {SeanceMovieCard, SeanceCardSchedule, MovieCard, PosterImage},
     data() {
         return {
+            show: false,
+            journey: "movie",
             showIframe: true,
             movieId: this.$route.params.id,
             movieInfo: {
@@ -101,7 +123,7 @@ export default {
     },
     methods: {
         isValidYoutubeEmbedLink(link) {
-            const regex = /^https:\/\/www\.youtube\.com\/embed\/[^\/]+$/;
+            const regex = /^https:\/\/www\.youtube\.com\/embed\/[^/]+$/;
             return regex.test(link);
         },
 
@@ -113,6 +135,7 @@ export default {
                     this.runtimeToHoursMinutes()
                     this.getGenre();
                     this.showIframe = this.isValidYoutubeEmbedLink(this.movieInfo.youtubeLink);
+                    this.show = true;
                 })
                 .catch(() => {
                     router.push({path: "/error"})
@@ -162,3 +185,23 @@ export default {
 }
 </script>
 
+<style scoped>
+.title {
+    height: 6vh;
+    width: 73%;
+    font-size: 4vh;
+    font-weight: bold;
+}
+
+.card {
+    width: 73%;
+    background-color: rgba(255, 240, 225, 0.8);
+}
+
+.trailer {
+    aspect-ratio: 16/9;
+    width: 73%;
+
+}
+
+</style>

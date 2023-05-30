@@ -3,9 +3,6 @@
 
     <div class="container text-center">
         <div class="row">
-            <h1 class="text-black bigger-text bold-text">
-                Minu piletid
-            </h1>
             <div class="row justify-content-center"
                  v-if="activeTicketIds.length === 0 && expiredTicketIds.length === 0">
                 Te ei ole ostnud ühtegi piletit

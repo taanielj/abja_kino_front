@@ -1,12 +1,14 @@
 <template>
+
     <div v-if="allSeanceIds.length !== 0" class="row justify-content-center">
-        <div class="row kinokava ">
-            <h1 style="font-weight: bold">Kinokava</h1>
-        </div>
-        <div class="row justify-content-center d-flex">
-            <div class="col col-10 p-2 w-75">
-                <div v-for="seanceId in allSeanceIds" :key="seanceId">
-                    <SeanceCardSchedule :seance-id="seanceId"/>
+        <div class="col col-10 p-2 w-75">
+            <div class="d-flex flex-wrap">
+                <div v-for="seanceId in allSeanceIds" :key="seanceId" class="col-md-6">
+                    <SeanceMovieCard
+                            class="seance-card"
+                            :seanceId="seanceId"
+                            :journey="journey"
+                    />
                 </div>
             </div>
         </div>
@@ -19,12 +21,15 @@
 
 import MovieCard from "@/components/MovieCard.vue";
 import SeanceCardSchedule from "@/components/SeanceCardSchedule.vue";
+import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 
 export default {
     name: 'ScheduleView',
-    components: {SeanceCardSchedule, MovieCard},
+    components: {SeanceMovieCard, SeanceCardSchedule, MovieCard},
     data() {
+
         return {
+            journey: "schedule",
             allSeanceIds: [0],
         }
     },
@@ -46,13 +51,5 @@ export default {
 
 }
 </script>
-<style>
-.kinokava-container {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background-color: lightgrey;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-</style>
+
 

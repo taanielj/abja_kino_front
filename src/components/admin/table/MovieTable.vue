@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td colspan="4">
-                <button class="btn btn-light w-100" @click="navigateToAddMovie">Lisa uus film</button>
+                <button class="btn btn-light w-100 admin-button" @click="navigateToAddMovie">Lisa uus film</button>
             </td>
         </tr>
         </tbody>

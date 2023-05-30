@@ -83,13 +83,13 @@
 
 .card-title {
     padding-top: 1vh;
-    font-size: 5vh;
+    font-size: 2.5rem;
     font-weight: bold;
     text-align: left;
 }
 
 .card-text {
-    font-size: 3vh;
+    font-size: 2.8vh;
     font-weight: normal;
     text-align: left;
 }
@@ -103,6 +103,46 @@
 
 .form-label {
     font-size: 1.8rem;
+}
+
+.admin-button {
+    font-size: 2vh;
+    text-decoration: underline;
+}
+
+.seance-card {
+    margin: 2vh;
+}
+
+
+.custom-card {
+    height: 30vh;
+    overflow: clip;
+    position: relative;
+    border-radius: 5px;
+    width: 100%;
+    background-color: rgba(255, 240, 225, 0.8);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.custom-image-card{
+    padding-right: 20px;
+    object-fit: contain;
+    height: 30vh !important;
+}
+
+.custom-button{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 5px;
+    border-color: #000000;
+    color: #000000;
+    background-color: rgba(255, 240, 225, 0.8);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 

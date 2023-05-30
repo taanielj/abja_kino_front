@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td colspan="5">
-                <button class="btn btn-light w-100" @click="navigateToAddSeance">Lisa uus seanss</button>
+                <button class="btn btn-light w-100 admin-button" @click="navigateToAddSeance">Lisa uus seanss</button>
             </td>
         </tr>
         </tbody>
@@ -116,6 +116,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>

@@ -3,14 +3,22 @@
         <AlertDanger :message="errorMessage"/>
         <div class="row justify-content-center">
             <div class="col col-9">
-                <h1>
-                    Administraatori töölaud
-                </h1>
+
+                <div class="admin-table row text-center">
+                    <h1 class="title">
+                        Administraatori töölaud
+                    </h1>
+
+                </div>
+
+
                 <div class="row admin-table">
-                    <MovieTable @movie-table-error="setErrorMessage" @movie-table-success="refreshSeanceTable" ref="movieTableRef"/>
+                    <MovieTable @movie-table-error="setErrorMessage" @movie-table-success="refreshSeanceTable"
+                                ref="movieTableRef"/>
                 </div>
                 <div class="row admin-table">
-                    <SeanceTable @seance-table-error="setErrorMessage" ref="seanceTableRef" @seance-table-success="setSuccessMessage"/>
+                    <SeanceTable @seance-table-error="setErrorMessage" ref="seanceTableRef"
+                                 @seance-table-success="setSuccessMessage"/>
                 </div>
                 <div class="row admin-table">
                     <RoomTable @room-table-error="setErrorMessage" @room-table-success="refreshSeanceTable"/>
@@ -45,7 +53,16 @@ import UserTable from "@/components/admin/table/UserTable.vue";
 
 export default {
 
-    components: {UserTable, AlertDanger, RoomTable, SeanceTable, MovieTable, AllMoviesView, TicketTypeTable, GenreTable},
+    components: {
+        UserTable,
+        AlertDanger,
+        RoomTable,
+        SeanceTable,
+        MovieTable,
+        AllMoviesView,
+        TicketTypeTable,
+        GenreTable
+    },
 
     name: "AdminView",
     data() {
@@ -77,7 +94,7 @@ export default {
         }
     },
     beforeMount() {
-        if(localStorage.getItem('roleName') !== 'ADMIN')
+        if (localStorage.getItem('roleName') !== 'ADMIN')
             this.$router.push('/');
     }
 }
@@ -86,13 +103,19 @@ export default {
 <style scoped>
 
 .admin-table {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* add a box shadow */
-    transition: box-shadow 0.3s ease-in-out; /* optional: add a transition for a smooth hover effect */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-size: 2.5vh;
 }
 
-.admin-table:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2); /* optional: add a hover effect */
+
+.title {
+    font-size: 4.5vh;
+    font-weight: bold;
+    color: #1a202c;
+    text-align: center;
 }
+
+
 </style>

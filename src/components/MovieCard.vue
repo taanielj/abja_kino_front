@@ -129,7 +129,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 .card {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
     border-radius: 10px;
@@ -156,6 +156,5 @@ export default defineComponent({
 }
 .card-body{
     text-align: left;
-    text-clolor: grey;
 }
 </style>
