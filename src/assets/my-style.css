@@ -66,6 +66,13 @@
     height: 50%;
 }
 
+.poster-movie-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+
 .poster-add-movie {
     display: flex;
     justify-content: center;

@@ -3,7 +3,7 @@
          class="bg-light-grey text-black border border-4 align-self-stretch card mb-3">
         <div class="row g-0">
             <div class=" col-md-3 poster-container">
-                    <PosterImage :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
+                <PosterImage :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
             </div>
             <div class="col col-md-8">
                 <div class=" card-body text-start">
@@ -28,9 +28,9 @@
                     </p>
                 </div>
                 <div class="d-flex justify-content-end">
-<!--                    <button type="button" class="btn btn-outline-secondary custom-button me-2" @click="">Vaata-->
-<!--                        Terilerit-->
-<!--                    </button>-->
+                    <button type="button" class="btn btn-outline-secondary custom-button me-2" @click="">
+                        Vaata Treilerit
+                    </button>
                     <button type="button" class="btn btn-outline-secondary custom-button" @click="goToTickets">Vali
                         seanss
                     </button>
@@ -112,11 +112,12 @@ export default defineComponent({
             this.runtimeMinutes = this.seanceInfo.movieRuntime % 60
         },
         goToTickets() {
-            router.push({path: '/choose-ticket/' + this.seanceId})
-        },
+            if (localStorage.getItem("userId") === null) {
+                router.push({path: '/login'})
+                return;
+            }
 
-        navigateToChooseSeance() {
-            router.push({path: "/movie/" + this.seanceId})
+            router.push({path: '/choose-ticket/' + this.seanceId})
         }
 
 

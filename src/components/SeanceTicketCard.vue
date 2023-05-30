@@ -23,7 +23,7 @@ import PosterImage from "@/components/PosterImage.vue";
 export default defineComponent({
     name: "SeanceTicketCard",
     components: {ScheduleView, PosterImage},
-    props:{
+    props: {
         show: false
     },
     data() {
@@ -55,8 +55,9 @@ export default defineComponent({
             this.$http.get("/api/v1/ticket/type/all")
                 .then(response => {
                     this.ticketTypes = response.data;
-
-
+                    this.ticketTypes.forEach(ticketType => {
+                        ticketType.formattedPrice = this.formatPrice(ticketType.price);
+                    });
 
                     this.setAmountToZero();
                 })
@@ -69,9 +70,6 @@ export default defineComponent({
     mounted() {
         if (this.seanceId !== 0) {
             this.getTicketTypes();
-            this.ticketTypes.forEach(ticket => {
-                ticket.priceFormatted = this.formatPrice(ticket.price);
-            });
         }
 
     },

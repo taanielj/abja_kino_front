@@ -1,19 +1,17 @@
 <template>
-    <div v-if="show" class="card" style="width: 100%; background-color: lightgrey">
+    <div class="card mb-3 position-relative" v-if="show" :style="{ height: cardHeight }">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <PosterImage class="card-img overlap-border" :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
+                <poster-image :src="seanceInfo.moviePosterImage" class="card-img overlap-border" alt="Movie Poster"/>
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h1 class="card-title">{{ seanceInfo.movieTitle }}</h1>
-                    <p class="card-text"><small class="text-muted">{{ formattedGenreName }} |
-                        {{ runtimeHours }}h {{ runtimeMinutes }}min</small></p>
-                    <p class="card-text">{{ formatDate(seanceInfo.dateTime) }}| Saal: {{ seanceInfo.roomName }}</p>
-                    <p class="card-text">Keel: {{ seanceInfo.language }} | Subtiitrid:
-                        {{ seanceInfo.subtitles }} </p>
+                    <h5 class="card-title">{{ seanceInfo.movieTitle }}</h5>
+                    <p class="card-text">{{ seanceInfo.movieGenreName }}</p>
+                    <p class="card-text">
+                        <small class="text-muted">{{ formatDate(seanceInfo.dateTime) }}</small>
+                    </p>
                 </div>
-
             </div>
         </div>
     </div>
@@ -25,7 +23,7 @@ import ScheduleView from "@/views/ScheduleView.vue";
 import PosterImage from "@/components/PosterImage.vue";
 
 export default defineComponent({
-    name: "SeanceMovieCard",
+    name: "TestCard",
     components: {ScheduleView, PosterImage},
     props:{
         seanceId: 0,
@@ -97,23 +95,21 @@ export default defineComponent({
 })
 </script>
 
+
 <style scoped>
 .card {
-
-    height: 250px;
-    overflow: hidden;
-    position: relative;
+    /* You can adjust this to match the fixed height of your preference */
+    --card-height: 400px;
+    overflow: hidden; /* This will ensure the image doesn't go outside the card */
 }
 
 .card-img.overlap-border {
-    object-fit: contain !important;
+    object-fit: cover;
     position: relative;
-    left: -20%;
+    left: -10px;
     top: -10px;
-    width: 100%;
-    height: 250px !important;
+    width: calc(100% + 10px);
+    height: calc(100% + 20px);
     border-radius: 0;
 }
 </style>
-
-
