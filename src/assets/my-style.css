@@ -63,8 +63,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 50%;
 }
+
+.poster-add-movie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 
 .card-title {
     font-size: 30px;

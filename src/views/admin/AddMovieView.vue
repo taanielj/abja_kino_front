@@ -7,7 +7,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col col-3">
-                <div class="row mb-2 poster-container">
+                <div class="row mb-2 poster-add-movie">
                     <PosterImage :image-data-base64="image"/>
                 </div>
                 <div>
