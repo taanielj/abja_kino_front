@@ -1,37 +1,64 @@
 <template>
-    <div v-if="movieInfo.id !==0" class="card " style="background-color: lightgrey">
-        <div class="row g-5">
-            <div class=" col-md-3 poster-container">
-                <PosterImage :image-data-base64="image" ref="posterImage"/>
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h1 class="card-title hoverable-link">
-                        <a @click="gotoMovie(movieId)">{{ movieInfo.title }}</a>
-                    </h1>
-                    <p class="card-text">
-                        {{ movieInfo.director }}
-                    </p>
-                    <p class="card-text">
-                        {{ formattedGenreName }} {{ runtimeHours }}h {{ runtimeMinutes }}min
-                    </p>
-                    <p class="card-text"><small class="text-muted">
-                        {{ movieInfo.description }} </small>
-                    </p>
-                    <p class="">
-                        {{  }}
-                    </p>
-                    <div class="button-container">
-                    <button type="button" class="btn btn-success " @click="gotoSeanceSection(movieId)">Vali seanss
+<div v-if="show">
+    <div class="d-flex flex-column bd-highlight  portrait-card mb-3">
+        <div class="p-3 ">
+            <PosterImage class="portrait-card-picture" :image-data-base64="image" ref="posterImage"/>
+
+        </div>
+        <div class="p-1">
+            <h1 class="portrait-card-title justify-content-start hoverable-link">
+                <a @click="gotoMovie(movieId)">{{ movieInfo.title }}</a>
+            </h1>
+            <p class="card-text">
+                {{ formattedGenreName }}
+            </p></div>
+        <div class="p-2 bd-highlight">
+            <div class=" btn-group-vertical d-flex">
+                <div class="row">
+                    <button type="button" class="btn-outline-secondary custom-button-wide me-2" @click="">Vaata treilerit
                     </button>
                 </div>
+
+
+                <div class="row">
+                    <button type="button" class="btn btn-outline-secondary custom-button-wide" @click="gotoSeanceSection(movieId)">Vali seanss
+                    </button>
                 </div>
+
             </div>
         </div>
     </div>
-    <div v-else>
-        <p></p>
     </div>
+
+<!--    <div v-if="movieInfo.id !==0" class="d-flex portrait-card" >-->
+<!--        <div class="card mb-3">-->
+<!--            <div class="row ">-->
+<!--                <div class="card-body">-->
+<!--                    <h1 class="card-title hoverable-link">-->
+<!--                        <a @click="gotoMovie(movieId)">{{ movieInfo.title }}</a>-->
+<!--                    </h1>-->
+<!--                    <p class="card-text">-->
+<!--                        {{ formattedGenreName }}-->
+<!--                    </p>-->
+<!--                    <div class=" btn-group-vertical d-flex">-->
+<!--                        <div class="row">-->
+<!--                            <button type="button" class="btn-outline-secondary custom-button-wide me-2" @click="">Vaata treilerit-->
+<!--                            </button>-->
+<!--                        </div>-->
+
+
+<!--                        <div class="row">-->
+<!--                            <button type="button" class="btn btn-outline-secondary custom-button-wide" @click="gotoSeanceSection(movieId)">Vali seanss-->
+<!--                            </button>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        </div>-->
+
+
 </template>
 
 <script>
@@ -55,6 +82,7 @@ export default defineComponent({
     },
     data() {
         return {
+            show: true,
             movieInfo: {
                 id: 0,
                 title: "",
@@ -130,31 +158,47 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.card {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+.portrait-card-picture {
+    object-fit: contain;
+    height: 35vh !important;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
 }
+.portrait-card{
+    width: 40vh;
+    height: 80vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: start;
+    background-color: rgba(255, 240, 225, 0.8);
 
-
-.card-title {
-    font-size: 30px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding: 10px;
+}
+.portrait-card-title{
+    padding-top: 1vh;
+    font-size: 2rem;
     font-weight: bold;
     text-align: left;
 }
 
-.card-text {
+.custom-button-wide{
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 250px;
+    height: 50px;
     font-size: 20px;
-    font-weight: normal;
-    text-align: left;
-}
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-}
-.card-body{
-    text-align: left;
+    border-radius: 5px;
+    border-color: #000000;
+    color: #000000;
+    background-color: rgba(255, 240, 225, 0.8);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    justify-content: center;
 }
 </style>

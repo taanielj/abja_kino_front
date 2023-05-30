@@ -4,9 +4,7 @@
             <h1 id="cinema-name">
                 Abja-Paluoja KINO
                 <font-awesome-icon :icon="['fa-light', 'fa-camera-movie']"/>
-
             </h1>
-
             <router-link to="/">Kava</router-link>
             |
             <router-link to="/movies">Filmid</router-link>
@@ -19,7 +17,6 @@
                     <router-link to="/admin">Admin</router-link>
                     |
                 </template>
-
                 <router-link to="/logout" @click="handleLogout">Logi välja</router-link>
             </template>
         </div>
@@ -96,14 +93,14 @@ export default {
 
 nav {
     position: fixed;
-    background-color: lightgray;
+    background-color: rgba(255, 240, 225, 1);
     padding: 2vw;
     font-size: 2vw;
     width: 100%;
     transition: top 0.3s;
     z-index: 9999;
     box-shadow: 0 0.2vw 0.8vw rgba(0, 0, 0, 0.2); /* changed from px to vw */
-    height: 20vh;
+    height: 22vh;
 }
 
 nav a {

@@ -1,6 +1,6 @@
 <template>
-    <div class="row justify-content-center">
-        <div v-for="movieId in allMovieIds" class="col col-10 p-2 w-75">
+    <div class="d-inline-flex flex-wrap">
+        <div v-for="movieId in allMovieIds" class="m-1">
             <MovieCard :movie-id="movieId" :key="movieId"/>
         </div>
 

@@ -1,7 +1,7 @@
 
 
 .hoverable-link:hover {
-    color: #66F;
+    color: rgb(255,99,71);
     text-decoration: none;
     transition: all 0.4s ease-in-out;
     cursor: pointer;
@@ -116,19 +116,19 @@
 
 
 .custom-card {
-    height: 30vh;
+    height: 35vh;
     overflow: clip;
     position: relative;
     border-radius: 5px;
-    width: 100%;
+    width: 105%;
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .custom-image-card{
-    padding-right: 20px;
+    padding-right: 25px;
     object-fit: contain;
-    height: 30vh !important;
+    height: 35vh !important;
 }
 
 .custom-button{
