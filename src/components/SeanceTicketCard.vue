@@ -6,7 +6,7 @@
                 {{ ticketType.name }}
             </span>
             <span class="list-group col">
-                {{ ticketType.price }}
+                {{ ticketType.formattedPrice }}
             </span>
             <span class="list-group col ">
                 <input type="number" v-model="ticketType.amount" class="form-control my-input">
@@ -34,16 +34,16 @@ export default defineComponent({
                     name: "",
                     price: 0,
                     amount: 0,
+                    formattedPrice: ""
                 }
             ]
-
-
         }
 
     },
 
     methods: {
-        confirmTickets() {
+        formatPrice(price) {
+            return price.toFixed(2) + " €";
         },
 
         setAmountToZero() {
@@ -55,6 +55,9 @@ export default defineComponent({
             this.$http.get("/api/v1/ticket/type/all")
                 .then(response => {
                     this.ticketTypes = response.data;
+
+
+
                     this.setAmountToZero();
                 })
                 .catch(() => {
@@ -66,6 +69,9 @@ export default defineComponent({
     mounted() {
         if (this.seanceId !== 0) {
             this.getTicketTypes();
+            this.ticketTypes.forEach(ticket => {
+                ticket.priceFormatted = this.formatPrice(ticket.price);
+            });
         }
 
     },
