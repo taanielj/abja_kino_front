@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col col-8 ">
+        <div class="col col-7">
             <div class="col">
                 <div class="col">
                     <PurchaseJourneyCard :journey="journey"></PurchaseJourneyCard>
@@ -13,7 +13,7 @@
                     />
                 </div>
 
-                <div class="col mt-md-5">
+                <div class="col mt-md-3">
                     <SeanceTicketCard ref="seanceTicketCard"
                                       :seanceId="seanceId"
                                       @event-ticket-types-changed="ticketTypes = $event"
@@ -22,7 +22,6 @@
                 </div>
                 <div v-if="showTicketTypes">
                     <button href="#" @click="navigateToSeats" class="btn btn-secondary btn-lg">Kinnita piletid</button>
-
                 </div>
             </div>
         </div>
@@ -78,7 +77,7 @@ export default {
 </script>
 
 <style scoped>
-.col-8 {
+.col {
     margin: 0 auto;
     border-bottom: none;
     border-top: none;
@@ -92,6 +91,10 @@ export default {
 
 .seance-card {
     margin-top: 20px;
+}
+
+.btn{
+    margin-top: -80px
 }
 
 </style>

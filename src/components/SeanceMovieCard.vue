@@ -100,7 +100,7 @@ export default defineComponent({
 <style scoped>
 .card {
 
-    height: 250px;
+    height: 30vh;
     overflow: hidden;
     position: relative;
 }
@@ -108,10 +108,10 @@ export default defineComponent({
 .card-img.overlap-border {
     object-fit: contain !important;
     position: relative;
-    left: -20%;
+    left: -16%;
     top: -10px;
     width: 100%;
-    height: 250px !important;
+    height: 30vh !important;
     border-radius: 0;
 }
 </style>
