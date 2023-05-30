@@ -93,7 +93,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 .text-block {
     font-size: 35px;
     font-weight: bold;
