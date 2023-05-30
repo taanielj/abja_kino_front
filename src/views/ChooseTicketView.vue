@@ -1,32 +1,40 @@
 <template>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col col-7">
-            <div class="col">
-                <div class="col">
-                    <PurchaseJourneyCard :journey="journey"></PurchaseJourneyCard>
-                </div>
-                <div class="col seance-card">
-                    <SeanceMovieCard
-                            :seanceId="seanceId"
-                            @event-seance-loaded="setSeanceIdAndShowTicketTypes($event)"
-                    />
-                </div>
+    <div class="container">
 
-                <div class="col mt-md-3">
-                    <SeanceTicketCard ref="seanceTicketCard"
-                                      :seanceId="seanceId"
-                                      @event-ticket-types-changed="ticketTypes = $event"
-                                      :show="showTicketTypes"
-                    />
-                </div>
-                <div v-if="showTicketTypes">
-                    <button href="#" @click="navigateToSeats" class="btn btn-secondary btn-lg">Kinnita piletid</button>
+        <div class="row justify-content-center">
+            <div class="col col-7">
+                <div class="col">
+                    <div class="col">
+                        <PurchaseJourneyCard :journey="journey"></PurchaseJourneyCard>
+                    </div>
+                    <div class="col seance-card">
+                        <SeanceMovieCard
+                                :seanceId="seanceId"
+                                @event-seance-loaded="show = true"
+                                @event-available-seats="availableSeats = $event"
+                                @event-seance-id="seanceId = $event"
+                        />
+                    </div>
+
+
+                        <AlertDanger style="margin: 1vh; max-width: 100%" :message="errorMessage"/>
+
+                    <div class="col mt-md-3">
+                        <SeanceTicketCard ref="seanceTicketCard"
+                                          :seanceId="seanceId"
+                                          :availableSeats="availableSeats"
+                                          @event-ticket-types-changed="ticketTypes = $event"
+                                          :show="show"
+                        />
+                    </div>
+                    <div v-if="show">
+                        <button href="#" @click="navigateToSeats" class="btn btn-secondary btn-lg">Kinnita piletid
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 </template>
 
@@ -36,12 +44,15 @@
 import PurchaseJourneyCard from "@/components/PurchaseJourneyCard.vue";
 import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 import SeanceTicketCard from "@/components/SeanceTicketCard.vue";
+import AlertDanger from "@/components/alert/AlertDanger.vue";
 
 
 export default {
     data() {
         return {
-            showTicketTypes: false,
+            errorMessage: "",
+            availableSeats: 0,
+            show: false,
             journey: "piletid",
             seanceId: this.$route.params.seanceId,
             ticketTypes: [
@@ -54,22 +65,33 @@ export default {
         }
     },
     name: "ChooseTicketView",
-    components: {PurchaseJourneyCard, SeanceMovieCard, SeanceTicketCard},
+    components: {AlertDanger, PurchaseJourneyCard, SeanceMovieCard, SeanceTicketCard},
     methods: {
         navigateToSeats() {
             const ticketTypes = this.$refs.seanceTicketCard.ticketTypes;
 
             if (!ticketTypes.some(ticketType => ticketType.amount > 0)) {
-                alert("Vali vähemalt üks pilet!");
+                this.setErrorMessage("Vali vähemalt üks pilet!")
                 return;
             }
             sessionStorage.setItem("ticketTypes", JSON.stringify(ticketTypes));
+            //check if total tickets is less than available seats
+            if(ticketTypes.reduce((a, b) => a + b.amount, 0) > this.availableSeats) {
+                this.setErrorMessage("Saalis pole piisavalt vabu kohti!")
+                return;
+            }
+
             this.$router.push({path: '/select-seats/' + this.seanceId});
         },
-        setSeanceIdAndShowTicketTypes(seanceId) {
-            this.seanceId = seanceId;
-            this.showTicketTypes = true;
-        },
+
+        setErrorMessage(message) {
+            this.errorMessage = message;
+            setTimeout(() => {
+                this.errorMessage = "";
+            }, 3500);
+        }
+
+
     },
 
 }
@@ -93,7 +115,7 @@ export default {
     margin-top: 20px;
 }
 
-.btn{
+.btn {
     margin-top: -80px
 }
 

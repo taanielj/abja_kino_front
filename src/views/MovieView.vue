@@ -91,12 +91,12 @@
 import PosterImage from "@/components/PosterImage.vue";
 import router from "@/router";
 import MovieCard from "@/components/MovieCard.vue";
-import SeanceCardSchedule from "@/components/SeanceCardSchedule.vue";
+
 import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 
 export default {
     name: "MovieView",
-    components: {SeanceMovieCard, SeanceCardSchedule, MovieCard, PosterImage},
+    components: {SeanceMovieCard, MovieCard, PosterImage},
     data() {
         return {
             show: false,
@@ -198,10 +198,6 @@ export default {
     background-color: rgba(255, 240, 225, 0.8);
 }
 
-.trailer {
-    aspect-ratio: 16/9;
-    width: 73%;
 
-}
 
 </style>
