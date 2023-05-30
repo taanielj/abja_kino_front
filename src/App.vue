@@ -79,6 +79,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     font-size: 25px;
+    background-image: url('./assets/background_picture.jpg');
 }
 
 #cinema-name {
