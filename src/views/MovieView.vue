@@ -1,59 +1,58 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-lg-start">
-            <div class="row mb-2">
-                <h1 class="text-lg-start">
-                    {{ movieInfo.title }}
-                </h1>
-            </div>
-            <div class="col col-5">
-                <div class="row mb-2 poster-container">
-                    <PosterImage :image-data-base64="image" ref="posterImage"/>
-                </div>
-            </div>
-            <div class="col col-6 text-lg-start">
-                <div class="row mb-2">
-                    <h2>{{ movieInfo.description }}</h2>
-                </div>
-            </div>
+
+    <div class="card">
+        <h1 class="card-header text-black bigger-text bold-text"> {{ movieInfo.title }} </h1>
+        <div class="card-body">
             <div class="row">
-                <div class="col justify-content-lg-start">
-                    <div class="text-lg-start">
-                        <h2>Filmi info</h2>
+                <div class="col col-5">
+                    <div class="row mb-2 poster-container">
+                        <PosterImage :image-data-base64="image" ref="posterImage"/>
                     </div>
-                    <div class="row mb-2">
-                        <div class="text-lg-start">
+                </div>
+                <div class="col col-6 text-lg-start">
+                    <div class="row mb-2 text-black">
+                        <h2>{{ movieInfo.description }}</h2>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="text-lg-start text-black bigger-text text-bold">
+                            Filmi info
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="text-lg-start text-black bigger-text">
                             Žanr: {{ movieInfo.genreName }}
                         </div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="text-lg-start">
+                    <div class="row mb-3">
+                        <div class="text-lg-start text-black bigger-text">
                             Režissöör: {{ movieInfo.director }}
                         </div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="text-lg-start">
+                    <div class="row mb-3">
+                        <div class="text-lg-start text-black bigger-text">
                             Filmi pikkus: {{ runtimeHours }}h {{ runtimeMinutes }}min
                         </div>
                     </div>
                 </div>
-                <div class="col col-8 justify-content-lg-start">
-                    <div class="row mb-2">
-                        <iframe
-                                title="YouTube video with movie trailer"
-                                v-if="showIframe"
-                                width="560"
-                                height="200"
-                                :src="movieInfo.youtubeLink"
-                                allow="autoplay; encrypted-media"
-                                allowfullscreen></iframe>
-                    </div>
-                </div>
+            </div>
+
+            <div class="row mb-2">
+                <iframe
+                        title="YouTube video with movie trailer"
+                        v-if="showIframe"
+                        width="560"
+                        height="600"
+                        :src="movieInfo.youtubeLink"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen></iframe>
             </div>
         </div>
+    </div>
+
+    <div class="card">
         <div v-if="allMovieSeanceIds.length !== 0">
             <div class="row" id="seanceSelector" ref="seanceSelector">
-                <h2>Vali seanss</h2>
+                <h2 class="card-header text-black bigger-text">Vali seanss</h2>
             </div>
             <div class="row">
                 <div v-for="seanceId in allMovieSeanceIds" class="col-md-6 p-2" :key="seanceId">
@@ -64,8 +63,9 @@
         <div v-else class="alert alert-danger" role="alert">
             Ühtegi seanssi ei leitud
         </div>
-
     </div>
+
+
 </template>
 
 <script>
@@ -154,7 +154,7 @@ export default {
 
             if (this.$route.query.scrollTo === 'seances') {
                 this.$nextTick(() => {
-                    this.$refs.seanceSelector.scrollIntoView({ behavior: 'smooth' });
+                    this.$refs.seanceSelector.scrollIntoView({behavior: 'smooth'});
                 });
             }
         }
