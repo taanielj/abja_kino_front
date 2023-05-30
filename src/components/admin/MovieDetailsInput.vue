@@ -1,5 +1,5 @@
 <template>
-    <div class="container text-start">
+    <div class="container*">
         <div class="row mb-3">
             <div class="row mb-2">
                 <div class="col-3">

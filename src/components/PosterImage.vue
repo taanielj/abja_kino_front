@@ -1,6 +1,6 @@
 <template>
     <img v-if="imageDataBase64 !== '' && imageDataBase64 !== null" :src="imageDataBase64" alt="Poster">
-    <img v-else src="../assets/poster_placeholder.jpg" alt="default atm image">
+    <img v-else src="../assets/poster_placeholder.jpg" alt="default poster image">
 </template>
 
 <script>

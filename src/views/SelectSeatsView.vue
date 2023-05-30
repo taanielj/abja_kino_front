@@ -1,16 +1,16 @@
 <template>
-    <div class="title">
-        <div class="row justify-content-center">
-            <h1>
-                {{ roomSeance.roomName }}
-            </h1>
-            <h2>
-                Vali istekoht
-            </h2>
+
+    <div class="row justify-content-center">
+        <div class="col col-6">
+            <PurchaseJourneyCard :journey="journey"/>
         </div>
     </div>
-    <div class="container">
 
+
+    <div class="container">
+        <h1>
+            {{ roomSeance.roomName }}
+        </h1>
         <div class="seats">
             <div class="row" v-for="(row, rowIndex) in organizedSeats" :key="`row-${rowIndex}`">
                 <div v-for="(seat, seatIndex) in row" :key="`seat-${seatIndex}`" class="seat hoverable-link"
@@ -54,15 +54,18 @@
 import router from "@/router";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {getAuthHeader} from "@/utils";
+import PurchaseJourneyCard from "@/components/PurchaseJourneyCard.vue";
 
 export default {
     name: "SelectSeatsView",
     components: {
+        PurchaseJourneyCard,
         FontAwesomeIcon
     },
 
     data() {
         return {
+            journey: "kohad",
             seanceId: this.$route.params.seanceId,
             boughtTickets: 0,
             roomSeance: {
@@ -88,6 +91,7 @@ export default {
                 }
             ],
             ticketTypeNames: [],
+            ticketTypePrices: [],
 
             userTickets: [
                 {
@@ -97,6 +101,7 @@ export default {
                     seanceRoomName: "",
                     seanceId: 0,
                     ticketTypeName: "",
+                    ticketPrice: 0,
                 }
             ],
 
@@ -145,9 +150,12 @@ export default {
                         seanceRoomName: this.roomSeance.roomName,
                         seanceId: Number(this.seanceId),
                         ticketTypeName: "",
+                        ticketPrice: 0
                     }
                     selectedSeat.ticketTypeName = this.ticketTypeNames[0];
+                    selectedSeat.ticketPrice = this.ticketTypePrices[0];
                     this.ticketTypeNames.shift();
+                    this.ticketTypePrices.shift();
 
                     selectedTickets.push(selectedSeat);
 
@@ -171,7 +179,7 @@ export default {
                 this.rowSelectedSeats = new Map();
             }
 
-            if(!seat.available) {
+            if (!seat.available) {
                 return;
             }
 
@@ -212,9 +220,11 @@ export default {
             for (let ticketType of this.ticketTypes) {
                 while (ticketType.amount > 0) {
                     this.ticketTypeNames.push(ticketType.name)
+                    this.ticketTypePrices.push(ticketType.price)
                     ticketType.amount--;
                 }
             }
+
 
 
             this.getRoomSeance();
