@@ -71,8 +71,8 @@
             Vali seanss
         </div>
 
-        <div class="schedule-container">
-            <div v-if="allMovieSeanceIds.length !== 0" class="row justify-content-center">
+        <div v-if="allMovieSeanceIds.length !== 0" class="schedule-container">
+            <div  class="row justify-content-center">
                 <div class="col col-12 p-2">
                     <div class="d-flex flex-wrap">
                         <div v-for="seanceId in allMovieSeanceIds" :key="seanceId" class="col col-md-5 seance-card">

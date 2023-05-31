@@ -103,6 +103,7 @@ export default {
 
                 localStorage.setItem("userId", response.data.userId);
                 localStorage.setItem("roleName", response.data.roleName);
+                localStorage.setItem("jwt", response.data.token);
                 this.$emit('event-update-nav-menu')
                 router.push({name: 'ScheduleRoute'})
                 this.navigateBack()
