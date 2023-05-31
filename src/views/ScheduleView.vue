@@ -3,7 +3,7 @@
     <div v-if="allSeanceIds.length !== 0" class="row justify-content-center">
         <div class="col col-12 p-2">
             <div class="d-flex flex-wrap">
-                <div v-for="seanceId in allSeanceIds" :key="seanceId" class="col col-md-6 seance-card">
+                <div v-for="seanceId in allSeanceIds" :key="seanceId" class="col col-md-5 seance-card">
                     <SeanceMovieCard
                             class="seance-card"
                             :seanceId="seanceId"
@@ -59,13 +59,14 @@ export default {
 
 
 .schedule-container {
-    width: 80vw;
+    width: 90vw;
     margin: 0 auto;
 
 }
 
 .seance-card {
-    margin: 0vh;
+    margin-left: 5vh;
+    margin-top: 1vh;
 }
 
 </style>

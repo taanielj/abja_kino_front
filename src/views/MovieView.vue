@@ -1,6 +1,5 @@
 <template>
     <div v-if="show">
-        <div></div>
         <div class="row justify-content-center">
             <div class="card">
 
@@ -59,32 +58,39 @@
                 </iframe>
             </div>
 
+
+
         </div>
 
 
-        <div v-if="allMovieSeanceIds.length !== 0" class="row justify-content-center">
-            <div class="custom-card title">
-                Vali seanss
-            </div>
 
-            <div class="col col-10 p-2 w-75">
-                <div class="d-flex flex-wrap">
-                    <div v-for="seanceId in allMovieSeanceIds" :key="seanceId" class="col-md-6">
-                        <SeanceMovieCard
-                                class="seance-card"
-                                :seanceId="seanceId"
-                                :journey="journey"
-                        />
+    </div>
+
+    <div class="seances row justify-content-center" ref="seanceSelector">
+        <div v-if="allMovieSeanceIds.length !== 0" class="custom-card title">
+            Vali seanss
+        </div>
+
+        <div class="schedule-container">
+            <div v-if="allMovieSeanceIds.length !== 0" class="row justify-content-center">
+                <div class="col col-12 p-2">
+                    <div class="d-flex flex-wrap">
+                        <div v-for="seanceId in allMovieSeanceIds" :key="seanceId" class="col col-md-5 seance-card">
+                            <SeanceMovieCard
+                                    class="seance-card"
+                                    :seanceId="seanceId"
+                                    :journey="journey"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-else class="alert alert-danger" role="alert">
+
+        <div v-else class="alert alert-danger w-75" role="alert">
             Ühtegi seanssi ei leitud
         </div>
     </div>
-
-
 
 </template>
 
@@ -147,6 +153,13 @@ export default {
             this.$http.get("/api/v1/seance/all-future/" + this.movieId)
                 .then(response => {
                     this.allMovieSeanceIds = response.data;
+
+
+                    if (this.$route.query.scrollTo === 'seances') {
+                        this.$nextTick(() => {
+                            this.$refs.seanceSelector.scrollIntoView({behavior: 'smooth'});
+                        });
+                    }
                 })
                 .catch(error => {
                     console.log(error);
@@ -175,12 +188,6 @@ export default {
             this.getMovie();
             this.getAllMovieSeanceIds();
 
-
-            if (this.$route.query.scrollTo === 'seances') {
-                this.$nextTick(() => {
-                    this.$refs.seanceSelector.scrollIntoView({behavior: 'smooth'});
-                });
-            }
         }
     }
 }
@@ -199,6 +206,26 @@ export default {
     background-color: rgba(255, 240, 225, 0.8);
 }
 
+.seances{
+    min-height: 70vh;
+}
 
+.alert {
+    width: 73%;
+    font-size: 4vh;
+    font-weight: bold;
+    height: 10vh;
+}
+
+.schedule-container {
+    width: 90vw;
+    margin: 0 auto;
+
+}
+
+.seance-card {
+    margin-left: 5vh;
+    margin-top: 1vh;
+}
 
 </style>
