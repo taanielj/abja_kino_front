@@ -1,18 +1,22 @@
 <template>
 <div v-if="show">
-    <div class="d-flex flex-column bd-highlight  portrait-card mb-3">
-        <div class="p-3 ">
+    <div class="d-flex flex-column bd-highlight portrait-card mb-3">
+        <div class="row row-poster p-2 ">
             <PosterImage class="portrait-card-picture" :image-data-base64="image" ref="posterImage"/>
 
         </div>
-        <div class="p-1">
-            <h1 class="portrait-card-title justify-content-start hoverable-link">
+        <div class="row row-text  ratio-1x1">
+            <div class="portrait-card-title justify-content-start hoverable-link">
                 <a @click="gotoMovie(movieId)">{{ movieInfo.title }}</a>
-            </h1>
-            <p class="card-text">
-                {{ formattedGenreName }}
-            </p></div>
-        <div class="p-2 bd-highlight">
+            </div>
+            <div class=" portrait-card-text">
+                {{ formattedGenreName }} | {{ runtimeHours }}h {{ runtimeMinutes }}min
+            </div>
+            <div class="portrait-card-text" >
+                {{ movieInfo.director }}
+            </div>
+        </div>
+        <div class="row p-2 bd-highlight">
             <div class=" btn-group-vertical d-flex">
                 <div class="row">
                     <button type="button" class="btn-outline-secondary custom-button-wide me-2" @click="">Vaata treilerit
@@ -29,36 +33,6 @@
         </div>
     </div>
     </div>
-
-<!--    <div v-if="movieInfo.id !==0" class="d-flex portrait-card" >-->
-<!--        <div class="card mb-3">-->
-<!--            <div class="row ">-->
-<!--                <div class="card-body">-->
-<!--                    <h1 class="card-title hoverable-link">-->
-<!--                        <a @click="gotoMovie(movieId)">{{ movieInfo.title }}</a>-->
-<!--                    </h1>-->
-<!--                    <p class="card-text">-->
-<!--                        {{ formattedGenreName }}-->
-<!--                    </p>-->
-<!--                    <div class=" btn-group-vertical d-flex">-->
-<!--                        <div class="row">-->
-<!--                            <button type="button" class="btn-outline-secondary custom-button-wide me-2" @click="">Vaata treilerit-->
-<!--                            </button>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="row">-->
-<!--                            <button type="button" class="btn btn-outline-secondary custom-button-wide" @click="gotoSeanceSection(movieId)">Vali seanss-->
-<!--                            </button>-->
-<!--                        </div>-->
-
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        </div>-->
-
-
 </template>
 
 <script>
@@ -162,35 +136,39 @@ export default defineComponent({
     object-fit: contain;
     height: 35vh !important;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
+    border-radius: 1vh;
+    padding: 1vh;
+    margin-bottom: 1vh;
+    aspect-ratio: 0.5;
+
 }
 .portrait-card{
     width: 40vh;
-    height: 80vh;
-    margin: 0 auto;
+    height: 70vh;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     text-align: start;
     background-color: rgba(255, 240, 225, 0.8);
-
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
     border-radius: 10px;
     padding: 10px;
 }
 .portrait-card-title{
     padding-top: 1vh;
-    font-size: 2rem;
+
+    font-size: 2vh;
     font-weight: bold;
     text-align: left;
 }
+.portrait-card-text {
+    font-size: 1.5vh;
+    text-align: left;
+    aspect-ratio: auto;
+}
 
 .custom-button-wide{
-    margin-top: 1vh;
-    margin-left: 2vh;
-    margin-right: 2vh;
+    margin: 0.5vh;
+    aspect-ratio: 1/1;
     width: 20vh;
     height: 5vh;
     font-size: 2vh;
@@ -200,5 +178,15 @@ export default defineComponent({
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
     justify-content: center;
+}
+.row-poster{
+    height: 37vh ;
+    width: 100%;
+    aspect-ratio: 1;
+}
+.row-text{
+    height: 18vh ;
+    width: 35vh;
+    aspect-ratio: 0.5;
 }
 </style>
