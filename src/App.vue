@@ -1,10 +1,10 @@
 <template id="app">
     <nav>
         <div>
-            <h1 id="cinema-name">
+            <div id="cinema-name">
                 Abja-Paluoja KINO
                 <font-awesome-icon :icon="['fa-light', 'fa-camera-movie']"/>
-            </h1>
+            </div>
             <router-link to="/">Kava</router-link>
             |
             <router-link to="/movies">Filmid</router-link>
@@ -75,7 +75,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    font-size: 25px;
+    font-size: 2.5vh;
     background-image: url('./assets/background_picture.jpg');
     background-position: center;
     background-attachment: fixed;
@@ -89,18 +89,20 @@ export default {
 #cinema-name {
     font-size: 3vw;
     font-weight: bold;
+    padding: 0vh;
 }
 
 nav {
     position: fixed;
     background-color: rgba(255, 240, 225, 1);
-    padding: 2vw;
+    padding: 0vh;
     font-size: 2vw;
     width: 100%;
     transition: top 0.3s;
     z-index: 9999;
     box-shadow: 0 0.2vw 0.8vw rgba(0, 0, 0, 0.2); /* changed from px to vw */
-    height: 22vh;
+    height: 18vh;
+    margin: 0vh;
 }
 
 nav a {
@@ -120,5 +122,9 @@ nav a.router-link-exact-active {
     nav {
         height: auto;
     }
+}
+
+router-link{
+    padding: 0vh;
 }
 </style>

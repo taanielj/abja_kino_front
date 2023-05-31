@@ -41,7 +41,7 @@
                     </button>
                     <button v-if="journey === 'schedule' || journey === 'movie'"
                             type="button"
-                            class="btn btn-outline-secondary custom-button"
+                            class="custom-button"
                             @click="goToTickets"
                     >
                         Vali seanss
