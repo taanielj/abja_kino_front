@@ -1,9 +1,11 @@
 <template>
+    <div class="col col-12 justify-content-center">
     <div class="d-inline-flex flex-wrap">
         <div v-for="movieId in allMovieIds" class="m-1">
             <MovieCard :movie-id="movieId" :key="movieId"/>
         </div>
 
+    </div>
     </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
 
-    <div v-if="show">
+    <div v-if="show" class="landscape-card">
 
 
         <TrailerModal
@@ -179,7 +179,10 @@ export default {
     font-size: 3.5vh;
     height: 10vh;
 }
-
+.landscape-card{
+    width: 80vh;
+    display: flex;
+}
 </style>
 
 
