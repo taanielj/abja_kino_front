@@ -1,9 +1,9 @@
 <template>
-
+<div class="schedule-container">
     <div v-if="allSeanceIds.length !== 0" class="row justify-content-center">
-        <div class="col col-12 p-2 w-75">
+        <div class="col col-12 p-2">
             <div class="d-flex flex-wrap">
-                <div v-for="seanceId in allSeanceIds" :key="seanceId" class="col-md-6">
+                <div v-for="seanceId in allSeanceIds" :key="seanceId" class="col-6">
                     <SeanceMovieCard
                             class="seance-card"
                             :seanceId="seanceId"
@@ -13,6 +13,8 @@
             </div>
         </div>
     </div>
+</div>
+
 
 
 </template>
@@ -52,4 +54,19 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.seance-card {
+    margin: 2vh;
+    width: 90%;
+}
+
+.schedule-container {
+    width: 80vw;
+    margin: 0 auto;
+
+}
+
+
+</style>
 

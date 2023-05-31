@@ -9,6 +9,7 @@
         />
 
         <div class="d-flex flex-row custom-card">
+
             <div class="col col-4">
                 <PosterImage
                         class="custom-image-card hoverable-link"
@@ -16,6 +17,7 @@
                         ref="posterImage"
                         @click="goToMovie"/>
             </div>
+
             <div class="col col-6">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
@@ -48,9 +50,12 @@
                     </button>
                 </div>
             </div>
-            <div class="free-seats col col-2">
-                Vabu kohti: {{ seanceInfo.availableSeats }}/{{ seanceInfo.totalSeats }}
+
+            <div class="free-seats col col-1">
+                Kohti: {{ seanceInfo.availableSeats }}
+                Vaba: {{ seanceInfo.totalSeats }}
             </div>
+
         </div>
 
     </div>
@@ -167,9 +172,11 @@ export default {
 <style scoped>
 .free-seats {
     margin-top: 1vh;
+    margin-right: 0.8vh;
 }
 
 .card-title{
+    font-size: 3.5vh;
     height: 10vh;
 }
 
