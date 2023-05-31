@@ -20,7 +20,7 @@
             </td>
             <td>
                 <input v-model="ticketType.price" type="number" v-if="ticketType.editing" class="w-50">
-                <span v-else>{{ ticketType.price }}</span>
+                <span v-else>{{ ticketType.formattedPrice }}</span>
             </td>
             <td>
                 <span v-if="!ticketType.editing">
@@ -87,6 +87,8 @@ export default {
                     id: 0,
                     name: "",
                     price: 0,
+                    formattedPrice: "",
+                    gfformattedPrice: "",
                     editing: false,
                 }
             ],
@@ -104,6 +106,9 @@ export default {
             this.$http.get("/api/v1/ticket/type/all", {headers: getAuthHeader()})
                     .then(response => {
                         this.ticketTypes = response.data
+                        this.ticketTypes.forEach(ticketType => {
+                            ticketType.formattedPrice = ticketType.price.toFixed(2) + " €";
+                        })
                     })
                     .catch(error => {
                         this.handleTicketTypeError(error);

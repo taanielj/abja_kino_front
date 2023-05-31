@@ -56,10 +56,7 @@ export default {
 </script>
 
 <style scoped>
-.seance-card {
-    margin: 2vh;
-    width: 90%;
-}
+
 
 .schedule-container {
     width: 80vw;
