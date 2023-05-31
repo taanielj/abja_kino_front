@@ -47,12 +47,12 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="card trailer">
+            <div class="trailer card">
                 <iframe class="card-body"
                         title="YouTube video with movie trailer"
                         v-if="showIframe"
                         :src="movieInfo.youtubeLink"
-                        allow="autoplay; encrypted-media"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen>
 
                 </iframe>

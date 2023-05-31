@@ -1,6 +1,8 @@
 <template>
     <div class="container text-center">
-        <AlertDanger :message="errorMessage"/>
+
+        <AlertModal :message="errorMessage" @event-emit-close-alert-modal="clearErrorMessage"/>
+
         <div class="row justify-content-center">
             <div class="col col-9">
 
@@ -50,10 +52,12 @@ import SeanceTable from "@/components/admin/table/SeanceTable.vue";
 import RoomTable from "@/components/admin/table/RoomTable.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import UserTable from "@/components/admin/table/UserTable.vue";
+import AlertModal from "@/components/modal/AlertModal.vue";
 
 export default {
 
     components: {
+        AlertModal,
         UserTable,
         AlertDanger,
         RoomTable,
