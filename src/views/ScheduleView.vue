@@ -1,7 +1,7 @@
 <template>
 
     <div v-if="allSeanceIds.length !== 0" class="row justify-content-center">
-        <div class="col col-10 p-2 w-75">
+        <div class="col col-12 p-2 w-75">
             <div class="d-flex flex-wrap">
                 <div v-for="seanceId in allSeanceIds" :key="seanceId" class="col-md-6">
                     <SeanceMovieCard
@@ -14,18 +14,19 @@
         </div>
     </div>
 
+
 </template>
 
 <script>
 
 
 import MovieCard from "@/components/MovieCard.vue";
-import SeanceCardSchedule from "@/components/SeanceCardSchedule.vue";
 import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
+import TrailerModal from "@/components/modal/TrailerModal.vue";
 
 export default {
     name: 'ScheduleView',
-    components: {SeanceMovieCard, SeanceCardSchedule, MovieCard},
+    components: {TrailerModal, SeanceMovieCard, MovieCard},
     data() {
 
         return {
@@ -51,5 +52,4 @@ export default {
 
 }
 </script>
-
 

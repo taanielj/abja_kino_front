@@ -1,12 +1,29 @@
 <template>
+
     <div v-if="show">
+
+
+        <TrailerModal
+                ref="trailerModalRef"
+                :youtube-link="seanceInfo.movieYoutubeLink"
+        />
+
         <div class="d-flex flex-row custom-card">
-            <div>
-                <PosterImage class="custom-image-card" :image-data-base64="seanceInfo.moviePosterImage" ref="posterImage"/>
+            <div class="col col-4">
+                <PosterImage
+                        class="custom-image-card hoverable-link"
+                        :image-data-base64="seanceInfo.moviePosterImage"
+                        ref="posterImage"
+                        @click="goToMovie"/>
             </div>
-            <div>
+            <div class="col col-6">
                 <div class="card-body">
-                    <h1 class="card-title">{{ seanceInfo.movieTitle }}</h1>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h1 @click="goToMovie" class="card-title hoverable-link">{{ seanceInfo.movieTitle }}</h1>
+                        </div>
+                    </div>
+
                     <p class="card-text"><small class="text-muted">{{ formattedGenreName }} |
                         {{ runtimeHours }}h {{ runtimeMinutes }}min</small></p>
                     <p class="card-text">{{ formatDate(seanceInfo.dateTime) }}| Saal: {{ seanceInfo.roomName }}</p>
@@ -17,9 +34,9 @@
                     <button v-if="journey === 'schedule'"
                             type="button"
                             class="btn btn-outline-secondary custom-button me-2"
-                            @click=""
+                            @click="openTrailerModal"
                     >
-                        Vaata Treilerit
+                        <font-awesome-icon :icon="['fass', 'trailer']" /> Treiler
                     </button>
                     <button v-if="journey === 'schedule' || journey === 'movie'"
                             type="button"
@@ -31,20 +48,27 @@
                     </button>
                 </div>
             </div>
+            <div class="free-seats col col-2">
+                Vabu kohti: {{ seanceInfo.availableSeats }}/{{ seanceInfo.totalSeats }}
+            </div>
         </div>
+
     </div>
+
+
 
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+
 import ScheduleView from "@/views/ScheduleView.vue";
 import PosterImage from "@/components/PosterImage.vue";
 import router from "@/router";
+import TrailerModal from "@/components/modal/TrailerModal.vue";
 
-export default defineComponent({
+export default {
     name: "SeanceMovieCard",
-    components: {ScheduleView, PosterImage},
+    components: {TrailerModal, ScheduleView, PosterImage},
     props:{
         seanceId: 0,
         journey: ""
@@ -64,6 +88,9 @@ export default defineComponent({
                 subtitles: "",
                 language: "",
                 roomName: "",
+                movieYoutubeLink: "",
+                availableSeats: 0,
+                totalSeats: 0,
 
             },
             runtimeHours: 0,
@@ -77,6 +104,15 @@ export default defineComponent({
     },
 
     methods: {
+        openTrailerModal() {
+            this.$refs.trailerModalRef.openModal();
+        },
+
+        goToMovie(){
+            router.push({path: `/movie/${this.seanceInfo.movieId}`});
+        },
+
+
         getSeanceInfo() {
             this.$http.get("/api/v1/seance/" + this.seanceId)
                 .then(response => {
@@ -84,6 +120,7 @@ export default defineComponent({
                     this.runtimeToHoursMinutes();
                     this.show = true;
                     this.$emit('event-seance-loaded', this.seanceId);
+                    this.$emit('event-available-seats', this.seanceInfo.availableSeats);
                 })
                 .catch(() => {
                     this.errorMessage = "Seansi andmed puuduvad";
@@ -124,7 +161,18 @@ export default defineComponent({
 
 
     }
-})
+}
 </script>
+
+<style scoped>
+.free-seats {
+    margin-top: 1vh;
+}
+
+.card-title{
+    height: 10vh;
+}
+
+</style>
 
 

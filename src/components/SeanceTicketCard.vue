@@ -24,7 +24,8 @@ export default defineComponent({
     name: "SeanceTicketCard",
     components: {ScheduleView, PosterImage},
     props: {
-        show: false
+        show: false,
+        availableSeats: 0,
     },
     data() {
         return {
