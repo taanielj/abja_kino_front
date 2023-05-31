@@ -1,5 +1,9 @@
 <template>
     <div  v-if="show" class="d-flex flex-column bd-highlight portrait-card mb-3">
+        <TrailerModal
+                ref="trailerModalRef"
+                :youtube-link="movieInfo.youtubeLink"
+        />
         <div class="row row-poster p-2 hoverable-link" @click="gotoMovie(movieId)">
             <PosterImage class="portrait-card-picture" :image-data-base64="image" ref="posterImage"/>
 
@@ -22,6 +26,7 @@
                         type="button"
                         class="btn-outline-secondary custom-button-wide me-2"
                         @click="openTrailerModal">
+                        <font-awesome-icon :icon="['fass', 'trailer']"/>
                         Vaata treilerit
                     </button>
                 </div>
@@ -71,7 +76,8 @@ export default defineComponent({
                 posterImage: "",
                 director: "",
                 description: "",
-                runtime: Number //minutes
+                runtime: Number,
+                youtubeLink: ""
             },
             image: "",
             runtimeHours: 0,
@@ -86,7 +92,7 @@ export default defineComponent({
     },
     methods: {
         openTrailerModal() {
-            this.$refs.trailerModal.openModal();
+            this.$refs.trailerModalRef.openModal()
         },
         gotoMovie(id) {
             router.push({name: 'MovieRoute', params: {id}});

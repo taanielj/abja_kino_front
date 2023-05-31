@@ -2,7 +2,6 @@
     <div v-if="isOpen" class="modal fade show d-block" tabindex="-1" role="dialog" @click="closeModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <button type="button" class="btn-close btn-close-white" aria-label="Close" @click="closeModal"></button>
                 <div class="trailer">
                     <iframe
                             title="YouTube video with movie trailer"
@@ -51,11 +50,6 @@ export default {
     left: 15%;
     top: 22%;
     z-index: 20;
-}
-
-button {
-    position: fixed;
-    left: 20%;
 }
 
 iframe {
