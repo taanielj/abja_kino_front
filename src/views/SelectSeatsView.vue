@@ -65,7 +65,7 @@ export default {
 
     data() {
         return {
-            journey: "kohad",
+            journey: "seats",
             seanceId: this.$route.params.seanceId,
             boughtTickets: 0,
             roomSeance: {

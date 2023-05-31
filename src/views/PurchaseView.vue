@@ -64,7 +64,7 @@ export default {
         return {
             formattedSum: "",
             showRest: false,
-            journey: "ostukorv",
+            journey: "purchase",
             seanceId: 0,
             userTickets: [
                 {

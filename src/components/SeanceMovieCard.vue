@@ -13,7 +13,8 @@
 
 
             <PosterImage
-                    class="custom-image hoverable-link"
+                    class="custom-image"
+                    :class="{'hoverable-link': linkActive}"
                     :image-data-base64="seanceInfo.moviePosterImage"
                     ref="posterImage"
                     @click="goToMovie"
@@ -22,7 +23,10 @@
 
             <div class="d-flex flex-column seance-info align-items-stretch">
                 <div>
-                    <div @click="goToMovie" class="card-title hoverable-link">
+                    <div @click="goToMovie"
+                         class="card-title"
+                         :class="{'hoverable-link': linkActive}"
+                    >
                         {{ seanceInfo.movieTitle }}
                     </div>
                 </div>
@@ -39,7 +43,7 @@
                         <font-awesome-icon :icon="['fass', 'trailer']"/>
                         Treiler
                     </button>
-                    <button v-if="journey === 'schedule' || journey === 'movie'"
+                    <button v-if="(journey === 'schedule' || journey === 'movie') && seanceInfo.availableSeats > 0"
                             type="button"
                             class="custom-button"
                             @click="goToTickets"
@@ -80,6 +84,7 @@ export default {
 
     data() {
         return {
+            linkActive: false,
             errorMessage: "",
             show: false,
             seanceInfo: {
@@ -125,6 +130,9 @@ export default {
                     this.show = true;
                     this.$emit('event-seance-loaded', this.seanceId);
                     this.$emit('event-available-seats', this.seanceInfo.availableSeats);
+                    if(this.journey === 'tickets' || this.journey === 'schedule') {
+                        this.linkActive = true;
+                    }
                 })
                 .catch(() => {
                     this.errorMessage = "Seansi andmed puuduvad";
@@ -170,9 +178,7 @@ export default {
 
 <style scoped>
 
-.card-text {
-    font-size: 2.5vh;
-}
+
 
 .card-title {
     font-size: 3.5vh;

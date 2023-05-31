@@ -10,6 +10,7 @@
                     <div class="col seance-card">
                         <SeanceMovieCard
                                 :seanceId="seanceId"
+                                :journey="journey"
                                 @event-seance-loaded="show = true"
                                 @event-available-seats="availableSeats = $event"
                                 @event-seance-id="seanceId = $event"
@@ -53,7 +54,7 @@ export default {
             errorMessage: "",
             availableSeats: 0,
             show: false,
-            journey: "piletid",
+            journey: "tickets",
             seanceId: this.$route.params.seanceId,
             ticketTypes: [
                 {

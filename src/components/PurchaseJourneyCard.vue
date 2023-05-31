@@ -1,19 +1,19 @@
 <template>
     <div class="purchase-journey ">
         <div class= "spaced-buttons">
-            <span v-if="journey === 'piletid'" class="journey-button journey-active">
+            <span v-if="journey === 'tickets'" class="journey-button journey-active">
                 Piletid
             </span>
             <span v-else class="journey-button journey-inactive">
                 Piletid
             </span>
-            <span v-if="journey === 'kohad'" class="journey-button journey-active">
+            <span v-if="journey === 'seats'" class="journey-button journey-active">
                 Kohad
             </span>
             <span v-else class="journey-button journey-inactive">
                 Kohad
             </span>
-            <span v-if="journey === 'ostukorv'" class="journey-button journey-active">
+            <span v-if="journey === 'purchase'" class="journey-button journey-active">
                 Kinnita
             </span>
             <span v-else class="journey-button journey-inactive">

@@ -87,6 +87,10 @@
             </div>
         </div>
 
+        <div v-else class="custom-card title">
+            Filmil ei ole seansse
+        </div>
+
     </div>
 
 </template>
@@ -207,13 +211,6 @@ export default {
     min-height: 70vh;
 }
 
-.alert {
-    width: 73%;
-    font-size: 4vh;
-    font-weight: bold;
-    height: 10vh;
-}
-
 .schedule-container {
     width: 90vw;
     margin: 0 auto;
@@ -224,5 +221,6 @@ export default {
     margin-left: 5vh;
     margin-top: 1vh;
 }
+
 
 </style>

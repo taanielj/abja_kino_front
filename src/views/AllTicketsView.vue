@@ -26,16 +26,21 @@
                     </div>
                 </div>
             </div>
-            <div v-if="expiredTicketIds.length > 0" class="col col-md-auto custom-card">
-                <div class="card border-success mb-3" style="max-width: 80rem;">
+            <div v-if="expiredTicketIds.length > 0" class="col col-md-auto">
+                <div class="card mb-3 custom-card" style="max-width: 80rem;">
                     <div class="card-header bg-secondary border-success">
-                        <h2 class="card-title text-black">Kasutatud piletid</h2>
+                        <h2 class="card-title text-center text-black">Vanad piletid</h2>
                     </div>
-                    <div class="d-inline-flex flex-wrap">
-                        <div class="card-body text-success">
+                    <div class="card-body text-success">
+                        <div class="d-inline-flex flex-wrap">
                             <div v-for="tickedId in expiredTicketIds" class="m-1">
                                 <TicketCard :ticketId="tickedId" :key="tickedId"/>
                             </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-success">
+                        <div class="d-grid gap-2 text-bold">
+                            <button class="btn btn-primary" type="button">Prindi kõik</button>
                         </div>
                     </div>
                 </div>

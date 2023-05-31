@@ -3,7 +3,7 @@
 
         <AlertModal
                 :message="errorMessage"
-                @event-emit-close-alert-modal="clearErrorMessage"
+
                 ref="alertModalRef"
         />
 
@@ -33,7 +33,10 @@
                     />
                 </div>
                 <div class="row admin-table">
-                    <RoomTable @room-table-error="openAlertModal" @room-table-success="refreshTables"/>
+                    <RoomTable @room-table-error="openAlertModal"
+                               @room-table-success="refreshTables"
+
+                    />
                 </div>
                 <div class="row justify-content-center">
                     <div class="col admin-table">
@@ -87,6 +90,7 @@ export default {
     methods: {
         openAlertModal(errorMessage) {
             this.errorMessage = errorMessage;
+            this.refreshTables();
             this.$refs.alertModalRef.openModal();
 
         },
