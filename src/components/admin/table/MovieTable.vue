@@ -24,7 +24,7 @@
                 <font-awesome-icon @click="navigateToEditMovie(movie.id)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
                 <font-awesome-icon @click="openDeleteMovieModal(movie.id, movie.title)" class="hoverable-link"
-                                   :icon="['fas', 'xmark']"/>
+                                   :icon="['fas', 'trash']"/>
             </td>
         </tr>
         <tr>

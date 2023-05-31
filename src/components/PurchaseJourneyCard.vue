@@ -1,5 +1,5 @@
 <template>
-    <div class="purchase-journey">
+    <div class="purchase-journey ">
         <div class= "spaced-buttons">
             <span v-if="journey === 'piletid'" class="journey-button journey-active">
                 Piletid
@@ -50,6 +50,7 @@ export default defineComponent({
     width: 100%;
     box-shadow: 0 0 1vh 0 rgba(0, 0, 0, 0.5);
     background-color: rgba(255, 240, 225, 0.8);
+    justify-content: center;
 }
 
 .journey-button {

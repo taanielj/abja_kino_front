@@ -1,6 +1,5 @@
 <template>
-<div v-if="show">
-    <div class="d-flex flex-column bd-highlight portrait-card mb-3">
+    <div  v-if="show" class="d-flex flex-column bd-highlight portrait-card mb-3">
         <div class="row row-poster p-2 ">
             <PosterImage class="portrait-card-picture" :image-data-base64="image" ref="posterImage"/>
 
@@ -19,19 +18,25 @@
         <div class="row p-2 bd-highlight">
             <div class=" btn-group-vertical d-flex">
                 <div class="row">
-                    <button type="button" class="btn-outline-secondary custom-button-wide me-2" @click="">Vaata treilerit
+                    <button
+                        type="button"
+                        class="btn-outline-secondary custom-button-wide me-2"
+                        @click="openTrailerModal">
+                        Vaata treilerit
                     </button>
                 </div>
 
 
                 <div class="row">
-                    <button type="button" class="btn btn-outline-secondary custom-button-wide" @click="gotoSeanceSection(movieId)">Vali seanss
+                    <button type="button"
+                            class="btn btn-outline-secondary custom-button-wide"
+                            @click="gotoSeanceSection(movieId)">
+                        Vali seanss
                     </button>
                 </div>
 
             </div>
         </div>
-    </div>
     </div>
 </template>
 
@@ -40,10 +45,11 @@ import {defineComponent} from 'vue'
 import PosterImage from "@/components/PosterImage.vue";
 import router from "@/router";
 import MovieView from "@/views/MovieView.vue";
+import TrailerModal from "@/components/modal/TrailerModal.vue";
 
 export default defineComponent({
     name: "MovieCard",
-    components: {MovieView, PosterImage},
+    components: {MovieView, PosterImage, TrailerModal},
     props: {
         movieId: {
             type: Number,
@@ -56,7 +62,7 @@ export default defineComponent({
     },
     data() {
         return {
-            show: true,
+            show: false,
             movieInfo: {
                 id: 0,
                 title: "",
@@ -79,6 +85,9 @@ export default defineComponent({
         },
     },
     methods: {
+        openTrailerModal() {
+            this.$refs.trailerModal.openModal();
+        },
         gotoMovie(id) {
             router.push({name: 'MovieRoute', params: {id}});
         },
@@ -108,6 +117,8 @@ export default defineComponent({
             this.$http.get("/api/v1/genre/" + this.movieInfo.genreId)
                 .then(response => {
                     this.movieInfo.genreName = response.data;
+                    this.show = true;
+
                 })
                 .catch(() => {
                     router.push({path: "/error"})
@@ -135,7 +146,7 @@ export default defineComponent({
 .portrait-card-picture {
     object-fit: contain;
     height: 35vh !important;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 0 1vh 0 rgba(0,0,0,0.5);
     border-radius: 1vh;
     padding: 1vh;
     margin-bottom: 1vh;
@@ -149,39 +160,47 @@ export default defineComponent({
     align-items: center;
     text-align: start;
     background-color: rgba(255, 240, 225, 0.8);
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
-    border-radius: 10px;
-    padding: 10px;
+    box-shadow: 0 0 1vh 0 rgba(0,0,0,0.5);
+    border-radius: 1vh;
+    padding: 1vh;
 }
 .portrait-card-title{
     padding-top: 1vh;
-
-    font-size: 2vh;
+    font-size: 3.5vh;
     font-weight: bold;
     text-align: left;
 }
 .portrait-card-text {
-    font-size: 1.5vh;
+    font-size: 2vh;
     text-align: left;
     aspect-ratio: auto;
 }
 
 .custom-button-wide{
-    margin: 0.5vh;
-    aspect-ratio: 1/1;
-    width: 20vh;
+    margin: 1vh;
+    width: 30vh;
     height: 5vh;
+    padding: 0.1vh;
+    aspect-ratio: 0.5;
     font-size: 2vh;
     border-radius: 0.5vh;
     border-color: #000000;
     color: #000000;
     background-color: rgba(255, 240, 225, 0.8);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1vh 0 rgba(132, 27, 45, 0.5);
     justify-content: center;
+
+}
+.custom-button-wide:hover{
+    background-color: rgba(132, 27, 45, 0.8);
+    box-shadow: 0 0 1vh 0 rgba(132, 27, 45, 0.5);
+    color: #000000;
+    border-color: #000000;
+    transition: all 0.4s ease-in-out;
 }
 .row-poster{
     height: 37vh ;
-    width: 100%;
+    width: 29vh;
     aspect-ratio: 1;
 }
 .row-text{

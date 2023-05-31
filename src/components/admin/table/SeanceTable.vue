@@ -23,7 +23,7 @@
                 <font-awesome-icon @click="navigateToEditSeance(seance.id)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
                 <font-awesome-icon @click="openDeleteSeanceModal(seance.id)" class="hoverable-link"
-                                   :icon="['fas', 'xmark']"/>
+                                   :icon="['fas', 'trash']"/>
             </td>
         </tr>
         <tr>

@@ -41,7 +41,7 @@
                     </button>
                     <button v-if="journey === 'schedule' || journey === 'movie'"
                             type="button"
-                            class="btn btn-outline-secondary custom-button"
+                            class="custom-button"
                             @click="goToTickets"
                     >
                         Vali seanss
@@ -188,7 +188,6 @@ export default {
     border-radius: 0.5vh;
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-    margin: 1vh;
 }
 
 .custom-image {
