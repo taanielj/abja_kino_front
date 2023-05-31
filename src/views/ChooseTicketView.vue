@@ -2,12 +2,12 @@
     <div class="container">
 
         <div class="row ">
-            <div class="col col-7 d-flex ">
-                <div class="row">
-                    <div class="row ">
+            <div class="col col-7 d-flex justify-content-center">
+                <div class="col">
+                    <div class="col">
                         <PurchaseJourneyCard :journey="journey"></PurchaseJourneyCard>
                     </div>
-                    <div class="row seance-card">
+                    <div class="col seance-card">
                         <SeanceMovieCard
                                 :seanceId="seanceId"
                                 @event-seance-loaded="show = true"
@@ -16,15 +16,15 @@
                         />
                     </div>
 
+                    <AlertDanger style="margin: 1vh; max-width: 100%" :message="errorMessage"/>
 
-                        <AlertDanger style="margin: 2vh; max-width: 100%" :message="errorMessage"/>
-
-                    <div class="row mt-md-3">
-                        <SeanceTicketCard ref="seanceTicketCard"
-                                          :seanceId="seanceId"
-                                          :availableSeats="availableSeats"
-                                          @event-ticket-types-changed="ticketTypes = $event"
-                                          :show="show"
+                    <div class="col mt-md-3">
+                        <SeanceTicketCard
+                                ref="seanceTicketCard"
+                                :seanceId="seanceId"
+                                :availableSeats="availableSeats"
+                                @event-ticket-types-changed="ticketTypes = $event"
+                                :show="show"
                         />
                     </div>
                     <div v-if="show">
@@ -76,7 +76,7 @@ export default {
             }
             sessionStorage.setItem("ticketTypes", JSON.stringify(ticketTypes));
             //check if total tickets is less than available seats
-            if(ticketTypes.reduce((a, b) => a + b.amount, 0) > this.availableSeats) {
+            if (ticketTypes.reduce((a, b) => a + b.amount, 0) > this.availableSeats) {
                 this.setErrorMessage("Saalis pole piisavalt vabu kohti!")
                 return;
             }
@@ -113,6 +113,7 @@ export default {
 
 .seance-card {
     margin-top: 20px;
+    width: 100%;
 }
 
 .btn {

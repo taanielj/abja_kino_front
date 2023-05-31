@@ -9,38 +9,37 @@
     <div class="container">
         <div class="row">
             <div class="col col-6 justify-content-center">
-                <div class="row">
-                    <div class="row">
+                <div class="col">
+                    <div class="col">
                         <PurchaseJourneyCard :journey="journey"></PurchaseJourneyCard>
                     </div>
-                    <div class="row seance-card ">
+                    <div class="col seance-card">
                         <SeanceMovieCard
                                 :seanceId="seanceId"
                                 @event-seance-loaded="loadRestOfPage($event)"
                         />
                     </div>
-                    <div class="row">
-                        <PurchasedTickets
+                    <PurchasedTickets
                             v-if="showRest"
                             @tickets-loaded="formattedSum = $event"
-                        />
+                    />
+                    <div class="col col-6 mt-3 mb-xxl-5">
+                        <div class="row" v-if="showRest">
+                            <div class="col">
+                                <button href="#" @click="cancelPurchase" class="custom-button">
+                                    Tühista
+                                </button>
+
+                            </div>
+                            <div class="col">
+                                <button href="#" @click="openConfirmModal" class="custom-button">
+                                    Osta
+                                </button>
+
+                            </div>
+                        </div>
                     </div>
 
-
-                    <div class="row mt-4" v-if="showRest">
-                        <div class="col">
-                            <button href="#" @click="cancelPurchase" class="btn btn-secondary btn-lg me-1">
-                                Tühista
-                            </button>
-
-                        </div>
-                        <div class="col">
-                            <button href="#" @click="openConfirmModal" class="btn btn-primary btn-lg">
-                                Osta
-                            </button>
-
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -120,7 +119,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .col-6 {
     width: 50%;
     margin: 0 auto;
@@ -129,8 +128,20 @@ export default {
     border-left: none;
 }
 
-.btn-lg {
-    font-size: 20px;
-    padding: 10px 20px;
+
+
+.seance-card{
+    width: 100%;
+    margin-bottom: 5vh;
 }
+
+.custom-button{
+    border: transparent;
+    font-size: 2.6vh;
+
+
+}
+
+
+
 </style>

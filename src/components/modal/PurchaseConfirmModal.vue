@@ -7,7 +7,7 @@
             Summa: {{formattedSum}}
         </template>
         <template #footer>
-            <button @click="confirmPurchase" type="button" class="btn btn-primary">Jah</button>
+            <button @click="confirmPurchase" type="button" class="custom-button">Jah</button>
         </template>
     </Modal>
 </template>

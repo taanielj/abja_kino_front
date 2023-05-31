@@ -8,7 +8,7 @@
                 Te ei ole ostnud ühtegi piletit
             </div>
             <div v-if="activeTicketIds.length > 0" class="col col-md-auto">
-                <div class="card border-success mb-3" style="max-width: 80rem;">
+                <div class="card mb-3 custom-card" style="max-width: 80rem;">
                     <div class="card-header bg-warning border-success">
                         <h2 class="card-title text-center text-black">Aktiivsed piletid</h2>
                     </div>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="expiredTicketIds.length > 0" class="col col-md-auto">
+            <div v-if="expiredTicketIds.length > 0" class="col col-md-auto custom-card">
                 <div class="card border-success mb-3" style="max-width: 80rem;">
                     <div class="card-header bg-secondary border-success">
                         <h2 class="card-title text-black">Kasutatud piletid</h2>
@@ -93,4 +93,13 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+.custom-card {
+    margin: 2vh;
+    padding: 2vh;
+}
+
+</style>
 

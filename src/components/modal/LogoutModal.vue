@@ -1,5 +1,5 @@
 <template>
-    <Modal ref="modalRef" close-button-name="Ei">
+    <Modal ref="modalRef" close-button-name="Ei" @click.self="closeOnClickOutside">
         <template #header>
             Logi välja
         </template>
@@ -16,6 +16,7 @@
 <script>
 import Modal from "@/components/modal/Modal.vue";
 import router from "@/router";
+import {getCurrentInstance} from "vue";
 
 export default {
     name: 'LogoutModal',
@@ -27,6 +28,14 @@ export default {
             this.$emit('event-update-nav-menu')
             router.push({name: 'ScheduleRoute'})
         },
+        closeOnClickOutside() {
+            this.$refs.modalRef.closeModal()
+        }
+
+
+
+
     }
+
 }
 </script>

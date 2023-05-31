@@ -113,11 +113,11 @@
 
 
 .custom-card {
-    height: 35vh;
+    height: auto;
     overflow: clip;
     position: relative;
     border-radius: 5px;
-    width: 105%;
+    width: 100%;
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 
