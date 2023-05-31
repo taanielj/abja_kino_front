@@ -9,14 +9,14 @@
         />
 
         <div class="d-flex flex-row custom-card">
-            <div>
+            <div class="col col-4">
                 <PosterImage
                         class="custom-image-card hoverable-link"
                         :image-data-base64="seanceInfo.moviePosterImage"
                         ref="posterImage"
                         @click="goToMovie"/>
             </div>
-            <div>
+            <div class="col col-6">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -48,7 +48,7 @@
                     </button>
                 </div>
             </div>
-            <div class="free-seats">
+            <div class="free-seats col col-2">
                 Vabu kohti: {{ seanceInfo.availableSeats }}/{{ seanceInfo.totalSeats }}
             </div>
         </div>
@@ -167,6 +167,10 @@ export default {
 <style scoped>
 .free-seats {
     margin-top: 1vh;
+}
+
+.card-title{
+    height: 10vh;
 }
 
 </style>
