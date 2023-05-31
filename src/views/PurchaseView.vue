@@ -9,22 +9,25 @@
     <div class="container">
         <div class="row">
             <div class="col col-6 justify-content-center">
-                <div class="col">
-                    <div class="col">
+                <div class="row">
+                    <div class="row">
                         <PurchaseJourneyCard :journey="journey"></PurchaseJourneyCard>
                     </div>
-                    <div class="col ">
+                    <div class="row seance-card ">
                         <SeanceMovieCard
                                 :seanceId="seanceId"
                                 @event-seance-loaded="loadRestOfPage($event)"
                         />
                     </div>
-                    <PurchasedTickets
+                    <div class="row">
+                        <PurchasedTickets
                             v-if="showRest"
                             @tickets-loaded="formattedSum = $event"
-                    />
+                        />
+                    </div>
 
-                    <div class="row m-5" v-if="showRest">
+
+                    <div class="row mt-4" v-if="showRest">
                         <div class="col">
                             <button href="#" @click="cancelPurchase" class="btn btn-secondary btn-lg me-1">
                                 Tühista
