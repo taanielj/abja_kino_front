@@ -22,6 +22,10 @@
             </div>
         </div>
 
+
+        <AlertDanger :message="errorMessage"/>
+        <AlertSuccess :message="successMessage"/>
+
         <div class="row justify-content-center mt-5 mb-5">
             <div class="col col-6">
                 <button @click="navigateBack" type="button" class="btn button btn-outline-secondary custom-button me-3">
@@ -36,8 +40,6 @@
             </div>
         </div>
 
-        <AlertDanger :message="errorMessage"/>
-        <AlertSuccess :message="successMessage"/>
     </div>
 </template>
 
