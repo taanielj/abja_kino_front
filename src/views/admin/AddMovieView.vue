@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container admin-table p-3">
 
         <div class="row justify-content-center mb-4">
             <h1 v-if="isEdit">Muuda Filmi</h1>
@@ -31,10 +31,10 @@
                 <button @click="navigateBack" type="button" class="btn button btn-outline-secondary custom-button me-3">
                     Tagasi
                 </button>
-                <button v-if="isEdit" @click="editMovie" type="button" class="btn button btn-outline-success custom-button me-3">
+                <button v-if="isEdit" @click="editMovie" type="button" class="btn button btn-outline-secondary custom-button me-3">
                     Muuda
                 </button>
-                <button v-else @click="addMovie" type="button" class="btn button btn-outline-success custom-button me-3">
+                <button v-else @click="addMovie" type="button" class="btn button btn-outline-secondary custom-button me-3">
                     Lisa
                 </button>
             </div>
@@ -168,11 +168,6 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-.button {
-    font-size: 30px;
-}
+<style scooped>
 
 </style>
