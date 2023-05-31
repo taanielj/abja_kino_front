@@ -1,11 +1,9 @@
 
-
 .hoverable-link:hover {
-    color: rgb(255,99,71);
+    color: rgb(255, 99, 71);
     text-decoration: none;
     transition: all 0.4s ease-in-out;
     cursor: pointer;
-
 }
 
 
@@ -21,8 +19,9 @@
         transform: rotate(359.9deg);
     }
 }
+
 /*keep movie poster with 2/3 frame, dont stretch image:*/
-.movie-poster{
+.movie-poster {
     aspect-ratio: 2/3;
     max-width: 100%;
     width: auto;
@@ -53,12 +52,13 @@
 }
 
 
-.card{
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+.card {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
 }
+
 .poster-container {
     display: flex;
     justify-content: center;
@@ -111,7 +111,6 @@
 }
 
 
-
 .custom-card {
     height: 35vh;
     overflow: clip;
@@ -120,21 +119,15 @@
     width: 105%;
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+
 }
 
-.custom-image-card{
-    padding-right: 25px;
-    object-fit: contain;
-    height: 35vh !important;
-}
 
-.custom-button{
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 20px;
-    width: 130px;
-    height: 45px;
-    font-size: 20px;
+.custom-button {
+    margin: 1vh;
+    height: 5vh;
+    aspect-ratio: 2.2;
+    font-size: 1.7vh;
     border-radius: 5px;
     border-color: #000000;
     color: #000000;
@@ -148,6 +141,7 @@
     width: 73%;
 
 }
+
 .admin-table {
     background-color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px;

@@ -20,7 +20,7 @@
             </td>
             <td>
                 <input v-model="ticketType.price" type="number" v-if="ticketType.editing" class="w-50">
-                <span v-else>{{ ticketType.price }}</span>
+                <span v-else>{{ ticketType.formattedPrice }}</span>
             </td>
             <td>
                 <span v-if="!ticketType.editing">
@@ -32,7 +32,7 @@
                 <span v-else>
                     <font-awesome-icon @click="editTicketType(ticketType.id)" class="hoverable-link me-3"
                                        :icon="['fas', 'save']"/>
-                    <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
+                    <font-awesome-icon @click="cancelEditing" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
                 </span>
             </td>
@@ -87,6 +87,8 @@ export default {
                     id: 0,
                     name: "",
                     price: 0,
+                    formattedPrice: "",
+                    gfformattedPrice: "",
                     editing: false,
                 }
             ],
@@ -104,6 +106,9 @@ export default {
             this.$http.get("/api/v1/ticket/type/all", {headers: getAuthHeader()})
                     .then(response => {
                         this.ticketTypes = response.data
+                        this.ticketTypes.forEach(ticketType => {
+                            ticketType.formattedPrice = ticketType.price.toFixed(2) + " €";
+                        })
                     })
                     .catch(error => {
                         this.handleTicketTypeError(error);
@@ -146,7 +151,11 @@ export default {
                     .catch(error => {
                         this.handleTicketTypeError(error);
                         if (!this.showInput) {
-                            this.newTicketType = "";
+                            this.newTicketType = {
+                                id: 0,
+                                name: "",
+                                price: 0,
+                            };
                         }
                     })
         },
@@ -175,13 +184,9 @@ export default {
                 this.ticketTypes[index].editing = !this.ticketTypes[index].editing;
             }
         },
-        cancelEditing(index) {
-            const ticketType = this.ticketTypes[index];
-            if (ticketType.id === undefined) {
-                this.ticketTypes.splice(index, 1)
-            } else {
-                ticketType.editing = false;
-            }
+        cancelEditing() {
+            this.getTicketTypes();
+
         },
         handleTicketTypeError(error) {
             if (error.response.status === 400 || error.response.status === 409) {

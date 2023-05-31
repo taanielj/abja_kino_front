@@ -1,8 +1,8 @@
 <template>
     <div class="container">
 
-        <div class="row justify-content-center">
-            <div class="col col-7">
+        <div class="row ">
+            <div class="col col-7 d-flex justify-content-center">
                 <div class="col">
                     <div class="col">
                         <PurchaseJourneyCard :journey="journey"></PurchaseJourneyCard>

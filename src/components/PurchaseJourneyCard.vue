@@ -1,25 +1,25 @@
 <template>
     <div class="purchase-journey">
-        <div class="nav nav-pills spaced-buttons">
-            <span v-if="journey === 'piletid'" class="nav-item">
-                <a class="nav-link active">Piletid</a>
+        <div class= "spaced-buttons">
+            <span v-if="journey === 'piletid'" class="journey-button journey-active">
+                Piletid
             </span>
-            <span v-else class="nav-item">
-                <a class="nav-link disabled">Piletid</a>
+            <span v-else class="journey-button journey-inactive">
+                Piletid
+            </span>
+            <span v-if="journey === 'kohad'" class="journey-button journey-active">
+                Kohad
+            </span>
+            <span v-else class="journey-button journey-inactive">
+                Kohad
+            </span>
+            <span v-if="journey === 'ostukorv'" class="journey-button journey-active">
+                Kinnita
+            </span>
+            <span v-else class="journey-button journey-inactive">
+                Kinnita
             </span>
 
-            <span v-if="journey === 'kohad'" class="nav-item">
-                <a class="nav-link active">Kohad</a>
-            </span>
-            <span v-else class="nav-item">
-                <a class="nav-link disabled">Kohad</a>
-            </span>
-            <span v-if="journey === 'ostukorv'" class="nav-item">
-                <a class="nav-link active">Kinnita</a>
-            </span>
-            <span v-else class="nav-item">
-                <a class="nav-link disabled">Kinnita</a>
-            </span>
 
 
         </div>
@@ -45,23 +45,30 @@ export default defineComponent({
 <style scoped>
 .purchase-journey {
     border: none;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    border-radius: 0.5vh;
+    margin-bottom: 2vh;
     width: 100%;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1vh 0 rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 240, 225, 0.8);
 }
 
-.nav-pills {
-    background-color: darkgrey;
-    color: white;
-    border-radius: 5px;
-    font-size: 3.5vh;
-    font-weight: normal;
-    justify-content: center;
-    width: 100%;
-    padding: 10px 0;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+.journey-button {
+    border-radius: 0.5vh;
+    margin: 1vh;
+    padding: 1vh 2vh;
 }
+
+.journey-active {
+    background-color: rgba(255, 192, 50, 0.8);
+    box-shadow: rgba(255, 192, 0, 0.8) 0 0 1vh 0;
+    color: white;
+}
+
+
+.journey-inactive {
+    color: rgba(245, 180, 50, 1)
+}
+
 
 .spaced-buttons {
     display: flex;

@@ -7,7 +7,7 @@
             Kustuta seanss?
         </template>
         <template #footer>
-            <button @click="deleteSeance" type="button" class="btn btn-primary">Jah</button>
+            <button @click="deleteSeance" type="button" class="btn btn-secondary custom-button">Jah</button>
         </template>
     </Modal>
 </template>

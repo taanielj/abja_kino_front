@@ -6,15 +6,10 @@
                     <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
-                    <slot name="body">
-                        default body
-                    </slot>
+                    {{message}}
+
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="closeModal">{{closeButtonName}}</button>
-                    <slot name="footer">
-                    </slot>
-                </div>
+
             </div>
         </div>
     </div>
@@ -25,7 +20,6 @@ export default {
     name: 'AlertModal',
     props: {
         message: "",
-        closeButtonName: ""
     },
     data(){
         return {
@@ -45,6 +39,6 @@ export default {
 
 <style scoped>
 .modal-content {
-    background-color: white !important;
+    background-color: rgba(255, 240, 225, 0.8) !important;
 }
 </style>

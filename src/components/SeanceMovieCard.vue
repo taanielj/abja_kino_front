@@ -1,6 +1,7 @@
 <template>
 
-    <div v-if="show" class="landscape-card">
+
+    <div v-if="show" class="seance-card">
 
 
         <TrailerModal
@@ -8,58 +9,56 @@
                 :youtube-link="seanceInfo.movieYoutubeLink"
         />
 
-        <div class="d-flex flex-row custom-card">
+        <div class="d-flex flex-row ">
 
-            <div class="col col-4">
-                <PosterImage
-                        class="custom-image-card hoverable-link"
-                        :image-data-base64="seanceInfo.moviePosterImage"
-                        ref="posterImage"
-                        @click="goToMovie"/>
-            </div>
 
-            <div class="col col-6">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h1 @click="goToMovie" class="card-title hoverable-link">{{ seanceInfo.movieTitle }}</h1>
-                        </div>
+            <PosterImage
+                    class="custom-image hoverable-link"
+                    :image-data-base64="seanceInfo.moviePosterImage"
+                    ref="posterImage"
+                    @click="goToMovie"
+            />
+
+
+            <div class="d-flex flex-column seance-info align-items-stretch">
+                <div>
+                    <div @click="goToMovie" class="card-title hoverable-link">
+                        {{ seanceInfo.movieTitle }}
                     </div>
-
-                    <p class="card-text"><small class="text-muted">{{ formattedGenreName }} |
-                        {{ runtimeHours }}h {{ runtimeMinutes }}min</small></p>
-                    <p class="card-text">{{ formatDate(seanceInfo.dateTime) }}| Saal: {{ seanceInfo.roomName }}</p>
-                    <p class="card-text">Keel: {{ seanceInfo.language }} | Subtiitrid:
-                        {{ seanceInfo.subtitles }} </p>
                 </div>
-                <div  class="d-flex">
+
+                <div class="text">{{ formattedGenreName }} | {{ runtimeHours }}h {{ runtimeMinutes }}min</div>
+                <div class="text">{{ formatDate(seanceInfo.dateTime) }}| Saal: {{ seanceInfo.roomName }}</div>
+                <div class="text">Keel: {{ seanceInfo.language }} | Subtiitrid: {{ seanceInfo.subtitles }} </div>
+                <div class="d-flex justify-content-start align-items-start">
                     <button v-if="journey === 'schedule'"
                             type="button"
-                            class="btn btn-outline-secondary custom-button me-2"
+                            class="btn btn-outline-secondary custom-button"
                             @click="openTrailerModal"
                     >
-                        <font-awesome-icon :icon="['fass', 'trailer']" /> Treiler
+                        <font-awesome-icon :icon="['fass', 'trailer']"/>
+                        Treiler
                     </button>
                     <button v-if="journey === 'schedule' || journey === 'movie'"
                             type="button"
                             class="btn btn-outline-secondary custom-button"
                             @click="goToTickets"
                     >
-                        Vali
-                        seanss
+                        Vali seanss
                     </button>
+
                 </div>
+                <div class="text d-flex justify-content-end align-items-center">
+                    Vabukohti: {{ seanceInfo.availableSeats }}/ {{ seanceInfo.totalSeats }}
+                </div>
+
+
             </div>
 
-            <div class="free-seats col col-1">
-                Kohti: {{ seanceInfo.availableSeats }}
-                Vaba: {{ seanceInfo.totalSeats }}
-            </div>
 
         </div>
 
     </div>
-
 
 
 </template>
@@ -74,7 +73,7 @@ import TrailerModal from "@/components/modal/TrailerModal.vue";
 export default {
     name: "SeanceMovieCard",
     components: {TrailerModal, ScheduleView, PosterImage},
-    props:{
+    props: {
         seanceId: 0,
         journey: ""
     },
@@ -113,7 +112,7 @@ export default {
             this.$refs.trailerModalRef.openModal();
         },
 
-        goToMovie(){
+        goToMovie() {
             router.push({path: `/movie/${this.seanceInfo.movieId}`});
         },
 
@@ -170,19 +169,48 @@ export default {
 </script>
 
 <style scoped>
-.free-seats {
-    margin-top: 1vh;
-    margin-right: 0.8vh;
+
+.card-text {
+    font-size: 2.5vh;
 }
 
-.card-title{
+.card-title {
     font-size: 3.5vh;
     height: 10vh;
 }
-.landscape-card{
-    width: 80vh;
-    display: flex;
+
+
+.seance-card {
+    height: 35vh;
+    aspect-ratio: 2.2;
+    overflow: clip;
+    position: relative;
+    border-radius: 0.5vh;
+    background-color: rgba(255, 240, 225, 0.8);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    margin: 1vh;
 }
+
+.custom-image {
+    object-fit: contain;
+    height: 35vh !important;
+}
+
+.seance-info {
+    margin-left: 1vh;
+    width: 100%;
+}
+
+.text{
+    /*align-start*/
+    text-align: start;
+    font-size: 2.2vh;
+    margin-bottom: 1vh;
+    padding-right: 3vh;
+}
+
+
+
 </style>
 
 
