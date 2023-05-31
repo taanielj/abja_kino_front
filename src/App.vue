@@ -101,7 +101,7 @@ nav {
     transition: top 0.3s;
     z-index: 9999;
     box-shadow: 0 0.2vw 0.8vw rgba(0, 0, 0, 0.2); /* changed from px to vw */
-    height: 18vh;
+    height: 16vh;
     margin: 0vh;
 }
 

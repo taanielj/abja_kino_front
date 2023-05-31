@@ -87,9 +87,6 @@
             </div>
         </div>
 
-        <div v-else class="alert alert-danger w-75" role="alert">
-            Ühtegi seanssi ei leitud
-        </div>
     </div>
 
 </template>

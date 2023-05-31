@@ -187,8 +187,8 @@ export default {
     position: relative;
     border-radius: 0.5vh;
     background-color: rgba(255, 240, 225, 0.8);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-    margin: 1vh;
+    box-shadow: 0 0 10vh 0 rgba(0, 0, 0, 0.5);
+    margin-bottom: 1vh;
 }
 
 .custom-image {
