@@ -126,6 +126,7 @@
 .custom-button {
     margin: 1vh;
     height: 5vh;
+    padding: 0.1vh;
     aspect-ratio: 2.2;
     font-size: 1.7vh;
     border-radius: 5px;

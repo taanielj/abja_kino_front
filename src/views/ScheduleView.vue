@@ -3,7 +3,7 @@
     <div v-if="allSeanceIds.length !== 0" class="row justify-content-center">
         <div class="col col-12 p-2">
             <div class="d-flex flex-wrap">
-                <div v-for="seanceId in allSeanceIds" :key="seanceId" class="col-6">
+                <div v-for="seanceId in allSeanceIds" :key="seanceId" class="col col-md-6 seance-card">
                     <SeanceMovieCard
                             class="seance-card"
                             :seanceId="seanceId"
@@ -64,6 +64,9 @@ export default {
 
 }
 
+.seance-card {
+    margin: 0vh;
+}
 
 </style>
 
