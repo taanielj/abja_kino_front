@@ -1,47 +1,47 @@
 <template>
-    <div class="container">
-        <div class="row  text-center ">
-            <div class="col col-6 admin-table p-2">
-                <h1>Loo konto</h1>
-                <AlertSuccess :message="successMessage"/>
-                <AlertDanger :message="errorMessage"/>
-                <div @keydown.enter="login" class="row justify-content-center">
-                    <div class="col col-6 mt-5">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Kasutajanimi</label>
-                            <input v-model="registrationRequest.username" type="text" class="form-control" id="username">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Parool</label>
-                            <input v-model="registrationRequest.password" type="password" class="form-control"
-                                   id="password">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Parool uuesti</label>
-                            <input v-model="matchingPassword" type="password" class="form-control" id="password">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">E-posti aadress</label>
-                            <input v-model="registrationRequest.email" type="email" class="form-control" id="password"
-                                   placeholder="example@gmail.com">
-                        </div>
-
+    <div class="container col col-4">
+        <div class="col text-center admin-table p-2">
+            <h1>Loo konto</h1>
+            <AlertModal
+                    :message="errorMessage"
+                    ref="alertModalRef"
+            />
+            <div @keydown.enter="login" class="row justify-content-center">
+                <div class="col col-6 mt-4">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Kasutajanimi</label>
+                        <input v-model="registrationRequest.username" type="text" class="form-control"
+                               id="username">
                     </div>
-                    <div class="row justify-content-center mt-5 mb-5">
-                        <div>
-                            <div class="col col-12">
-                                <button @click="navigateBack" type="submit"
-                                        class="btn button btn-outline-secondary custom-button me-3">Tagasi
-                                </button>
-                                <button @click="registerNewClient" type="submit"
-                                        class="btn button btn-outline-secondary custom-button me-3">Registreeri
-                                </button>
-                            </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Parool</label>
+                        <input v-model="registrationRequest.password" type="password" class="form-control"
+                               id="password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Parool uuesti</label>
+                        <input v-model="matchingPassword" type="password" class="form-control" id="password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-posti aadress</label>
+                        <input v-model="registrationRequest.email" type="email" class="form-control" id="password"
+                               placeholder="example@gmail.com">
+                    </div>
+
+                </div>
+                <div class="row justify-content-center mt-5 mb-5">
+                    <div>
+                        <div class="col col-12">
+                            <button @click="navigateBack" type="submit"
+                                    class="btn button btn-outline-secondary custom-button me-3">Tagasi
+                            </button>
+                            <button @click="registerNewClient" type="submit"
+                                    class="btn button btn-outline-secondary custom-button me-3">Registreeri
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
@@ -50,10 +50,11 @@
 import router from "@/router";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+import AlertModal from "@/components/modal/AlertModal.vue";
 
 export default {
     name: "RegisterView",
-    components: {AlertSuccess, AlertDanger},
+    components: {AlertModal, AlertSuccess, AlertDanger},
     data() {
         return {
             matchingPassword: '',
@@ -80,18 +81,19 @@ export default {
 
 
             if (!this.passwordMatch()) {
-                this.errorMessage = "Paroolid ei kattu"
+                this.openAlertModal("Paroolid ei kattu")
                 return
             }
 
             if (!this.allRequiredFieldsAreFilled()) {
-                this.errorMessage = "Täida kõik väljad"
+                this.openAlertModal("Täida kõik väljad")
                 return
             }
 
             this.postNewClient();
 
         },
+
         allRequiredFieldsAreFilled() {
             return this.registrationRequest.username !== ''
                 && this.registrationRequest.password !== ''
@@ -116,17 +118,22 @@ export default {
         },
         handleRegistrationError(error) {
             if (error.response.status === 409 || error.response.status === 400) {
-                this.errorMessage = error.response.data.message;
+                this.openAlertModal(error.response.data.message)
             } else {
                 router.push({path: '/error'})
             }
-        }
+        },
+        openAlertModal(errorMessage) {
+            this.errorMessage = errorMessage;
+            this.$refs.alertModalRef.openModal();
+
+        },
     }
 
 }
 </script>
 <style scooped>
-.register-container{
+.register-container {
     width: 20vh;
     margin-bottom: 3vh;
 }

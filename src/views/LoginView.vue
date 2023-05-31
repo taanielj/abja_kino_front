@@ -2,7 +2,10 @@
     <div class="container  text-center">
         <div class="row justify-content-center " @keydown.enter="login">
             <div class="col col-3 mt-5 admin-table p-4 ">
-                <AlertDanger :message="message"/>
+                <AlertModal
+                    :message="errorMessage"
+                    ref="alertModalRef"
+                />
                 <div class="mb-3">
                     <label class="form-label" for="username">Kasutajanimi</label>
                     <input id="username" v-model="loginRequest.username" class="form-control" type="text">
@@ -24,15 +27,17 @@
 import router from "@/router";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import Cookies from 'js-cookie';
+import AlertModal from "@/components/modal/AlertModal.vue";
 
 export default {
     name: "LoginView",
-    components: {AlertDanger},
+    components: {AlertModal, AlertDanger},
     data() {
         return {
             username: "",
             password: "",
             message: "",
+            errorMessage: "",
             loginRequest: {
                 username: "",
                 password: ""
@@ -43,7 +48,7 @@ export default {
         login() {
             this.message = "";
             if (this.loginRequest.username === "" || this.loginRequest.password === "") {
-                this.message = "Täida kõik väljad";
+                this.openAlertModal("Täida kõik väljad")
             } else {
                 this.sendLoginRequest();
             }
@@ -62,13 +67,19 @@ export default {
                     .catch(error => {
                         if (error.response.data.errorCode === 401 || error.response.data.errorCode === 403)
                         {
-                            this.message = error.response.data.message;
+                            this.openAlertModal(error.response.data.message)
                         }
                     else
                         {
                             router.push({name: 'errorRoute'})
                         }
                     })
+        },
+
+        openAlertModal(errorMessage) {
+            this.errorMessage = errorMessage;
+            this.$refs.alertModalRef.openModal();
+
         },
     }
 }

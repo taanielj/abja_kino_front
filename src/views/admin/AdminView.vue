@@ -3,7 +3,6 @@
 
         <AlertModal
                 :message="errorMessage"
-                @event-emit-close-alert-modal="clearErrorMessage"
                 ref="alertModalRef"
         />
 
