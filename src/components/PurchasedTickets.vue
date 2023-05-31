@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="custom-card">
         <table class="table">
             <thead>
             <tr>
@@ -67,5 +67,7 @@ export default {
     }
 }
 </script>
+
+
 
 

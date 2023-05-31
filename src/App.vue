@@ -1,5 +1,5 @@
 <template id="app">
-    <nav>
+    <nav @click="closeOnClickOutside">
         <div>
             <div id="cinema-name">
                 Abja-Paluoja KINO
@@ -55,14 +55,13 @@ export default {
         handleLogout() {
             this.$refs.logoutModalRef.$refs.modalRef.openModal()
         },
-        adjustNavHeight() {
-            const windowHeight = window.innerHeight;
-            const nav = document.querySelector('nav');
-            if (nav) {
-                const navOffsetTop = nav.offsetTop;
-                this.navHeight = windowHeight - navOffsetTop + 'px';
+
+        closeOnClickOutside() {
+            if(!this.$refs.logoutModalRef.$refs.modalRef.isOpen) {
+                this.$refs.logoutModalRef.$refs.modalRef.closeModal()
             }
-        }
+        },
+
     }
 
 }
@@ -118,11 +117,7 @@ nav a.router-link-exact-active {
     padding-top: 25vh;
 }
 
-@media screen and (max-width: 768px) {
-    nav {
-        height: auto;
-    }
-}
+
 
 router-link{
     padding: 0vh;
