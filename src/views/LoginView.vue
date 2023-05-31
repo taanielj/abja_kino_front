@@ -1,8 +1,8 @@
 <template>
-    <div class="container text-center">
-        <AlertDanger :message="message"/>
-        <div class="row justify-content-center" @keydown.enter="login">
-            <div class="col col-3 mt-5">
+    <div class="container  text-center">
+        <div class="row justify-content-center " @keydown.enter="login">
+            <div class="col col-3 mt-5 admin-table p-4 ">
+                <AlertDanger :message="message"/>
                 <div class="mb-3">
                     <label class="form-label" for="username">Kasutajanimi</label>
                     <input id="username" v-model="loginRequest.username" class="form-control" type="text">
@@ -14,7 +14,7 @@
                 <div class="mb-3">
                     <router-link to="/register">Registreeri</router-link>
                 </div>
-                <button class="btn btn-primary" type="submit" @click="login">Logi sisse</button>
+                <button class="btn button btn-outline-secondary custom-button me-3" type="submit" @click="login">Logi sisse</button>
             </div>
         </div>
     </div>
