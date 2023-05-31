@@ -1,5 +1,6 @@
 <template>
     <div v-if="show">
+        <div></div>
         <div class="row justify-content-center">
             <div class="card">
 

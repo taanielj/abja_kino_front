@@ -188,13 +188,13 @@ export default defineComponent({
 }
 
 .custom-button-wide{
-    margin-top: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    width: 250px;
-    height: 50px;
-    font-size: 20px;
-    border-radius: 5px;
+    margin-top: 1vh;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    width: 20vh;
+    height: 5vh;
+    font-size: 2vh;
+    border-radius: 0.5vh;
     border-color: #000000;
     color: #000000;
     background-color: rgba(255, 240, 225, 0.8);
