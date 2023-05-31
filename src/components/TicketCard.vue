@@ -1,7 +1,7 @@
 <template>
     <div v-if="show" class="text-black">
         <div class="card border-success mb-3" style="max-width: 20rem;">
-            <div class="card-header bg-transparent border-success bold-text">
+            <div class="card-header-auto bg-transparent border-success bold-text">
                 <h2 class="card-title">{{ ticketInfo.seanceMovieTitle }}</h2>
             </div>
             <div class="card-body text-success text-black">
