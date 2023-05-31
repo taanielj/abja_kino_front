@@ -16,7 +16,7 @@
                     </slot>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="closeModal">{{closeButtonName}}</button>
+                    <button type="button" class="btn btn-secondary custom-button" @click="closeModal">{{closeButtonName}}</button>
                     <slot name="footer">
                     </slot>
                 </div>
@@ -49,6 +49,6 @@ export default {
 
 <style scoped>
 .modal-content {
-    background-color: white !important;
+    background-color: rgba(255, 240, 225, 0.8) !important;
 }
 </style>

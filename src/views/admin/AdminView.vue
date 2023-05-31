@@ -1,7 +1,11 @@
 <template>
     <div class="container text-center">
 
-        <AlertModal :message="errorMessage" @event-emit-close-alert-modal="clearErrorMessage"/>
+        <AlertModal
+                :message="errorMessage"
+                @event-emit-close-alert-modal="clearErrorMessage"
+                ref="alertModalRef"
+        />
 
         <div class="row justify-content-center">
             <div class="col col-9">
@@ -15,27 +19,33 @@
 
 
                 <div class="row admin-table">
-                    <MovieTable @movie-table-error="setErrorMessage" @movie-table-success="refreshSeanceTable"
-                                ref="movieTableRef"/>
+                    <MovieTable
+                            @movie-table-error="openAlertModal"
+                            @movie-table-success="refreshTables"
+                            ref="movieTableRef"
+                    />
                 </div>
                 <div class="row admin-table">
-                    <SeanceTable @seance-table-error="setErrorMessage" ref="seanceTableRef"
-                                 @seance-table-success="setSuccessMessage"/>
+                    <SeanceTable
+                            @seance-table-error="openAlertModal"
+                            @seance-table-success="refreshTables"
+                            ref="seanceTableRef"
+                    />
                 </div>
                 <div class="row admin-table">
-                    <RoomTable @room-table-error="setErrorMessage" @room-table-success="refreshSeanceTable"/>
+                    <RoomTable @room-table-error="openAlertModal" @room-table-success="refreshTables"/>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col admin-table">
-                        <GenreTable @genre-table-error="setErrorMessage" @genre-table-success="refreshMovieTable"/>
+                        <GenreTable @genre-table-error="openAlertModal" @genre-table-success="refreshMovieTable"/>
                     </div>
                     <div class="col-1 d-none d-md-block"></div> <!-- Spacer column -->
                     <div class="col  admin-table">
-                        <TicketTypeTable @ticket-type-table-error="setErrorMessage"/>
+                        <TicketTypeTable @ticket-type-table-error="openAlertModal"/>
                     </div>
                 </div>
                 <div class="row admin-table">
-                    <UserTable @user-table-error="setErrorMessage"/>
+                    <UserTable @user-table-error="openAlertModal"/>
                 </div>
 
             </div>
@@ -75,12 +85,10 @@ export default {
         }
     },
     methods: {
-        setErrorMessage(errorMessage) {
+        openAlertModal(errorMessage) {
             this.errorMessage = errorMessage;
+            this.$refs.alertModalRef.openModal();
 
-            setTimeout(() => {
-                this.errorMessage = '';
-            }, 5000);
         },
 
         setSuccessMessage(successMessage) {
@@ -90,12 +98,11 @@ export default {
                 this.successMessage = '';
             }, 5000);
         },
-        refreshSeanceTable() {
+        refreshTables() {
             this.$refs.seanceTableRef.getAllSeances();
-        },
-        refreshMovieTable() {
             this.$refs.movieTableRef.getAllMovies();
-        }
+        },
+
     },
     beforeMount() {
         if (localStorage.getItem('roleName') !== 'ADMIN')

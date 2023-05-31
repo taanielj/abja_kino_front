@@ -32,7 +32,7 @@
                 <span v-else>
                     <font-awesome-icon @click="editTicketType(ticketType.id)" class="hoverable-link me-3"
                                        :icon="['fas', 'save']"/>
-                    <font-awesome-icon @click="cancelEditing(index)" class="hoverable-link me-3"
+                    <font-awesome-icon @click="cancelEditing" class="hoverable-link me-3"
                                        :icon="['fas', 'times']"/>
                 </span>
             </td>
@@ -146,7 +146,11 @@ export default {
                     .catch(error => {
                         this.handleTicketTypeError(error);
                         if (!this.showInput) {
-                            this.newTicketType = "";
+                            this.newTicketType = {
+                                id: 0,
+                                name: "",
+                                price: 0,
+                            };
                         }
                     })
         },
@@ -175,13 +179,9 @@ export default {
                 this.ticketTypes[index].editing = !this.ticketTypes[index].editing;
             }
         },
-        cancelEditing(index) {
-            const ticketType = this.ticketTypes[index];
-            if (ticketType.id === undefined) {
-                this.ticketTypes.splice(index, 1)
-            } else {
-                ticketType.editing = false;
-            }
+        cancelEditing() {
+            this.getTicketTypes();
+
         },
         handleTicketTypeError(error) {
             if (error.response.status === 400 || error.response.status === 409) {

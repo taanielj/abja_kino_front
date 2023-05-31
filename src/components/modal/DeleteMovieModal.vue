@@ -1,13 +1,15 @@
 <template class="modal">
     <Modal  ref="modalRef" close-button-name="Ei">
         <template #header>
-            {{movieTitle}}
+            <h1>
+                {{movieTitle}}
+            </h1>
         </template>
         <template #body>
             Kustuta film?
         </template>
         <template #footer>
-            <button @click="deleteMovie" type="button" class="btn btn-primary">Jah</button>
+            <button @click="deleteMovie" type="button" class="btn btn-secondary custom-button">Jah</button>
         </template>
     </Modal>
 </template>
