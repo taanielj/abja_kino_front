@@ -16,10 +16,12 @@
                                 @event-seance-id="seanceId = $event"
                         />
                     </div>
+                    <div  class="mt-2" >
+                        <AlertDanger style="margin: 1vh; max-width: 100%" :message="errorMessage"/>
 
-                    <AlertDanger style="margin: 1vh; max-width: 100%" :message="errorMessage"/>
+                    </div>
 
-                    <div class="col mt-md-3">
+                    <div class="col mt-md-5">
                         <SeanceTicketCard
                                 ref="seanceTicketCard"
                                 :seanceId="seanceId"

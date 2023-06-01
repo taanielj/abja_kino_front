@@ -3,7 +3,6 @@
 
         <AlertModal
                 :message="errorMessage"
-
                 ref="alertModalRef"
         />
 
