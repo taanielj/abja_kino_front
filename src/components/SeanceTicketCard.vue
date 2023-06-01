@@ -98,7 +98,7 @@ export default defineComponent({
 .text-block {
     font-size: 3.5vh;
     font-weight: bold;
-    margin-bottom: 10vh;
+    margin-bottom: 1vh;
 }
 
 .text-heading {

@@ -16,24 +16,27 @@
                                 @event-seance-id="seanceId = $event"
                         />
                     </div>
-                    <div  class="mt-2" >
+                    <div class="mt-2">
                         <AlertDanger style="margin: 1vh; max-width: 100%" :message="errorMessage"/>
 
                     </div>
 
-                    <div class="col mt-md-5">
-                        <SeanceTicketCard
-                                ref="seanceTicketCard"
-                                :seanceId="seanceId"
-                                :availableSeats="availableSeats"
-                                @event-ticket-types-changed="ticketTypes = $event"
-                                :show="show"
-                        />
+                    <div class="custom-card">
+                        <div class="col">
+                            <SeanceTicketCard
+                                    ref="seanceTicketCard"
+                                    :seanceId="seanceId"
+                                    :availableSeats="availableSeats"
+                                    @event-ticket-types-changed="ticketTypes = $event"
+                                    :show="show"
+                            />
+                        </div>
+                        <div v-if="show">
+                            <button href="#" @click="navigateToSeats" class="custom-button">Kinnita piletid
+                            </button>
+                        </div>
                     </div>
-                    <div v-if="show">
-                        <button href="#" @click="navigateToSeats" class="custom-button">Kinnita piletid
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -109,18 +112,19 @@ export default {
     border-left: none;
 }
 
-.btn-lg {
-    font-size: 20px;
-    padding: 10px 20px;
-}
 
 .seance-card {
     margin-top: 20px;
     width: 100%;
 }
 
-.custom-button{
-    border: transparent;
+
+.container {
+    margin-bottom: 15%;
+}
+
+.custom-card{
+    padding: 1.5vh 5vh;
 }
 
 </style>

@@ -12,7 +12,22 @@
             {{ roomSeance.roomName }}
         </h1>
         <div class="seats">
-            <div class="row" v-for="(row, rowIndex) in organizedSeats" :key="`row-${rowIndex}`">
+
+            <AlertModal
+                    :message="errorMessage"
+                    ref="alertModalRef"
+            />
+
+            <div class="">
+
+            </div>
+
+            <div class="row-number">
+
+            </div>
+
+            <div class="row" v-for="row in organizedSeats">
+
                 <div v-for="(seat, seatIndex) in row" :key="`seat-${seatIndex}`" class="seat hoverable-link"
                      :class="{ 'disabled': !seat.available }" @click="toggleSeat(seat)">
                     <img v-if="seat.selected" class="seat-image" src="@/assets/grey_seat.png" alt="Selected_seat"/>
@@ -33,7 +48,6 @@
             </div>
         </div>
 
-        <!--        buttons: back, confirm seats-->
         <div class="row justify-content-center my-buttons mt-5">
             <div class="col">
                 <button class="custom-button" @click="navigateToChooseTickets">Tagasi</button>
@@ -55,16 +69,19 @@ import router from "@/router";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {getAuthHeader} from "@/utils";
 import PurchaseJourneyCard from "@/components/PurchaseJourneyCard.vue";
+import AlertModal from "@/components/modal/AlertModal.vue";
 
 export default {
     name: "SelectSeatsView",
     components: {
+        AlertModal,
         PurchaseJourneyCard,
         FontAwesomeIcon
     },
 
     data() {
         return {
+            errorMessage: "",
             journey: "seats",
             seanceId: this.$route.params.seanceId,
             boughtTickets: 0,
@@ -113,13 +130,18 @@ export default {
         organizedSeats() {
             let seats = [];
             for (let i = 1; i <= this.roomSeance.rows; i++) {
-                seats[i] = this.roomSeance.seats.filter(seat => seat.row === i);
+                seats[i - 1] = this.roomSeance.seats.filter(seat => seat.row === i);
             }
             return seats;
         }
     },
 
     methods: {
+
+        openAlertModal(message) {
+            this.errorMessage = message;
+            this.$refs.alertModalRef.openModal();
+        },
 
         navigateToChooseTickets() {
             sessionStorage.removeItem("ticketTypes")
@@ -130,7 +152,7 @@ export default {
             this.userTickets = this.getSelectedTickets();
 
             if (this.ticketTypeNames.length !== 0) {
-                alert("Vali kõik piletid!")
+                this.openAlertModal(`Vali veel ${this.boughtTickets} kohta!`);
                 return;
             }
 
@@ -226,7 +248,6 @@ export default {
             }
 
 
-
             this.getRoomSeance();
         }
 
@@ -308,8 +329,13 @@ export default {
     transform: perspective(100px) rotateX(60deg);
 }
 
-.custom-button{
+.custom-button {
     border: transparent;
 }
+
+.container {
+    margin-bottom: 10%;
+}
+
 
 </style>
