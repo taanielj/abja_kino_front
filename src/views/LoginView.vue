@@ -1,16 +1,16 @@
 <template>
-    <div class="container  text-center">
+    <div class="text-center">
         <div class="row justify-content-center " @keydown.enter="login">
-            <div class="col col-3 mt-5 admin-table p-4 ">
+            <div class="col col-2 mt-5 admin-table p-4 ">
                 <AlertModal
                     :message="errorMessage"
                     ref="alertModalRef"
                 />
-                <div class="mb-3">
+                <div class="mb-3 px-5">
                     <label class="form-label" for="username">Kasutajanimi</label>
-                    <input id="username" v-model="loginRequest.username" class="form-control" type="text">
+                    <input id="username" v-model="loginRequest.username" class="form-control " type="text">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 px-5">
                     <label class="form-label" for="password">Salasõna</label>
                     <input id="password" v-model="loginRequest.password" class="form-control" type="password">
                 </div>

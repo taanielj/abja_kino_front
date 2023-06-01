@@ -1,9 +1,9 @@
-<template>
+<template><TrailerModal
+    ref="trailerModalRef"
+    :youtube-link="movieInfo.youtubeLink"
+/>
     <div  v-if="show" class="d-flex flex-column bd-highlight portrait-card mb-3">
-        <TrailerModal
-                ref="trailerModalRef"
-                :youtube-link="movieInfo.youtubeLink"
-        />
+
         <div class="row row-poster p-2 hoverable-link" @click="gotoMovie(movieId)">
             <PosterImage class="portrait-card-picture" :image-data-base64="image" ref="posterImage"/>
 
