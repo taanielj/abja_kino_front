@@ -18,7 +18,7 @@
                     <router-link to="/admin">Admin</router-link>
                     |
                 </template>
-                <router-link to="/logout" @click="handleLogout">Logi välja</router-link>
+                <router-link to="/logout" @click.prevent="handleLogout">Logi välja</router-link>
             </template>
         </div>
     </nav>

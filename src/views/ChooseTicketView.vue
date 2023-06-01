@@ -1,5 +1,9 @@
 <template>
     <div class="container">
+        <AlertModal
+                :message="errorMessage"
+                ref="alertModalRef"
+        />
 
         <div class="row ">
             <div class="col col-7 d-flex justify-content-center">
@@ -15,10 +19,6 @@
                                 @event-available-seats="availableSeats = $event"
                                 @event-seance-id="seanceId = $event"
                         />
-                    </div>
-                    <div class="mt-2">
-                        <AlertDanger style="margin: 1vh; max-width: 100%" :message="errorMessage"/>
-
                     </div>
 
                     <div class="custom-card">
@@ -51,6 +51,7 @@ import PurchaseJourneyCard from "@/components/PurchaseJourneyCard.vue";
 import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 import SeanceTicketCard from "@/components/SeanceTicketCard.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertModal from "@/components/modal/AlertModal.vue";
 
 
 export default {
@@ -71,31 +72,30 @@ export default {
         }
     },
     name: "ChooseTicketView",
-    components: {AlertDanger, PurchaseJourneyCard, SeanceMovieCard, SeanceTicketCard},
+    components: {AlertModal, AlertDanger, PurchaseJourneyCard, SeanceMovieCard, SeanceTicketCard},
     methods: {
         navigateToSeats() {
             const ticketTypes = this.$refs.seanceTicketCard.ticketTypes;
 
             if (!ticketTypes.some(ticketType => ticketType.amount > 0)) {
-                this.setErrorMessage("Vali vähemalt üks pilet!")
+                this.openAlertModal("Vali vähemalt üks pilet!")
                 return;
             }
             sessionStorage.setItem("ticketTypes", JSON.stringify(ticketTypes));
             //check if total tickets is less than available seats
             if (ticketTypes.reduce((a, b) => a + b.amount, 0) > this.availableSeats) {
-                this.setErrorMessage("Saalis pole piisavalt vabu kohti!")
+                this.openAlertModal("Saalis pole piisavalt vabu kohti!")
                 return;
             }
 
             this.$router.push({path: '/select-seats/' + this.seanceId});
         },
 
-        setErrorMessage(message) {
+        openAlertModal(message) {
             this.errorMessage = message;
-            setTimeout(() => {
-                this.errorMessage = "";
-            }, 3500);
-        }
+            this.$refs.alertModalRef.openModal();
+        },
+
 
 
     },
@@ -124,6 +124,7 @@ export default {
 }
 
 .custom-card{
+    margin-top: 4vh;
     padding: 1.5vh 5vh;
 }
 

@@ -91,6 +91,14 @@ const routes = [
         path: '/confirm-tickets/:seanceId',
         name: 'ConfirmTicketsRoute',
         component: PurchaseView
+    },
+    {
+        path: '/logout',
+        name: 'LogoutRoute',
+        beforeEnter: (to, from, next) => {
+            next(from.path)
+        }
+
     }
 
 

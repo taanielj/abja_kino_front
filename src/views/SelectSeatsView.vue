@@ -149,12 +149,17 @@ export default {
         },
 
         navigateToConfirm() {
-            this.userTickets = this.getSelectedTickets();
+            if(this.boughtTickets === 1) {
+                this.openAlertModal(`Vali veel ${this.boughtTickets} koht!`);
+                return;
+            }
 
-            if (this.ticketTypeNames.length !== 0) {
+            if (this.boughtTickets !== 0) {
                 this.openAlertModal(`Vali veel ${this.boughtTickets} kohta!`);
                 return;
             }
+
+            this.userTickets = this.getSelectedTickets();
 
             sessionStorage.setItem("userTickets", JSON.stringify(this.userTickets));
             router.push({path: `/confirm-tickets/${this.seanceId}`})
