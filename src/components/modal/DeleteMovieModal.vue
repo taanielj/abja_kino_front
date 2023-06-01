@@ -26,6 +26,7 @@ export default {
         movieId: Number,
         movieTitle: String
     },
+
     data() {
         return {
             errorMessage: "",
@@ -48,11 +49,9 @@ export default {
                     } else {
                         router.push({path: "/error"})
                     }
-
                 })
         },
     }
-
 }
 
 </script>

@@ -4,10 +4,8 @@
             :youtube-link="movieInfo.youtubeLink"
     />
     <div v-if="show" class="d-flex flex-column bd-highlight portrait-card mb-3">
-
         <div class="row row-poster p-2 hoverable-link" @click="gotoMovie(movieId)">
             <PosterImage class="portrait-card-picture" :image-data-base64="image" ref="posterImage"/>
-
         </div>
         <div class="row row-text mt-1  ratio-1x1">
             <div class="portrait-card-title jus justify-content-start hoverable-link">
@@ -31,8 +29,6 @@
                         Vaata treilerit
                     </button>
                 </div>
-
-
                 <div class="row">
                     <button type="button"
                             class="btn btn-outline-secondary custom-button-wide"
@@ -40,7 +36,6 @@
                         Vali seanss
                     </button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -66,6 +61,7 @@ export default defineComponent({
             default: 0
         },
     },
+
     data() {
         return {
             show: false,
@@ -106,7 +102,6 @@ export default defineComponent({
             });
         },
 
-
         getMovie() {
             this.$http.get("/api/v1/movie/" + this.movieId)
                 .then(response => {
@@ -132,20 +127,17 @@ export default defineComponent({
                 })
         },
 
-
         runtimeToHoursMinutes() {
             this.runtimeHours = Math.floor(this.movieInfo.runtime / 60)
             this.runtimeMinutes = this.movieInfo.runtime % 60
         }
-
     },
+
     mounted() {
         if (this.movieId !== 0) {
             this.getMovie();
         }
     }
-
-
 })
 </script>
 

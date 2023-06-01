@@ -21,11 +21,11 @@ export default {
             ]
         }
     },
+
     methods: {
         emitSelectedMovieId() {
             this.$emit('event-emit-selected-movie-id', Number(this.selectedMovieId))
         },
-
 
         getMovies() {
             this.$http.get("/api/v1/movie/all")
@@ -37,18 +37,16 @@ export default {
                 })
         },
     },
+
     watch: {
         movie(newMovieId) {
             this.selectedMovieId = newMovieId || 0;
         }
     },
+
     beforeMount() {
         this.getMovies()
 
     }
 }
 </script>
-
-<style scoped>
-
-</style>

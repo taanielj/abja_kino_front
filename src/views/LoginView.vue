@@ -44,6 +44,7 @@ export default {
             }
         };
     },
+
     methods: {
         login() {
             this.message = "";
@@ -53,6 +54,7 @@ export default {
                 this.sendLoginRequest();
             }
         },
+
         sendLoginRequest() {
             this.$http.post("/api/v1/user/login", this.loginRequest)
                     .then(response => {

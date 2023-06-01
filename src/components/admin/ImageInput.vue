@@ -12,6 +12,7 @@ export default {
             imageDataBase64: String
         }
     },
+
     methods: {
         handleImage(event) {
             try {
@@ -25,6 +26,7 @@ export default {
                 console.log("No file selected");
             }
         },
+
         emitBase64(fileObject) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -36,6 +38,7 @@ export default {
             }
             reader.readAsDataURL(fileObject);
         },
+
         resetImageDataBase64(imageDataBase64) {
             this.imageDataBase64 = imageDataBase64;
             this.$refs.imageInputRef.value = "";

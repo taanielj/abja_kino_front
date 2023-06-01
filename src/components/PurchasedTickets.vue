@@ -24,8 +24,6 @@
             </tbody>
         </table>
     </div>
-
-
 </template>
 
 <script>
@@ -49,6 +47,7 @@ export default {
             ],
         }
     },
+
     methods: {
         formatPrice(price) {
             return price.toFixed(2) + " €";
@@ -57,6 +56,7 @@ export default {
             return this.userTickets.reduce((sum, ticket) => sum + ticket.ticketPrice, 0);
         },
     },
+
     mounted() {
         this.userTickets = JSON.parse(sessionStorage.getItem("userTickets"));
         this.userTickets.forEach(ticket => {
@@ -66,6 +66,7 @@ export default {
         this.$emit('tickets-loaded', this.formattedSum);
     }
 }
+
 </script>
 
 

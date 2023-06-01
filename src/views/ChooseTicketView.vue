@@ -42,14 +42,11 @@
 </template>
 
 <script>
-
-
 import PurchaseJourneyCard from "@/components/PurchaseJourneyCard.vue";
 import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 import SeanceTicketCard from "@/components/SeanceTicketCard.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertModal from "@/components/modal/AlertModal.vue";
-
 
 export default {
     data() {
@@ -68,6 +65,7 @@ export default {
             ]
         }
     },
+
     name: "ChooseTicketView",
     components: {AlertModal, AlertDanger, PurchaseJourneyCard, SeanceMovieCard, SeanceTicketCard},
     methods: {
@@ -84,7 +82,6 @@ export default {
                 this.openAlertModal("Saalis pole piisavalt vabu kohti!")
                 return;
             }
-
             this.$router.push({path: '/select-seats/' + this.seanceId});
         },
 
@@ -92,10 +89,7 @@ export default {
             this.errorMessage = message;
             this.$refs.alertModalRef.openModal();
         },
-
-
     },
-
 }
 
 </script>

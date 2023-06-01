@@ -6,9 +6,6 @@
 </template>
 
 <script>
-
-
-
 export default {
     name: "GenreDropdown",
     props: ['genre'],
@@ -22,8 +19,8 @@ export default {
             ]
         }
     },
-    methods: {
 
+    methods: {
         emitSelectedGenreId() {
             this.$emit('event-emit-selected-genre-id', Number(this.selectedGenreId))
         },
@@ -38,17 +35,16 @@ export default {
                 })
         },
     },
+
     watch: {
         genre(newGenreId) {
             this.selectedGenreId = newGenreId || 0;
         }
     },
+
     beforeMount() {
         this.getGenres()
     }
 }
+
 </script>
-
-<style scoped>
-
-</style>

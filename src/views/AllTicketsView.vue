@@ -68,8 +68,8 @@ export default {
 
 
     },
-    methods: {
 
+    methods: {
         getActiveTicketIds() {
             this.$http.get("/api/v1/ticket/all-active-ids-by-user/" + this.userId, {headers: getAuthHeader()})
                 .then(response => {
@@ -90,6 +90,7 @@ export default {
                 })
         },
     },
+
     mounted() {
         this.getActiveTicketIds();
         this.getExpiredTicketIds();

@@ -19,8 +19,6 @@
             <span v-else class="journey-button journey-inactive">
                 Kinnita
             </span>
-
-
         </div>
     </div>
 </template>
@@ -36,8 +34,6 @@ export default defineComponent({
     props: {
         journey: ""
     }
-
-
 })
 </script>
 
@@ -64,15 +60,12 @@ export default defineComponent({
     color: white;
 }
 
-
 .journey-inactive {
     color: rgba(245, 180, 50, 1)
 }
-
 
 .spaced-buttons {
     display: flex;
     justify-content: space-around;
 }
-
 </style>

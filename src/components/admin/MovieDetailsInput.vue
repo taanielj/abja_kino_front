@@ -52,10 +52,8 @@
                               id="description"
                               rows="9"></textarea>
                 </div>
-
             </div>
         </div>
-
     </div>
 </template>
 
@@ -76,6 +74,7 @@ export default {
             genreId: 0,
         }
     },
+
     watch: {
         movie: {
             handler(newMovie) {
@@ -90,15 +89,18 @@ export default {
             deep: true
         }
     },
+
     methods: {
         updateGenreId(genreId) {
             this.genreId = genreId;
             this.$emit('event-emit-movie-info', this.packMovieInfo());
         },
+
         updateField(field, event) {
             this[field] = event.target.value;
             this.$emit('event-emit-movie-info', this.packMovieInfo());
         },
+
         packMovieInfo() {
             return {
                 title: this.title,
@@ -112,7 +114,9 @@ export default {
     }
 }
 </script>
+
 <style scoped>
+
 .form-label {
     font-size: 1.5rem;
 }

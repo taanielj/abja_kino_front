@@ -7,9 +7,7 @@
                 </div>
                 <div class="modal-body">
                     {{message}}
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -21,11 +19,13 @@ export default {
     props: {
         message: "",
     },
+
     data(){
         return {
             isOpen: false,
         }
     },
+
     methods: {
         openModal() {
             this.isOpen = true

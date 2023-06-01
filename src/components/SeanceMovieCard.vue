@@ -40,7 +40,6 @@
                     >
                         Vali seanss
                     </button>
-
                 </div>
                 <div class="text d-flex justify-content-end align-items-center">
                     Vabukohti: {{ seanceInfo.availableSeats }}/ {{ seanceInfo.totalSeats }}
@@ -88,6 +87,7 @@ export default {
             runtimeMinutes: 0,
         }
     },
+
     computed: {
         formattedGenreName() {
             return this.seanceInfo.movieGenreName.charAt(0).toUpperCase() + this.seanceInfo.movieGenreName.slice(1);
@@ -102,7 +102,6 @@ export default {
         goToMovie() {
             router.push({path: `/movie/${this.seanceInfo.movieId}`});
         },
-
 
         getSeanceInfo() {
             this.$http.get("/api/v1/seance/" + this.seanceId)
@@ -121,6 +120,7 @@ export default {
                     this.$emit('event-seance-error', this.errorMessage);
                 })
         },
+
         formatDate(dateTime) {
             const date = new Date(dateTime);
             const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
@@ -135,7 +135,6 @@ export default {
             this.runtimeMinutes = this.seanceInfo.movieRuntime % 60
         },
 
-
         goToTickets() {
             if (localStorage.getItem("userId") === null) {
                 router.push({path: '/login'})
@@ -144,16 +143,14 @@ export default {
 
             router.push({path: '/choose-ticket/' + this.seanceId})
         }
-
     },
+
     mounted() {
         this.$nextTick().then(() => {
             if (this.seanceId !== 0) {
                 this.getSeanceInfo();
             }
         });
-
-
     }
 }
 </script>

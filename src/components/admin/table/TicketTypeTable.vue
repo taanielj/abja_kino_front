@@ -79,6 +79,7 @@ export default {
             return index
         }
     },
+
     data() {
         return {
             errorMessage: "",
@@ -132,7 +133,6 @@ export default {
         },
 
         addNewTicketType() {
-
             if (!this.validateFieldsFilled(this.newTicketType)) {
                 return;
             }
@@ -161,11 +161,9 @@ export default {
         },
 
         putTicketType(ticketType) {
-
             if (!this.validateFieldsFilled(ticketType)) {
                 return;
             }
-
             this.$http.put("/api/v1/ticket/type/" + ticketType.id, ticketType, {headers: getAuthHeader()})
                     .then(() => {
                         ticketType.editing = false;
@@ -184,10 +182,12 @@ export default {
                 this.ticketTypes[index].editing = !this.ticketTypes[index].editing;
             }
         },
+
         cancelEditing() {
             this.getTicketTypes();
 
         },
+
         handleTicketTypeError(error) {
             if (error.response.status === 400 || error.response.status === 409) {
                 this.errorMessage = error.response.data.message;
@@ -202,6 +202,7 @@ export default {
                 router.push({path: "/error"});
             }
         },
+
         deleteTicketType(ticketTypeId) {
             this.$http.delete("/api/v1/ticket/type/" + ticketTypeId, {headers: getAuthHeader()})
                     .then(() => {
@@ -211,6 +212,7 @@ export default {
                         this.handleTicketTypeError(error)
                     })
         },
+
         toggleInput() {
             this.showInput = !this.showInput
             if (!this.showInput) {
@@ -229,6 +231,7 @@ export default {
                 this.newTicketType.price = 0
             }
         },
+
         ticketTypes: {
             handler(newVal) {
                 newVal.forEach((ticketType, index) => {

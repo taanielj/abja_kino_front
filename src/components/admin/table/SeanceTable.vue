@@ -37,7 +37,6 @@
 
 <script>
 
-
 import router from "@/router";
 import DeleteMovieModal from "@/components/modal/DeleteMovieModal.vue";
 import DeleteSeanceModal from "@/components/modal/DeleteSeanceModal.vue";
@@ -62,6 +61,7 @@ export default {
             ]
         }
     },
+
     methods: {
         getAllSeances() {
             this.$http.get("/api/v1/seance/admin-summary", {headers : getAuthHeader()})
@@ -107,7 +107,6 @@ export default {
             this.getAllSeances()
             this.$emit("seance-table-success", "Seanss kustutatud")
         },
-
 
     },
     mounted() {

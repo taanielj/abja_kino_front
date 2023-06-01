@@ -44,8 +44,6 @@
 </template>
 
 <script>
-
-
 import PurchaseJourneyCard from "@/components/PurchaseJourneyCard.vue";
 import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 import SeanceTicketCard from "@/components/SeanceTicketCard.vue";
@@ -78,6 +76,7 @@ export default {
 
         }
     },
+
     name: "PurchaseView",
     components: {PurchaseConfirmModal, PurchasedTickets, PurchaseJourneyCard, SeanceMovieCard, SeanceTicketCard},
     methods: {
@@ -104,8 +103,8 @@ export default {
             sessionStorage.removeItem("userTickets");
             router.push({path: "/"})
         },
-
     },
+
     beforeMount() {
         if (sessionStorage.getItem("userTickets") === null) {
             router.push({path: "/"});
@@ -115,7 +114,6 @@ export default {
             this.show = true;
         }
     }
-
 }
 
 </script>
@@ -137,7 +135,6 @@ export default {
 .custom-button {
     border: transparent;
     font-size: 2.6vh;
-
 }
 
 </style>

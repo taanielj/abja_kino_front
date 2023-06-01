@@ -6,7 +6,6 @@
         <template #body>
             Kas soovid välja logida?
         </template>
-
         <template #footer>
             <button @click="executeLogout" type="button" class="btn btn-secondary custom-button">Jah</button>
         </template>
@@ -31,11 +30,6 @@ export default {
         closeOnClickOutside() {
             this.$refs.modalRef.closeModal()
         }
-
-
-
-
     }
-
 }
 </script>

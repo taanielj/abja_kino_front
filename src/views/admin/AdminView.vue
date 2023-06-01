@@ -6,7 +6,6 @@
         />
         <div class="row justify-content-center">
             <div class="col col-9">
-
                 <div class="admin-table row text-center">
                     <h1 class="title">
                         Administraatori töölaud
@@ -59,7 +58,6 @@ import RoomTable from "@/components/admin/table/RoomTable.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import UserTable from "@/components/admin/table/UserTable.vue";
 import AlertModal from "@/components/modal/AlertModal.vue";
-
 export default {
 
     components: {
@@ -80,6 +78,7 @@ export default {
             errorMessage: ''
         }
     },
+
     methods: {
         openAlertModal(errorMessage) {
             this.errorMessage = errorMessage;
@@ -101,6 +100,7 @@ export default {
         },
 
     },
+
     beforeMount() {
         if (localStorage.getItem('roleName') !== 'ADMIN')
             this.$router.push('/');

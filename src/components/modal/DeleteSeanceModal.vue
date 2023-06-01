@@ -23,12 +23,14 @@ export default defineComponent({
     props: {
         seanceId: Number
     },
+
     data() {
         return {
             errorMessage: "",
             successMessage: ""
         }
     },
+
     methods: {
         deleteSeance() {
             this.$http.delete("/api/v1/seance/" + this.seanceId)
@@ -47,9 +49,7 @@ export default defineComponent({
                     }
                 })
         },
-
     }
-
 })
 
 </script>

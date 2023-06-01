@@ -1,13 +1,10 @@
 <template>
     <table class="table">
-
         <colgroup>
             <col style="width: 30%">
             <col style="width: 30%">
             <col style="width: 20%">
             <col style="width: 20%">
-
-
         </colgroup>
         <thead>
         <tr>
@@ -15,7 +12,6 @@
             <th scope="col">E-mail</th>
             <th scope="col">Roll</th>
             <th scope="col">Staatus</th>
-
         </tr>
         </thead>
         <tbody>
@@ -24,13 +20,9 @@
             <td>{{ user.email }}</td>
             <td>{{ user.roleName }}</td>
             <td>{{ user.status }}</td>
-
         </tr>
-
         </tbody>
     </table>
-
-
 </template>
 
 <script>
@@ -53,10 +45,9 @@ export default {
                     status: "",
                 }
             ]
-
         }
-
     },
+
     methods: {
         getUsers() {
             this.$http.get("/api/v1/user/admin-summary", {headers: getAuthHeader()})
@@ -69,10 +60,9 @@ export default {
                     })
         },
     },
+
     beforeMount() {
         this.getUsers();
     }
-
-
 }
 </script>

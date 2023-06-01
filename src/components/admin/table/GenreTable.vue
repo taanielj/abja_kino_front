@@ -44,7 +44,6 @@
                 <template v-else>
                     <font-awesome-icon @click="toggleInput" class="hoverable-link me-3" :icon="['fas', 'plus']"/>
                 </template>
-
             </td>
         </tr>
         </tbody>
@@ -67,6 +66,7 @@ export default {
             return index
         }
     },
+
     data() {
         return {
             errorMessage: "",
@@ -81,10 +81,9 @@ export default {
             showInput: false
         }
     },
+
     methods: {
         getGenres() {
-
-
             this.$http.get("/api/v1/genre/all", {headers: getAuthHeader()})
                     .then(response => {
                         this.genres = response.data
@@ -93,6 +92,7 @@ export default {
                         this.errorMessage = "Database connection error";
                     })
         },
+
         postGenre() {
             this.$http.post("/api/v1/genre", null, {
                         params: {genreName: this.newGenre},
@@ -158,6 +158,7 @@ export default {
             this.showInput = false;
 
         },
+
         handleGenreError(error) {
             if (error.response.status === 409 || error.response.status === 400) {
                 this.errorMessage = error.response.data.message;
@@ -167,6 +168,7 @@ export default {
             }
 
         },
+
         deleteGenre(index) {
             this.$http.delete("/api/v1/genre/" + (index), {headers: getAuthHeader()})
                     .then(() => {
@@ -176,9 +178,8 @@ export default {
                     .catch(error => {
                         this.handleGenreError(error);
                     })
-
-
         },
+
         toggleInput() {
             this.showInput = !this.showInput;
             if (!this.showInput) {
@@ -187,6 +188,7 @@ export default {
         },
 
     },
+
     beforeMount() {
         this.getGenres()
     }

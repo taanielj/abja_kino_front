@@ -36,7 +36,6 @@
                 <input v-model="seanceInfo.language" type="text" class="form-control" id="language">
             </div>
         </div>
-
         <div class="row mb-3 justify-content-center">
             <div class="col col-4">
                 <label for="timeDate" class="form-label">Algusaeg</label>
@@ -74,7 +73,6 @@ import router from "@/router";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import {getAuthHeader} from "@/utils";
-
 export default {
     name: "AddSeanceView",
     components: {AlertSuccess, AlertDanger, RoomDropdown, MovieDropdown},
@@ -172,7 +170,6 @@ export default {
         updateRoomId(roomId) {
             this.seanceInfo.roomId = roomId;
         }
-
     },
     mounted() {
         if (this.seanceId !== undefined) {

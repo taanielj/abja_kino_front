@@ -31,11 +31,13 @@ export default {
     props: {
         closeButtonName: String
     },
+
     data(){
         return {
             isOpen: false,
         }
     },
+
     methods: {
         openModal() {
             this.isOpen = true

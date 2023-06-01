@@ -61,11 +61,9 @@ export default {
             selectedMovieTitle: null
         }
     },
+
     methods: {
         getAllMovies() {
-
-
-
             this.$http.get("/api/v1/movie/admin-summary", {headers: getAuthHeader()})
                 .then(response => {
                     this.movies = response.data
@@ -94,13 +92,12 @@ export default {
             this.$refs.deleteMovieModalRef.$refs.modalRef.openModal();
         },
 
-
-
         setErrorMessage(errorMessage) {
             this.errorMessage = errorMessage;
             this.$emit("movie-table-error", errorMessage);
         }
     },
+
     beforeMount() {
         this.getAllMovies()
     }

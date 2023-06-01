@@ -48,10 +48,7 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
         </div>
         <div class="row justify-content-center">
@@ -65,18 +62,12 @@
 
                 </iframe>
             </div>
-
-
         </div>
-
-
     </div>
-
     <div class="seances row justify-content-center" ref="seanceSelector">
         <div v-if="allMovieSeanceIds.length !== 0" class="custom-card title">
             Vali seanss
         </div>
-
         <div v-if="allMovieSeanceIds.length !== 0" class="schedule-container">
             <div class="row justify-content-center">
                 <div class="col col-12 p-2">
@@ -92,13 +83,10 @@
                 </div>
             </div>
         </div>
-
         <div v-else class="custom-card title">
             Filmil ei ole seansse
         </div>
-
     </div>
-
 </template>
 
 <script>
@@ -135,6 +123,7 @@ export default {
             ],
         }
     },
+
     methods: {
         isValidYoutubeEmbedLink(link) {
             const regex = /^https:\/\/www\.youtube\.com\/embed\/[^/]+$/;
@@ -173,7 +162,6 @@ export default {
                 })
         },
 
-
         getGenre() {
             this.$http.get("/api/v1/genre/" + this.movieInfo.genreId)
                 .then(response => {
@@ -188,16 +176,16 @@ export default {
             this.runtimeHours = Math.floor(this.movieInfo.runtime / 60)
             this.runtimeMinutes = this.movieInfo.runtime % 60
         }
-
     },
+
     mounted() {
         if (this.movieId !== 0) {
             this.getMovie();
             this.getAllMovieSeanceIds();
-
         }
     }
 }
+
 </script>
 
 <style scoped>

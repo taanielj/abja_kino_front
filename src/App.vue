@@ -25,17 +25,13 @@
     <div class="content">
         <router-view @event-update-nav-menu="updateNavMenu"/>
     </div>
-
     <LogoutModal ref="logoutModalRef" @event-update-nav-menu="updateNavMenu"/>
-
-
 </template>
 
 <script>
 import LogoutModal from "@/components/modal/LogoutModal.vue";
 import Modal from "@/components/modal/Modal.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-
 
 export default {
     name: "YourComponent",
@@ -47,6 +43,7 @@ export default {
             roleName: localStorage.getItem('roleName')
         }
     },
+
     methods: {
         updateNavMenu() {
             this.userId = localStorage.getItem('userId')
@@ -64,6 +61,7 @@ export default {
         },
     }
 }
+
 </script>
 
 <style>

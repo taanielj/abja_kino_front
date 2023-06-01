@@ -14,7 +14,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -25,6 +24,7 @@ export default {
     props: {
         ticketId: 0
     },
+
     data() {
         return {
             show: false,
@@ -41,6 +41,7 @@ export default {
             minutes: 0
         }
     },
+
     methods: {
         getTicket() {
             this.$http.get("/api/v1/ticket/" + this.ticketId)
@@ -48,12 +49,12 @@ export default {
                     this.ticketInfo = response.data;
                     this.parseDateTime();
                     this.show = true;
-
                 })
                 .catch(() => {
                     router.push({path:"/error"})
                 })
         },
+
         parseDateTime() {
             let date = new Date(this.ticketInfo.seanceStartTime);
             this.date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
@@ -62,6 +63,7 @@ export default {
             this.minutes = ("0" + date.getMinutes()).slice(-2);
         }
     },
+
     beforeMount() {
         if(this.ticketId !== 0) {
             this.getTicket();

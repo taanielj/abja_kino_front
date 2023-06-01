@@ -24,6 +24,7 @@ export default defineComponent({
             ],
         }
     },
+
     methods: {
         getAllMovieIds() {
             this.$http.get("/api/v1/movie/ids")
@@ -35,10 +36,12 @@ export default defineComponent({
                 })
         },
     },
+
     beforeMount() {
         this.getAllMovieIds();
     }
 })
+
 </script>
 
 <style scoped>

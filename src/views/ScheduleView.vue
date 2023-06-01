@@ -18,7 +18,6 @@
 
 <script>
 
-
 import MovieCard from "@/components/MovieCard.vue";
 import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 import TrailerModal from "@/components/modal/TrailerModal.vue";
@@ -33,6 +32,7 @@ export default {
             allSeanceIds: [0],
         }
     },
+
     methods: {
         getAllSeanceIds() {
             this.$http.get("/api/v1/seance/all-future-id")
@@ -44,6 +44,7 @@ export default {
                 })
         },
     },
+
     beforeMount() {
         this.getAllSeanceIds();
     }
@@ -51,6 +52,7 @@ export default {
 </script>
 
 <style scoped>
+
 .schedule-container {
     width: 90vw;
     margin: 0 auto;
@@ -60,5 +62,6 @@ export default {
     margin-left: 5vh;
     margin-top: 1vh;
 }
+
 </style>
 

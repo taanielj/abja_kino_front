@@ -21,11 +21,13 @@ export default {
     props: {
         youtubeLink: "",
     },
+
     data() {
         return {
             isOpen: false,
         }
     },
+
     methods: {
         openModal() {
             this.isOpen = true

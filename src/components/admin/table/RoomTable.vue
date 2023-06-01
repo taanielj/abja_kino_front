@@ -1,6 +1,5 @@
 <template>
     <table class="table">
-
         <colgroup>
             <col style="width: 20%">
             <col style="width: 20%">
@@ -66,9 +65,6 @@
                 <span>{{ newRoom.rows * newRoom.cols }}</span>
             </td>
             <td v-else></td>
-
-
-
             <td>
                 <template v-if="showInput">
                     <font-awesome-icon @click="addNewRoom" class="hoverable-link me-3" :icon="['fas', 'save']"/>
@@ -100,6 +96,7 @@ export default {
             return this.rooms.map(room => room.rows * room.cols);
         }
     },
+
     data() {
         return {
             errorMessage: "",
@@ -120,19 +117,18 @@ export default {
             },
             showInput: false
         }
-
-
     },
+
     methods: {
         getAllRooms() {
             this.$http.get("/api/v1/room/all", {headers: getAuthHeader()})
-                    .then(response => {
-                        this.rooms = response.data;
-                        this.totalSeats = this.rows * this.cols;
-                    })
-                    .catch(() => {
-                        this.errorMessage = "Database connection error";
-                    })
+                .then(response => {
+                    this.rooms = response.data;
+                    this.totalSeats = this.rows * this.cols;
+                })
+                .catch(() => {
+                    this.errorMessage = "Database connection error";
+                })
         },
 
         editRoom(roomId) {
@@ -140,8 +136,6 @@ export default {
             if (!this.validateFieldsFilled(room)) {
                 return;
             }
-
-
             this.putRoom(room);
         },
 
@@ -149,34 +143,33 @@ export default {
             if (!this.validateFieldsFilled(this.newRoom)) {
                 return;
             }
-
             this.postRoom();
         },
 
         postRoom() {
             this.$http.post("/api/v1/room", this.newRoom, {headers: getAuthHeader()})
-                    .then(() => this.resetFields())
-                    .catch(error => {
-                        this.handleRoomError(error);
-                        this.resetFields();
-                    })
+                .then(() => this.resetFields())
+                .catch(error => {
+                    this.handleRoomError(error);
+                    this.resetFields();
+                })
         },
 
         putRoom(room) {
             this.$http.put("/api/v1/room/" + room.id, room, {headers: getAuthHeader()})
-                    .then(() => {
-                        room.editing = false;
-                        this.$emit("room-table-success")
-                        this.getAllRooms();
-                    })
-                    .catch(error => this.handleRoomError(error))
+                .then(() => {
+                    room.editing = false;
+                    this.$emit("room-table-success")
+                    this.getAllRooms();
+                })
+                .catch(error => this.handleRoomError(error))
         },
 
 
         deleteRoom(index) {
             this.$http.delete("/api/v1/room/" + (index), {headers: getAuthHeader()})
-                    .then(() => this.getAllRooms())
-                    .catch(error => this.handleRoomError(error))
+                .then(() => this.getAllRooms())
+                .catch(error => this.handleRoomError(error))
         },
 
         resetFields() {
@@ -246,8 +239,8 @@ export default {
                 };
             }
         }
-
     },
+
     beforeMount() {
         this.getAllRooms();
     },
@@ -258,11 +251,13 @@ export default {
                 this.newRoom.rows = 1;
             }
         },
+
         "newRoom.cols"(newVal) {
             if (newVal < 1) {
                 this.newRoom.cols = 1;
             }
         },
+
         rooms: {
             handler(editedRooms) {
                 editedRooms.forEach((room, index) => {
@@ -276,11 +271,13 @@ export default {
                     }
                 });
             },
+
             deep: true
         }
     }
 }
 </script>
+
 <style scoped>
 .input-field {
     border-radius: 5px;

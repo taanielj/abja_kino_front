@@ -24,6 +24,7 @@ export default {
     props: {
         formattedSum: String,
     },
+
     data() {
 
     },
@@ -33,7 +34,6 @@ export default {
             this.$refs.modalRef.closeModal()
         }
     }
-
 }
 
 </script>

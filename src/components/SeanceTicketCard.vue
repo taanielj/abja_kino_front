@@ -27,6 +27,7 @@ export default defineComponent({
         show: false,
         availableSeats: 0,
     },
+
     data() {
         return {
             errorMessage: "",
@@ -39,8 +40,7 @@ export default defineComponent({
                 }
             ]
         }
-
-    },
+   },
 
     methods: {
         formatPrice(price) {
@@ -52,6 +52,7 @@ export default defineComponent({
                 ticketType.amount = 0;
             })
         },
+
         getTicketTypes() {
             this.$http.get("/api/v1/ticket/type/all")
                 .then(response => {
@@ -59,7 +60,6 @@ export default defineComponent({
                     this.ticketTypes.forEach(ticketType => {
                         ticketType.formattedPrice = this.formatPrice(ticketType.price);
                     });
-
                     this.setAmountToZero();
                 })
                 .catch(() => {
@@ -68,11 +68,11 @@ export default defineComponent({
                 })
         }
     },
+
     mounted() {
         if (this.seanceId !== 0) {
             this.getTicketTypes();
         }
-
     },
     // prevent ticketTypes from going below zero
     watch: {
@@ -88,9 +88,7 @@ export default defineComponent({
             },
             deep: true
         },
-
     }
-
 })
 </script>
 

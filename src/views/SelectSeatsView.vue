@@ -45,7 +45,6 @@
 
 <script>
 
-
 import router from "@/router";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {getAuthHeader} from "@/utils";
@@ -88,6 +87,7 @@ export default {
                     amount: 0,
                 }
             ],
+
             ticketTypeNames: [],
             ticketTypePrices: [],
 
@@ -102,8 +102,6 @@ export default {
                     ticketPrice: 0,
                 }
             ],
-
-
         }
     },
 
@@ -118,7 +116,6 @@ export default {
     },
 
     methods: {
-
         openAlertModal(message) {
             this.errorMessage = message;
             this.$refs.alertModalRef.openModal();
@@ -166,7 +163,6 @@ export default {
                     this.ticketTypePrices.shift();
 
                     selectedTickets.push(selectedSeat);
-
                 }
             }
             return selectedTickets;
@@ -213,6 +209,7 @@ export default {
             }
         }
     },
+
     mounted() {
         if (!sessionStorage.getItem("ticketTypes")) {
             this.navigateToChooseTickets()
@@ -233,12 +230,14 @@ export default {
             this.getRoomSeance();
         }
     },
+
     beforeDestroy() {
         sessionStorage.removeItem("ticketTypes")
     }
 }
 
 </script>
+
 <style scoped>
 .container {
     display: flex;

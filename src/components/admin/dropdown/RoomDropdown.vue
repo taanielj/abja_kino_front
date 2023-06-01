@@ -23,14 +23,10 @@ export default {
             ]
         }
     },
-    methods: {
 
+    methods: {
         emitSelectedRoomId() {
             this.$emit('event-emit-selected-room-id', Number(this.selectedRoomId))
-        },
-
-        setSelectedRoomId(roomId) {
-            this.selectedRoomId = roomId
         },
 
         getRooms() {
@@ -40,15 +36,16 @@ export default {
                 })
                 .catch(error => {
                        console.log(error)
-
                 })
         },
     },
+
     watch: {
         room(newRoomId) {
             this.selectedRoomId = newRoomId || 0;
         }
     },
+
     beforeMount() {
         this.getRooms()
     }

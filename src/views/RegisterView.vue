@@ -66,13 +66,14 @@ export default {
                 password: "",
                 email: "",
             },
-
         };
     },
+
     methods: {
         passwordMatch() {
             return this.registrationRequest.password === this.matchingPassword
         },
+
         navigateBack() {
             router.push({path: '/'})
         },
@@ -96,6 +97,7 @@ export default {
                 && this.registrationRequest.password !== ''
                 && this.registrationRequest.email !== ''
         },
+
         postNewClient() {
             this.$http.post('/api/v1/user/register', this.registrationRequest
             ).then((response) => {
@@ -113,6 +115,7 @@ export default {
                 })
 
         },
+
         handleRegistrationError(error) {
             if (error.response.status === 409 || error.response.status === 400) {
                 this.openAlertModal(error.response.data.message)
@@ -120,6 +123,7 @@ export default {
                 router.push({path: '/error'})
             }
         },
+
         openAlertModal(errorMessage) {
             this.errorMessage = errorMessage;
             this.$refs.alertModalRef.openModal();
