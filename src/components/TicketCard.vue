@@ -18,6 +18,7 @@
 
 <script>
 import router from "@/router";
+import {getAuthHeader} from "@/utils";
 
 export default {
     name: "TicketCard",
@@ -44,7 +45,7 @@ export default {
 
     methods: {
         getTicket() {
-            this.$http.get("/api/v1/ticket/" + this.ticketId)
+            this.$http.get("/api/v1/ticket/" + this.ticketId, {headers: getAuthHeader()})
                 .then(response => {
                     this.ticketInfo = response.data;
                     this.parseDateTime();
