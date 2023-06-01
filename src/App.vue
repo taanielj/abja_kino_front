@@ -110,6 +110,9 @@ nav a {
     font-weight: bold;
     color: #2c3e50;
 }
+nav a:hover {
+    color: #b98342;
+}
 
 nav a.router-link-exact-active {
     color: rgba(170, 27, 45, 0.8);

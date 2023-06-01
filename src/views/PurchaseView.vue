@@ -33,7 +33,7 @@
 
                             </div>
                             <div class="col">
-                                <button href="#" @click="openConfirmModal" class="custom-button">
+                                <button href="#" @click="openConfirmModal" class="custom-button rotate">
                                     Osta
                                 </button>
 
