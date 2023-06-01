@@ -51,5 +51,6 @@ export default defineComponent({
 <style scoped>
 .all-movies{
     margin-left: 7%;
+    margin-bottom: 20%;
 }
 </style>

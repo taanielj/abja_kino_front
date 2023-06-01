@@ -156,6 +156,7 @@ export default defineComponent({
     border-radius: 1vh;
     padding: 1vh;
     margin-bottom: 1vh;
+    margin-top: 1vh;
     aspect-ratio: 0.5;
 
 }
@@ -168,11 +169,13 @@ export default defineComponent({
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 1vh 0 rgba(0,0,0,0.5);
     border-radius: 1vh;
+    padding: 0.01vh;
+    margin: 1vh;
 }
 .portrait-card-title{
-    padding-top: 1vh;
+    padding-top: 0.8vh;
     min-height: 11vh;
-    font-size: 3.5vh;
+    font-size: 3.3vh;
     font-weight: bold;
     text-align: left;
 }
@@ -208,6 +211,7 @@ export default defineComponent({
     height: 37vh ;
     width: 29vh;
     aspect-ratio: 1;
+    padding: 0.01vh;
 }
 .row-text{
     height: 18vh ;
