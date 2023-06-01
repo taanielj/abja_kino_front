@@ -1,16 +1,18 @@
 <template>
-    <div class="container">
-        <div class="row ms-5 justify-content-center align-self-center">
-            <div class="col col-12 ">
-                <div class="d-inline-flex flex-wrap justify-content-start ">
-                    <div v-for="movieId in allMovieIds" class="m-1">
-                        <MovieCard :movie-id="movieId" :key="movieId"/>
-                    </div>
+    <div class="all-movies">
+        <div class="row justify-content-center">
 
+            <div class="d-flex flex-wrap justify-content-start ">
+                <div v-for="movieId in allMovieIds" class="m-1">
+                    <MovieCard :movie-id="movieId" :key="movieId"/>
                 </div>
+
             </div>
+
         </div>
     </div>
+
+
 
 </template>
 
@@ -47,5 +49,7 @@ export default defineComponent({
 
 
 <style scoped>
-
+.all-movies{
+    margin-left: 7%;
+}
 </style>

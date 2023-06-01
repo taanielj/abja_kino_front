@@ -161,17 +161,17 @@ export default defineComponent({
 }
 .portrait-card{
     width: 40vh;
-    height: 70vh;
+    min-height: 73vh;
     display: flex;
     align-items: center;
     text-align: start;
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 1vh 0 rgba(0,0,0,0.5);
     border-radius: 1vh;
-    padding: 1vh;
 }
 .portrait-card-title{
     padding-top: 1vh;
+    min-height: 11vh;
     font-size: 3.5vh;
     font-weight: bold;
     text-align: left;
