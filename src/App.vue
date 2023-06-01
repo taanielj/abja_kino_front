@@ -2,8 +2,9 @@
     <nav @click="closeOnClickOutside">
         <div>
             <div id="cinema-name">
+                <font-awesome-icon :icon="['fas', 'clapperboard']" />
                 Abja-Paluoja KINO
-                <font-awesome-icon :icon="['fa-light', 'fa-camera-movie']"/>
+                <font-awesome-icon :icon="['fas', 'clapperboard']" />
             </div>
             <router-link to="/">Kava</router-link>
             |
@@ -88,20 +89,20 @@ export default {
 #cinema-name {
     font-size: 3vw;
     font-weight: bold;
-    padding: 0vh;
+    padding: 0.01vh;
 }
 
 nav {
     position: fixed;
     background-color: rgba(255, 240, 225, 1);
-    padding: 0vh;
+    padding: 0.01vh;
     font-size: 2vw;
     width: 100%;
     transition: top 0.3s;
     z-index: 9999;
     box-shadow: 0 0.2vw 0.8vw rgba(0, 0, 0, 0.2); /* changed from px to vw */
     height: 16vh;
-    margin: 0vh;
+    margin: 0.01vh;
 }
 
 nav a {
@@ -120,6 +121,6 @@ nav a.router-link-exact-active {
 
 
 router-link{
-    padding: 0vh;
+    padding: 0.01vh;
 }
 </style>
