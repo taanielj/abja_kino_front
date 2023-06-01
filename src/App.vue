@@ -62,9 +62,7 @@ export default {
                 this.$refs.logoutModalRef.$refs.modalRef.closeModal()
             }
         },
-
     }
-
 }
 </script>
 
@@ -84,7 +82,6 @@ export default {
     width: 100vw;
     overflow-x: hidden;
 }
-
 
 #cinema-name {
     font-size: 3vw;
@@ -121,8 +118,6 @@ nav a.router-link-exact-active {
 .content {
     padding-top: 25vh;
 }
-
-
 
 router-link{
     padding: 0.01vh;

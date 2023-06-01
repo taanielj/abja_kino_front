@@ -14,9 +14,6 @@
         </div>
     </div>
 </div>
-
-
-
 </template>
 
 <script>
@@ -50,24 +47,18 @@ export default {
     beforeMount() {
         this.getAllSeanceIds();
     }
-
-
 }
 </script>
 
 <style scoped>
-
-
 .schedule-container {
     width: 90vw;
     margin: 0 auto;
-
 }
 
 .seance-card {
     margin-left: 5vh;
     margin-top: 1vh;
 }
-
 </style>
 

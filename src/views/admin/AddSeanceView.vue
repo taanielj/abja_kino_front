@@ -1,9 +1,8 @@
 <template>
     <div class="container admin-table p-2 w-50">
-
         <div class="row justify-content-center mb-4">
             <h1 v-if="isEdit">Seansi muutmine</h1>
-            <h1 v-else >Seansi lisamine</h1>
+            <h1 v-else>Seansi lisamine</h1>
         </div>
         <div class="row mb-3 justify-content-center">
             <div class="col col-4">
@@ -38,7 +37,6 @@
             </div>
         </div>
 
-
         <div class="row mb-3 justify-content-center">
             <div class="col col-4">
                 <label for="timeDate" class="form-label">Algusaeg</label>
@@ -56,18 +54,17 @@
                 <button @click="navigateBack" type="button" class="btn button btn-outline-secondary custom-button me-3">
                     Tagasi
                 </button>
-                <button v-if="isEdit" @click="editSeance" type="button" class="btn button btn-outline-secondary custom-button me-3">
+                <button v-if="isEdit" @click="editSeance" type="button"
+                        class="btn button btn-outline-secondary custom-button me-3">
                     Muuda
                 </button>
-                <button v-else @click="addSeance" type="button" class="btn button btn-outline-secondary custom-button me-3">
+                <button v-else @click="addSeance" type="button"
+                        class="btn button btn-outline-secondary custom-button me-3">
                     Lisa
                 </button>
             </div>
         </div>
-
     </div>
-
-
 </template>
 
 <script>
@@ -112,7 +109,7 @@ export default {
         addSeance() {
             this.resetMessageFields();
 
-            if(!this.allFieldsFilled()) {
+            if (!this.allFieldsFilled()) {
                 this.setErrorMessage("Täida kõik väljad!")
                 return;
             }
@@ -178,7 +175,7 @@ export default {
 
     },
     mounted() {
-        if(this.seanceId !== undefined) {
+        if (this.seanceId !== undefined) {
             this.isEdit = true;
             this.getSeance();
         }

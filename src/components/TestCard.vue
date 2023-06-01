@@ -95,7 +95,6 @@ export default defineComponent({
 })
 </script>
 
-
 <style scoped>
 .card {
     /* You can adjust this to match the fixed height of your preference */

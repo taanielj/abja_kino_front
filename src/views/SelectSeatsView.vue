@@ -1,33 +1,19 @@
 <template>
-
     <div class="row justify-content-center">
         <div class="col col-6">
             <PurchaseJourneyCard :journey="journey"/>
         </div>
     </div>
-
-
     <div class="container">
         <h1>
             {{ roomSeance.roomName }}
         </h1>
         <div class="seats">
-
             <AlertModal
                     :message="errorMessage"
                     ref="alertModalRef"
             />
-
-            <div class="">
-
-            </div>
-
-            <div class="row-number">
-
-            </div>
-
             <div class="row" v-for="row in organizedSeats">
-
                 <div v-for="(seat, seatIndex) in row" :key="`seat-${seatIndex}`" class="seat hoverable-link"
                      :class="{ 'disabled': !seat.available }" @click="toggleSeat(seat)">
                     <img v-if="seat.selected" class="seat-image" src="@/assets/grey_seat.png" alt="Selected_seat"/>
@@ -40,24 +26,19 @@
                 </div>
             </div>
         </div>
-
         <div class="screen">
             <img src="@/assets/screen.svg" alt="Screen"/>
             <div class="screen-name">
                 EKRAAN
             </div>
         </div>
-
         <div class="row justify-content-center my-buttons mt-5">
             <div class="col">
                 <button class="custom-button" @click="navigateToChooseTickets">Tagasi</button>
             </div>
             <div class="col">
                 <button class="custom-button" @click="navigateToConfirm">Kinnita</button>
-
             </div>
-
-
         </div>
     </div>
 </template>
@@ -149,7 +130,7 @@ export default {
         },
 
         navigateToConfirm() {
-            if(this.boughtTickets === 1) {
+            if (this.boughtTickets === 1) {
                 this.openAlertModal(`Vali veel ${this.boughtTickets} koht!`);
                 return;
             }
@@ -230,9 +211,7 @@ export default {
                 selectedSeatsInRow.push(seat);
                 this.rowSelectedSeats.set(seat.row, selectedSeatsInRow);
             }
-
         }
-
     },
     mounted() {
         if (!sessionStorage.getItem("ticketTypes")) {
@@ -251,11 +230,8 @@ export default {
                     ticketType.amount--;
                 }
             }
-
-
             this.getRoomSeance();
         }
-
     },
     beforeDestroy() {
         sessionStorage.removeItem("ticketTypes")
@@ -280,8 +256,6 @@ export default {
     overflow-x: auto;
     width: 100%;
     margin-bottom: 30px;
-
-
 }
 
 .row {
@@ -341,6 +315,4 @@ export default {
 .container {
     margin-bottom: 10%;
 }
-
-
 </style>

@@ -1,11 +1,9 @@
 <template>
     <div class="container text-center">
-
         <AlertModal
                 :message="errorMessage"
                 ref="alertModalRef"
         />
-
         <div class="row justify-content-center">
             <div class="col col-9">
 
@@ -13,10 +11,7 @@
                     <h1 class="title">
                         Administraatori töölaud
                     </h1>
-
                 </div>
-
-
                 <div class="row admin-table">
                     <MovieTable
                             @movie-table-error="openAlertModal"
@@ -49,7 +44,6 @@
                 <div class="row admin-table">
                     <UserTable @user-table-error="openAlertModal"/>
                 </div>
-
             </div>
         </div>
     </div>
@@ -115,7 +109,6 @@ export default {
 </script>
 
 <style scoped>
-
 .admin-table {
     background-color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px;
@@ -123,13 +116,11 @@ export default {
     font-size: 2.5vh;
 }
 
-
 .title {
     font-size: 4.5vh;
     font-weight: bold;
     color: #1a202c;
     text-align: center;
 }
-
 
 </style>

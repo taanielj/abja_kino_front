@@ -1,19 +1,13 @@
 <template>
     <div class="all-movies">
         <div class="row justify-content-center">
-
             <div class="d-flex flex-wrap justify-content-start ">
                 <div v-for="movieId in allMovieIds" class="m-1">
                     <MovieCard :movie-id="movieId" :key="movieId"/>
                 </div>
-
             </div>
-
         </div>
     </div>
-
-
-
 </template>
 
 <script>
@@ -46,7 +40,6 @@ export default defineComponent({
     }
 })
 </script>
-
 
 <style scoped>
 .all-movies{

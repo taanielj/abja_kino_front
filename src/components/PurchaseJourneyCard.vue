@@ -1,6 +1,6 @@
 <template>
     <div class="purchase-journey ">
-        <div class= "spaced-buttons">
+        <div class="spaced-buttons">
             <span v-if="journey === 'tickets'" class="journey-button journey-active">
                 Piletid
             </span>
@@ -19,7 +19,6 @@
             <span v-else class="journey-button journey-inactive">
                 Kinnita
             </span>
-
 
 
         </div>

@@ -4,9 +4,7 @@
             :formattedSum="formattedSum"
             @purchase-confirmed="postTickets"
             ref="confirmModalRef"
-
     />
-
     <div v-if="show" class="container">
         <div class="row">
             <div class="col col-6 justify-content-center">
@@ -30,18 +28,14 @@
                                 <button href="#" @click="cancelPurchase" class="custom-button">
                                     Tühista
                                 </button>
-
                             </div>
                             <div class="col">
                                 <button href="#" @click="openConfirmModal" class="custom-button rotate">
                                     Osta
                                 </button>
-
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -108,7 +102,7 @@ export default {
 
         cancelPurchase() {
             sessionStorage.removeItem("userTickets");
-            router.push({path:"/"})
+            router.push({path: "/"})
         },
 
     },
@@ -135,20 +129,15 @@ export default {
     border-left: none;
 }
 
-
-
-.seance-card{
+.seance-card {
     width: 100%;
     margin-bottom: 5vh;
 }
 
-.custom-button{
+.custom-button {
     border: transparent;
     font-size: 2.6vh;
 
-
 }
-
-
 
 </style>

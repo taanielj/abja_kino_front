@@ -1,6 +1,4 @@
 <template>
-
-
     <div class="container text-center">
         <div class="row">
             <div class="row justify-content-center"
@@ -100,11 +98,9 @@ export default {
 </script>
 
 <style scoped>
-
 .custom-card {
     margin: 2vh;
     padding: 2vh;
 }
-
 </style>
 

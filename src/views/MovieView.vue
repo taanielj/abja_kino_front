@@ -2,7 +2,6 @@
     <div v-if="show">
         <div class="row justify-content-center">
             <div class="card">
-
                 <h1 class="card-header text-black bigger-text bold-text">
                     {{ movieInfo.title }}
                 </h1>

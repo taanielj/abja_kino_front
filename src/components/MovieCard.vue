@@ -1,8 +1,9 @@
-<template><TrailerModal
-    ref="trailerModalRef"
-    :youtube-link="movieInfo.youtubeLink"
-/>
-    <div  v-if="show" class="d-flex flex-column bd-highlight portrait-card mb-3">
+<template>
+    <TrailerModal
+            ref="trailerModalRef"
+            :youtube-link="movieInfo.youtubeLink"
+    />
+    <div v-if="show" class="d-flex flex-column bd-highlight portrait-card mb-3">
 
         <div class="row row-poster p-2 hoverable-link" @click="gotoMovie(movieId)">
             <PosterImage class="portrait-card-picture" :image-data-base64="image" ref="posterImage"/>
@@ -15,7 +16,7 @@
             <div class="portrait-card-text">
                 {{ formattedGenreName }} | {{ runtimeHours }}h {{ runtimeMinutes }}min
             </div>
-            <div class="portrait-card-text" >
+            <div class="portrait-card-text">
                 {{ movieInfo.director }}
             </div>
         </div>
@@ -23,9 +24,9 @@
             <div class=" btn-group-vertical d-flex">
                 <div class="row">
                     <button
-                        type="button"
-                        class="btn-outline-secondary custom-button-wide me-2"
-                        @click="openTrailerModal">
+                            type="button"
+                            class="btn-outline-secondary custom-button-wide me-2"
+                            @click="openTrailerModal">
                         <font-awesome-icon :icon="['fass', 'trailer']"/>
                         Vaata treilerit
                     </button>
@@ -86,8 +87,8 @@ export default defineComponent({
     },
     computed: {
         formattedGenreName() {
-            if(this.movieInfo.genreName)
-            return this.movieInfo.genreName.charAt(0).toUpperCase() + this.movieInfo.genreName.slice(1);
+            if (this.movieInfo.genreName)
+                return this.movieInfo.genreName.charAt(0).toUpperCase() + this.movieInfo.genreName.slice(1);
         },
     },
     methods: {
@@ -152,7 +153,7 @@ export default defineComponent({
 .portrait-card-picture {
     object-fit: contain;
     height: 35vh !important;
-    box-shadow: 0 0 1vh 0 rgba(0,0,0,0.5);
+    box-shadow: 0 0 1vh 0 rgba(0, 0, 0, 0.5);
     border-radius: 1vh;
     padding: 1vh;
     margin-bottom: 1vh;
@@ -160,32 +161,35 @@ export default defineComponent({
     aspect-ratio: 0.5;
 
 }
-.portrait-card{
+
+.portrait-card {
     width: 40vh;
     min-height: 73vh;
     display: flex;
     align-items: center;
     text-align: start;
     background-color: rgba(255, 240, 225, 0.8);
-    box-shadow: 0 0 1vh 0 rgba(0,0,0,0.5);
+    box-shadow: 0 0 1vh 0 rgba(0, 0, 0, 0.5);
     border-radius: 1vh;
     padding: 0.01vh;
     margin: 1vh;
 }
-.portrait-card-title{
+
+.portrait-card-title {
     padding-top: 0.8vh;
     min-height: 11vh;
     font-size: 3.3vh;
     font-weight: bold;
     text-align: left;
 }
+
 .portrait-card-text {
     font-size: 2vh;
     text-align: left;
     aspect-ratio: auto;
 }
 
-.custom-button-wide{
+.custom-button-wide {
     margin: 1vh;
     width: 30vh;
     height: 5vh;
@@ -200,21 +204,24 @@ export default defineComponent({
     justify-content: center;
 
 }
-.custom-button-wide:hover{
+
+.custom-button-wide:hover {
     background-color: rgba(170, 27, 45, 0.8);
     box-shadow: 0 0 1vh 0 rgba(132, 27, 45, 0.5);
     color: #000000;
     border-color: #000000;
     transition: all 0.4s ease-in-out;
 }
-.row-poster{
-    height: 37vh ;
+
+.row-poster {
+    height: 37vh;
     width: 29vh;
     aspect-ratio: 1;
     padding: 0.01vh;
 }
-.row-text{
-    height: 18vh ;
+
+.row-text {
+    height: 18vh;
     width: 35vh;
     aspect-ratio: 0.5;
 }

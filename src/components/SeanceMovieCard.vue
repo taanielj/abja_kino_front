@@ -1,17 +1,10 @@
 <template>
-
-
     <div v-if="show" class="seance-card">
-
-
         <TrailerModal
                 ref="trailerModalRef"
                 :youtube-link="seanceInfo.movieYoutubeLink"
         />
-
         <div class="d-flex flex-row ">
-
-
             <PosterImage
                     class="custom-image"
                     :class="{'hoverable-link': linkActive}"
@@ -19,8 +12,6 @@
                     ref="posterImage"
                     @click="goToMovie"
             />
-
-
             <div class="d-flex flex-column seance-info align-items-stretch">
                 <div>
                     <div @click="goToMovie"
@@ -30,10 +21,9 @@
                         {{ seanceInfo.movieTitle }}
                     </div>
                 </div>
-
                 <div class="text">{{ formattedGenreName }} | {{ runtimeHours }}h {{ runtimeMinutes }}min</div>
                 <div class="text">{{ formatDate(seanceInfo.dateTime) }}| Saal: {{ seanceInfo.roomName }}</div>
-                <div class="text">Keel: {{ seanceInfo.language }} | Subtiitrid: {{ seanceInfo.subtitles }} </div>
+                <div class="text">Keel: {{ seanceInfo.language }} | Subtiitrid: {{ seanceInfo.subtitles }}</div>
                 <div class="d-flex justify-content-start align-items-start">
                     <button v-if="journey === 'schedule'"
                             type="button"
@@ -55,20 +45,12 @@
                 <div class="text d-flex justify-content-end align-items-center">
                     Vabukohti: {{ seanceInfo.availableSeats }}/ {{ seanceInfo.totalSeats }}
                 </div>
-
-
             </div>
-
-
         </div>
-
     </div>
-
-
 </template>
 
 <script>
-
 import ScheduleView from "@/views/ScheduleView.vue";
 import PosterImage from "@/components/PosterImage.vue";
 import router from "@/router";
@@ -130,7 +112,7 @@ export default {
                     this.show = true;
                     this.$emit('event-seance-loaded', this.seanceId);
                     this.$emit('event-available-seats', this.seanceInfo.availableSeats);
-                    if(this.journey === 'tickets' || this.journey === 'schedule') {
+                    if (this.journey === 'tickets' || this.journey === 'schedule') {
                         this.linkActive = true;
                     }
                 })
@@ -177,14 +159,10 @@ export default {
 </script>
 
 <style scoped>
-
-
-
 .card-title {
     font-size: 3.5vh;
     height: 10vh;
 }
-
 
 .seance-card {
     height: 35vh;
@@ -206,16 +184,13 @@ export default {
     width: 100%;
 }
 
-.text{
+.text {
     /*align-start*/
     text-align: start;
     font-size: 2.2vh;
     margin-bottom: 1vh;
     padding-right: 3vh;
 }
-
-
-
 </style>
 
 

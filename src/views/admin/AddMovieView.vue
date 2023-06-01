@@ -1,6 +1,5 @@
 <template>
     <div class="container admin-table p-3">
-
         <div class="row justify-content-center mb-4">
             <h1 v-if="isEdit">Muuda Filmi</h1>
             <h1 v-else>Lisa film</h1>
@@ -9,9 +8,6 @@
             <div class="col col-3">
                 <div class="row mb-2 poster-add-movie">
                     <PosterImage :image-data-base64="image"/>
-                </div>
-                <div>
-
                 </div>
                 <div class="row justify-content-lg-center">
                     <ImageInput ref="imageInputRef" @event-emit-base64="setImageData"/>
@@ -22,7 +18,6 @@
             </div>
         </div>
 
-
         <AlertDanger :message="errorMessage"/>
         <AlertSuccess :message="successMessage"/>
 
@@ -31,15 +26,16 @@
                 <button @click="navigateBack" type="button" class="btn button btn-outline-secondary custom-button me-3">
                     Tagasi
                 </button>
-                <button v-if="isEdit" @click="editMovie" type="button" class="btn button btn-outline-secondary custom-button me-3">
+                <button v-if="isEdit" @click="editMovie" type="button"
+                        class="btn button btn-outline-secondary custom-button me-3">
                     Muuda
                 </button>
-                <button v-else @click="addMovie" type="button" class="btn button btn-outline-secondary custom-button me-3">
+                <button v-else @click="addMovie" type="button"
+                        class="btn button btn-outline-secondary custom-button me-3">
                     Lisa
                 </button>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -176,6 +172,3 @@ export default {
     }
 }
 </script>
-<style scooped>
-
-</style>

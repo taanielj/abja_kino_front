@@ -4,7 +4,6 @@
                 :message="errorMessage"
                 ref="alertModalRef"
         />
-
         <div class="row ">
             <div class="col col-7 d-flex justify-content-center">
                 <div class="col">
@@ -20,7 +19,6 @@
                                 @event-seance-id="seanceId = $event"
                         />
                     </div>
-
                     <div class="custom-card">
                         <div class="col">
                             <SeanceTicketCard
@@ -36,7 +34,6 @@
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -97,7 +94,6 @@ export default {
         },
 
 
-
     },
 
 }
@@ -112,20 +108,17 @@ export default {
     border-left: none;
 }
 
-
 .seance-card {
     margin-top: 20px;
     width: 100%;
 }
 
-
 .container {
     margin-bottom: 15%;
 }
 
-.custom-card{
+.custom-card {
     margin-top: 4vh;
     padding: 1.5vh 5vh;
 }
-
 </style>

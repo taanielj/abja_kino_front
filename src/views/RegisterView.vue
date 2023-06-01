@@ -4,8 +4,8 @@
             <div class="col col-3 mt-5 admin-table p-4">
                 <h1>Loo konto</h1>
                 <AlertModal
-                    :message="errorMessage"
-                    ref="alertModalRef"
+                        :message="errorMessage"
+                        ref="alertModalRef"
                 />
                 <div @keydown.enter="login" class="row justify-content-center">
                     <div class="col col-6 mt-4">
@@ -28,7 +28,6 @@
                             <input v-model="registrationRequest.email" type="email" class="form-control" id="password"
                                    placeholder="example@gmail.com">
                         </div>
-
                     </div>
                     <div class="row justify-content-center mt-5 mb-5">
                         <div>
@@ -45,7 +44,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -81,8 +79,6 @@ export default {
 
         registerNewClient() {
             this.errorMessage = ""
-
-
             if (!this.passwordMatch()) {
                 this.openAlertModal("Paroolid ei kattu")
                 return
@@ -92,9 +88,7 @@ export default {
                 this.openAlertModal("Täida kõik väljad")
                 return
             }
-
             this.postNewClient();
-
         },
 
         allRequiredFieldsAreFilled() {
@@ -129,15 +123,7 @@ export default {
         openAlertModal(errorMessage) {
             this.errorMessage = errorMessage;
             this.$refs.alertModalRef.openModal();
-
         },
     }
-
 }
 </script>
-<style scooped>
-.register-container {
-    width: 20vh;
-    margin-bottom: 3vh;
-}
-</style>
