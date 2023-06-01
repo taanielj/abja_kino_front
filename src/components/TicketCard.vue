@@ -17,26 +17,24 @@
 </template>
 
 <script>
-import router from "@/router";
-import {getAuthHeader} from "@/utils";
 
 export default {
     name: "TicketCard",
     props: {
-        ticketId: 0
+        ticketId: 0,
+        ticketInfo: {
+            seanceMovieTitle: "Pealkiri",
+            seanceStartTime: "",
+            seanceRoomName: "Saali nimi",
+            ticketTypeName: "Soodus",
+            seatRow: 0,
+            seatCol: 0
+        }
     },
 
     data() {
         return {
             show: false,
-            ticketInfo: {
-                seanceMovieTitle: "Pealkiri",
-                seanceStartTime: "",
-                seanceRoomName: "Saali nimi",
-                ticketTypeName: "Soodus",
-                seatRow: 0,
-                seatCol: 0
-            },
             date: "dd/mm/yyyy",
             hours: 0,
             minutes: 0
@@ -44,17 +42,6 @@ export default {
     },
 
     methods: {
-        getTicket() {
-            this.$http.get("/api/v1/ticket/" + this.ticketId, {headers: getAuthHeader()})
-                .then(response => {
-                    this.ticketInfo = response.data;
-                    this.parseDateTime();
-                    this.show = true;
-                })
-                .catch(() => {
-                    router.push({path:"/error"})
-                })
-        },
 
         parseDateTime() {
             let date = new Date(this.ticketInfo.seanceStartTime);
@@ -66,9 +53,8 @@ export default {
     },
 
     beforeMount() {
-        if(this.ticketId !== 0) {
-            this.getTicket();
-        }
+        this.parseDateTime();
+        this.show = true;
     }
 }
 </script>

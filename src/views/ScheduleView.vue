@@ -1,12 +1,12 @@
 <template>
-<div class="schedule-container">
-    <div v-if="allSeanceIds.length !== 0" class="row justify-content-center">
+<div v-if="show" class="schedule-container">
+    <div v-if="allSeances.length !== 0" class="row justify-content-center">
         <div class="col col-12 p-2">
             <div class="d-flex flex-wrap">
-                <div v-for="seanceId in allSeanceIds" :key="seanceId" class="col col-md-5 seance-card">
+                <div v-for="seanceInfo in allSeances" :key="seanceInfo" class="col col-md-5 seance-card">
                     <SeanceMovieCard
                             class="seance-card"
-                            :seanceId="seanceId"
+                            :seanceInfo="seanceInfo"
                             :journey="journey"
                     />
                 </div>
@@ -28,16 +28,33 @@ export default {
     data() {
 
         return {
+            show: false,
             journey: "schedule",
-            allSeanceIds: [0],
+            allSeances: [
+                {
+                movieId: 0,
+                movieTitle: "",
+                movieRuntime: 0,
+                moviePosterImage: "",
+                movieGenreName: "",
+                dateTime: "",
+                subtitles: "",
+                language: "",
+                roomName: "",
+                movieYoutubeLink: "",
+                availableSeats: 0,
+                totalSeats: 0,
+            }
+            ],
         }
     },
 
     methods: {
-        getAllSeanceIds() {
-            this.$http.get("/api/v1/seance/all-future-id")
+        getAllSeances() {
+            this.$http.get("/api/v1/seance/all-future")
                 .then(response => {
-                    this.allSeanceIds = response.data;
+                    this.allSeances = response.data;
+                    this.show = true;
                 })
                 .catch(error => {
                     console.log(error);
@@ -46,7 +63,7 @@ export default {
     },
 
     beforeMount() {
-        this.getAllSeanceIds();
+        this.getAllSeances();
     }
 }
 </script>

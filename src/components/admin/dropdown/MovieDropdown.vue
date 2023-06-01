@@ -28,12 +28,12 @@ export default {
         },
 
         getMovies() {
-            this.$http.get("/api/v1/movie/all")
+            this.$http.get("/api/v1/movie/list")
                 .then(response => {
                     this.movies = response.data
                 })
-                .catch(error => {
-                    const errorResponseBody = error.response.data
+                .catch(() => {
+                    this.errorMessage = "Viga filmide laadimisel"
                 })
         },
     },

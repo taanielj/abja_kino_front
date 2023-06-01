@@ -2,8 +2,8 @@
     <div class="all-movies">
         <div class="row justify-content-center">
             <div class="d-flex flex-wrap justify-content-start ">
-                <div v-for="movieId in allMovieIds" class="m-1">
-                    <MovieCard :movie-id="movieId" :key="movieId"/>
+                <div v-if="show" v-for="movieInfo in allMovies" class="m-1">
+                    <MovieCard :movieInfo="movieInfo" :key="movieInfo"/>
                 </div>
             </div>
         </div>
@@ -19,26 +19,39 @@ export default defineComponent({
     components: {MovieCard},
     data() {
         return {
-            allMovieIds: [
-                0
+            show: false,
+            allMovies: [
+                {
+                    id: 0,
+                    title: "",
+                    genreName: "",
+                    genreId: "",
+                    posterImage: "",
+                    director: "",
+                    description: "",
+                    runtime: Number,
+                    youtubeLink: ""
+                }
             ],
         }
     },
 
     methods: {
-        getAllMovieIds() {
-            this.$http.get("/api/v1/movie/ids")
+        getAllMovies() {
+            this.$http.get("/api/v1/movie/all")
                 .then(response => {
-                    this.allMovieIds = response.data;
+                    this.allMovies = response.data;
+                    this.show = true;
                 })
                 .catch(error => {
                     console.log(error);
                 })
         },
+
     },
 
     beforeMount() {
-        this.getAllMovieIds();
+        this.getAllMovies();
     }
 })
 

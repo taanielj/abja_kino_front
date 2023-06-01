@@ -2,18 +2,18 @@
     <div class="container text-center">
         <div class="row">
             <div class="row justify-content-center custom-card"
-                 v-if="activeTicketIds.length === 0 && expiredTicketIds.length === 0">
+                 v-if="activeTickets.length === 0 && expiredTickets.length === 0">
                 Te ei ole ostnud ühtegi piletit
             </div>
-            <div v-if="activeTicketIds.length > 0" class="col col-md-auto">
+            <div v-if="activeTickets.length > 0" class="col col-md-auto">
                 <div class="card mb-3 custom-card" style="max-width: 80rem;">
                     <div class="card-header bg-warning border-success">
                         <h2 class="card-title text-center text-black">Aktiivsed piletid</h2>
                     </div>
                     <div class="card-body text-success">
                         <div class="d-inline-flex flex-wrap">
-                            <div v-for="tickedId in activeTicketIds" class="m-1">
-                                <TicketCard :ticketId="tickedId" :key="tickedId"/>
+                            <div v-for="ticketInfo in activeTickets" class="m-1">
+                                <TicketCard :ticketInfo="ticketInfo" :key="ticketInfo"/>
                             </div>
                         </div>
                     </div>
@@ -24,15 +24,15 @@
                     </div>
                 </div>
             </div>
-            <div v-if="expiredTicketIds.length > 0" class="col col-md-auto">
+            <div v-if="expiredTickets.length > 0" class="col col-md-auto">
                 <div class="card mb-3 custom-card" style="max-width: 80rem;">
                     <div class="card-header bg-secondary border-success">
                         <h2 class="card-title text-center text-black">Vanad piletid</h2>
                     </div>
                     <div class="card-body text-success">
                         <div class="d-inline-flex flex-wrap">
-                            <div v-for="tickedId in expiredTicketIds" class="m-1">
-                                <TicketCard :ticketId="tickedId" :key="tickedId"/>
+                            <div v-for="ticketInfo in expiredTickets" class="m-1">
+                                <TicketCard :ticketInfo="ticketInfo" :key="ticketInfo"/>
                             </div>
                         </div>
                     </div>
@@ -60,8 +60,27 @@ export default {
         return {
 
             userId: localStorage.userId,
-            activeTicketIds: [0],
-            expiredTicketIds: [0],
+            activeTickets: [
+                {
+                    seanceMovieTitle: "Pealkiri",
+                    seanceStartTime: "",
+                    seanceRoomName: "Saali nimi",
+                    ticketTypeName: "Soodus",
+                    seatRow: 0,
+                    seatCol: 0
+
+                }
+            ],
+            expiredTickets: [
+                {
+                    seanceMovieTitle: "Pealkiri",
+                    seanceStartTime: "",
+                    seanceRoomName: "Saali nimi",
+                    ticketTypeName: "Soodus",
+                    seatRow: 0,
+                    seatCol: 0
+                }
+            ],
 
 
 
@@ -71,20 +90,20 @@ export default {
     },
 
     methods: {
-        getActiveTicketIds() {
-            this.$http.get("/api/v1/ticket/all-active-ids-by-user/" + this.userId, {headers: getAuthHeader()})
+        getActiveTickets() {
+            this.$http.get("/api/v1/ticket/all-active-by-user/" + this.userId, {headers: getAuthHeader()})
                 .then(response => {
-                    this.activeTicketIds = response.data
+                    this.activeTickets = response.data
                 })
                 .catch(() => {
                     router.push({path: "/error"})
                 })
         },
 
-        getExpiredTicketIds() {
-            this.$http.get("/api/v1/ticket/all-expired-ids-by-user/" + this.userId, {headers: getAuthHeader()})
+        getExpiredTickets() {
+            this.$http.get("/api/v1/ticket/all-expired-by-user/" + this.userId, {headers: getAuthHeader()})
                 .then(response => {
-                    this.expiredTicketIds = response.data
+                    this.expiredTickets = response.data
                 })
                 .catch(() => {
                     router.push({path: "/error"})
@@ -93,8 +112,8 @@ export default {
     },
 
     mounted() {
-        this.getActiveTicketIds();
-        this.getExpiredTicketIds();
+        this.getActiveTickets();
+        this.getExpiredTickets();
     }
 }
 </script>

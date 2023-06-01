@@ -3,13 +3,13 @@
             ref="trailerModalRef"
             :youtube-link="movieInfo.youtubeLink"
     />
-    <div v-if="show" class="d-flex flex-column bd-highlight portrait-card mb-3">
-        <div class="row row-poster p-2 hoverable-link" @click="gotoMovie(movieId)">
+    <div class="d-flex flex-column bd-highlight portrait-card mb-3">
+        <div class="row row-poster p-2 hoverable-link" @click="gotoMovie(movieInfo.id)">
             <PosterImage class="portrait-card-picture" :image-data-base64="image" ref="posterImage"/>
         </div>
         <div class="row row-text mt-1  ratio-1x1">
             <div class="portrait-card-title jus justify-content-start hoverable-link">
-                <a @click="gotoMovie(movieId)">{{ movieInfo.title }}</a>
+                <a @click="gotoMovie(movieInfo.id)">{{ movieInfo.title }}</a>
             </div>
             <div class="portrait-card-text">
                 {{ formattedGenreName }} | {{ runtimeHours }}h {{ runtimeMinutes }}min
@@ -52,30 +52,21 @@ export default defineComponent({
     name: "MovieCard",
     components: {MovieView, PosterImage, TrailerModal},
     props: {
-        movieId: {
-            type: Number,
-            default: 0
-        },
-        seanceId: {
-            type: Number,
-            default: 0
+        movieInfo: {
+            id: 0,
+            title: "",
+            genreName: "",
+            genreId: "",
+            posterImage: "",
+            director: "",
+            description: "",
+            runtime: 0,
+            youtubeLink: ""
         },
     },
 
     data() {
         return {
-            show: false,
-            movieInfo: {
-                id: 0,
-                title: "",
-                genreName: "",
-                genreId: "",
-                posterImage: "",
-                director: "",
-                description: "",
-                runtime: Number,
-                youtubeLink: ""
-            },
             image: "",
             runtimeHours: 0,
             runtimeMinutes: 0
@@ -102,30 +93,6 @@ export default defineComponent({
             });
         },
 
-        getMovie() {
-            this.$http.get("/api/v1/movie/" + this.movieId)
-                .then(response => {
-                    this.movieInfo = response.data;
-                    this.image = this.movieInfo.posterImage;
-                    this.runtimeToHoursMinutes()
-                    this.getGenre();
-                })
-                .catch(() => {
-                    router.push({path: "/error"})
-                })
-        },
-
-        getGenre() {
-            this.$http.get("/api/v1/genre/" + this.movieInfo.genreId)
-                .then(response => {
-                    this.movieInfo.genreName = response.data;
-                    this.show = true;
-
-                })
-                .catch(() => {
-                    router.push({path: "/error"})
-                })
-        },
 
         runtimeToHoursMinutes() {
             this.runtimeHours = Math.floor(this.movieInfo.runtime / 60)
@@ -134,9 +101,8 @@ export default defineComponent({
     },
 
     mounted() {
-        if (this.movieId !== 0) {
-            this.getMovie();
-        }
+        this.image = this.movieInfo.posterImage;
+        this.runtimeToHoursMinutes();
     }
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="show" class="seance-card">
+    <div class="seance-card">
         <TrailerModal
                 ref="trailerModalRef"
                 :youtube-link="seanceInfo.movieYoutubeLink"
@@ -60,29 +60,28 @@ export default {
     components: {TrailerModal, ScheduleView, PosterImage},
     props: {
         seanceId: 0,
-        journey: ""
+        journey: "",
+        seanceInfo: {
+            movieId: 0,
+            movieTitle: "",
+            movieRuntime: 0,
+            moviePosterImage: "",
+            movieGenreName: "",
+            dateTime: "",
+            subtitles: "",
+            language: "",
+            roomName: "",
+            movieYoutubeLink: "",
+            availableSeats: 0,
+            totalSeats: 0,
+
+        },
     },
 
     data() {
         return {
             linkActive: false,
             errorMessage: "",
-            show: false,
-            seanceInfo: {
-                movieId: 0,
-                movieTitle: "",
-                movieRuntime: 0,
-                moviePosterImage: "",
-                movieGenreName: "",
-                dateTime: "",
-                subtitles: "",
-                language: "",
-                roomName: "",
-                movieYoutubeLink: "",
-                availableSeats: 0,
-                totalSeats: 0,
-
-            },
             runtimeHours: 0,
             runtimeMinutes: 0,
         }
@@ -103,23 +102,7 @@ export default {
             router.push({path: `/movie/${this.seanceInfo.movieId}`});
         },
 
-        getSeanceInfo() {
-            this.$http.get("/api/v1/seance/" + this.seanceId)
-                .then(response => {
-                    this.seanceInfo = response.data;
-                    this.runtimeToHoursMinutes();
-                    this.show = true;
-                    this.$emit('event-seance-loaded', this.seanceId);
-                    this.$emit('event-available-seats', this.seanceInfo.availableSeats);
-                    if (this.journey === 'tickets' || this.journey === 'schedule') {
-                        this.linkActive = true;
-                    }
-                })
-                .catch(() => {
-                    this.errorMessage = "Seansi andmed puuduvad";
-                    this.$emit('event-seance-error', this.errorMessage);
-                })
-        },
+
 
         formatDate(dateTime) {
             const date = new Date(dateTime);
@@ -146,11 +129,12 @@ export default {
     },
 
     mounted() {
-        this.$nextTick().then(() => {
-            if (this.seanceId !== 0) {
-                this.getSeanceInfo();
-            }
-        });
+
+        this.runtimeToHoursMinutes();
+
+        if (this.journey === 'tickets' || this.journey === 'schedule') {
+            this.linkActive = true;
+        }
     }
 }
 </script>
