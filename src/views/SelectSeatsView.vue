@@ -36,10 +36,10 @@
         <!--        buttons: back, confirm seats-->
         <div class="row justify-content-center my-buttons mt-5">
             <div class="col">
-                <button class="btn btn-secondary btn-lg" @click="navigateToChooseTickets">Tagasi</button>
+                <button class="custom-button" @click="navigateToChooseTickets">Tagasi</button>
             </div>
             <div class="col">
-                <button class="btn btn-primary btn-lg" @click="navigateToConfirm">Kinnita</button>
+                <button class="custom-button" @click="navigateToConfirm">Kinnita</button>
 
             </div>
 
@@ -306,6 +306,10 @@ export default {
     color: black;
     text-shadow: 0 0 8px white;
     transform: perspective(100px) rotateX(60deg);
+}
+
+.custom-button{
+    border: transparent;
 }
 
 </style>

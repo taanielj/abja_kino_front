@@ -165,6 +165,14 @@ export default {
             this.isEdit = true;
             this.getMovie();
         }
+    },
+
+    watch: {
+        "movieInfo.runtime": function (newVal, oldVal) {
+            if (newVal < 1) {
+                this.movieInfo.runtime = 1;
+            }
+        }
     }
 }
 </script>

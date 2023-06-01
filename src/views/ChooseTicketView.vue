@@ -119,8 +119,8 @@ export default {
     width: 100%;
 }
 
-.btn {
-    margin-top: -80px
+.custom-button{
+    border: transparent;
 }
 
 </style>

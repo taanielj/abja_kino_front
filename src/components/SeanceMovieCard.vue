@@ -37,7 +37,7 @@
                 <div class="d-flex justify-content-start align-items-start">
                     <button v-if="journey === 'schedule'"
                             type="button"
-                            class="btn btn-outline-secondary custom-button"
+                            class="custom-button"
                             @click="openTrailerModal"
                     >
                         <font-awesome-icon :icon="['fass', 'trailer']"/>

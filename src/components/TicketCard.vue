@@ -58,7 +58,8 @@ export default {
             let date = new Date(this.ticketInfo.seanceStartTime);
             this.date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
             this.hours = date.getHours();
-            this.minutes = date.getMinutes();
+            //two digits
+            this.minutes = ("0" + date.getMinutes()).slice(-2);
         }
     },
     beforeMount() {

@@ -1,12 +1,13 @@
 <template>
     <PurchaseConfirmModal
+            v-if="show"
             :formattedSum="formattedSum"
             @purchase-confirmed="postTickets"
             ref="confirmModalRef"
 
     />
 
-    <div class="container">
+    <div v-if="show" class="container">
         <div class="row">
             <div class="col col-6 justify-content-center">
                 <div class="col">
@@ -62,6 +63,7 @@ import router from "@/router";
 export default {
     data() {
         return {
+            show: false,
             formattedSum: "",
             showRest: false,
             journey: "purchase",
@@ -110,9 +112,14 @@ export default {
         },
 
     },
-    mounted() {
-        this.userTickets = JSON.parse(sessionStorage.getItem("userTickets"));
-        this.seanceId = this.userTickets[0].seanceId;
+    beforeMount() {
+        if (sessionStorage.getItem("userTickets") === null) {
+            router.push({path: "/"});
+        } else {
+            this.userTickets = JSON.parse(sessionStorage.getItem("userTickets"));
+            this.seanceId = this.userTickets[0].seanceId;
+            this.show = true;
+        }
     }
 
 }
