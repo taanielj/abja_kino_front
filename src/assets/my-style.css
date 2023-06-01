@@ -130,6 +130,7 @@
     padding: 0.1vh;
     aspect-ratio: 2.2;
     font-size: 1.7vh;
+    font-weight: bold;
     border-radius: 0.5vh;
     border-color: #000000;
     color: #000000;
@@ -138,7 +139,7 @@
 
 }
 .custom-button:hover{
-    background-color: rgba(132, 27, 45, 0.8);
+    background-color: rgba(170, 27, 45, 0.8);
     box-shadow: 0 0 1vh 0 rgba(132, 27, 45, 0.5);
     color: #000000;
     border-color: #000000;

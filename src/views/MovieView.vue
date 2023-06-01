@@ -17,28 +17,28 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="row mb-3">
-                                        <div class="text-lg-start text-muted te bigger-text">
+                                        <div class="text-lg-start text-muted text-movie-description bigger-text">
                                             Žanr
                                         </div>
-                                        <div class="text-lg-start text-black bigger-text">
+                                        <div class="text-lg-start text-black text-movie-body bigger-text">
                                             {{ movieInfo.genreName }}
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="text-lg-start text-muted bigger-text">
-                                            Režissöör:
+                                        <div class="text-lg-start text-muted  text-movie-description bigger-text">
+                                            Režissöör
                                         </div>
-                                        <div class="text-lg-start text-black bigger-text">
+                                        <div class="text-lg-start text-black text-movie-body bigger-text">
                                             {{ movieInfo.director }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col col-6 d-flex align-items-end">
                                     <div class="row mb-3">
-                                        <div class="text-lg-start text-muted bigger-text">
-                                            Filmi pikkus:
+                                        <div class="text-lg-start text-muted text-movie-description bigger-text">
+                                            Filmi pikkus
                                         </div>
-                                        <div class="text-lg-start text-black bigger-text">
+                                        <div class="text-lg-start text-black text-movie-body bigger-text">
                                            {{ runtimeHours }}h {{ runtimeMinutes }}min
                                         </div>
                                     </div>
@@ -228,6 +228,11 @@ export default {
     margin-left: 5vh;
     margin-top: 1vh;
 }
-
+.text-movie-description {
+    font-size: 2vh;
+}
+.text-movie-body {
+    font-size: 2.3vh;
+}
 
 </style>
