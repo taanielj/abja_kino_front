@@ -31,7 +31,7 @@
                         />
                     </div>
                     <div v-if="show">
-                        <button href="#" @click="navigateToSeats" class="btn btn-secondary btn-lg">Kinnita piletid
+                        <button href="#" @click="navigateToSeats" class="custom-button">Kinnita piletid
                         </button>
                     </div>
                 </div>
