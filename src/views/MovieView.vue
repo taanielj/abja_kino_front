@@ -14,29 +14,38 @@
                             </div>
                         </div>
                         <div class="col col-6 text-lg-start">
-                            <div class="row mb-3">
-                                <div class="text-lg-start text-black bigger-text text-bold">
-                                    Filmi info
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row mb-3">
+                                        <div class="text-lg-start text-muted te bigger-text">
+                                            Žanr
+                                        </div>
+                                        <div class="text-lg-start text-black bigger-text">
+                                            {{ movieInfo.genreName }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="text-lg-start text-muted bigger-text">
+                                            Režissöör:
+                                        </div>
+                                        <div class="text-lg-start text-black bigger-text">
+                                            {{ movieInfo.director }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-6 d-flex align-items-end">
+                                    <div class="row mb-3">
+                                        <div class="text-lg-start text-muted bigger-text">
+                                            Filmi pikkus:
+                                        </div>
+                                        <div class="text-lg-start text-black bigger-text">
+                                           {{ runtimeHours }}h {{ runtimeMinutes }}min
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="text-lg-start text-black bigger-text">
-                                    Žanr: {{ movieInfo.genreName }}
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="text-lg-start text-black bigger-text">
-                                    Režissöör: {{ movieInfo.director }}
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="text-lg-start text-black bigger-text">
-                                    Filmi pikkus: {{ runtimeHours }}h {{ runtimeMinutes }}min
-                                </div>
-                            </div>
-
                             <div class="row mb-2 text-black">
-                                <h2>{{ movieInfo.description }}</h2>
+                                <h4>{{ movieInfo.description }}</h4>
                             </div>
                         </div>
                     </div>
@@ -59,9 +68,7 @@
             </div>
 
 
-
         </div>
-
 
 
     </div>
@@ -72,7 +79,7 @@
         </div>
 
         <div v-if="allMovieSeanceIds.length !== 0" class="schedule-container">
-            <div  class="row justify-content-center">
+            <div class="row justify-content-center">
                 <div class="col col-12 p-2">
                     <div class="d-flex flex-wrap">
                         <div v-for="seanceId in allMovieSeanceIds" :key="seanceId" class="col col-md-5 seance-card">
@@ -203,7 +210,7 @@ export default {
     background-color: rgba(255, 240, 225, 0.8);
 }
 
-.seances{
+.seances {
     min-height: 70vh;
 }
 
