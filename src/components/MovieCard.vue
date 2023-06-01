@@ -201,7 +201,7 @@ export default defineComponent({
 
 }
 .custom-button-wide:hover{
-    background-color: rgba(132, 27, 45, 0.8);
+    background-color: rgba(170, 27, 45, 0.8);
     box-shadow: 0 0 1vh 0 rgba(132, 27, 45, 0.5);
     color: #000000;
     border-color: #000000;
