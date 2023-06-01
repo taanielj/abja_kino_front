@@ -1,7 +1,7 @@
 <template>
     <div class="container text-center">
         <div class="row">
-            <div class="row justify-content-center"
+            <div class="row justify-content-center custom-card"
                  v-if="activeTicketIds.length === 0 && expiredTicketIds.length === 0">
                 Te ei ole ostnud ühtegi piletit
             </div>

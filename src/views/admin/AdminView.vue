@@ -1,5 +1,5 @@
 <template>
-    <div class="container text-center">
+
         <AlertModal
                 :message="errorMessage"
                 ref="alertModalRef"
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
 </template>
 
 <script>

@@ -10,6 +10,8 @@
             <th scope="col">Seansi aeg</th>
             <th scope="col">Film</th>
             <th scope="col">Saal</th>
+            <th scope="col">Kohti saadaval</th>
+            <th scope="col">Kohti kokku</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -19,6 +21,8 @@
             <td> {{ seance.timeHours }}:{{ seance.timeMinutes }}</td>
             <td>{{ seance.movieTitle }}</td>
             <td>{{ seance.roomName }}</td>
+            <td>{{ seance   .availableSeats }}</td>
+            <td>{{ seance.totalSeats }}</td>
             <td>
                 <font-awesome-icon @click="navigateToEditSeance(seance.id)"
                                    class="hoverable-link me-3" :icon="['fas', 'pen-to-square']"/>
@@ -27,7 +31,8 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5">
+
+            <td colspan="7">
                 <button class="btn btn-light w-100 admin-button" @click="navigateToAddSeance">Lisa uus seanss</button>
             </td>
         </tr>
@@ -57,6 +62,8 @@ export default {
                     date: "2023-06-01",
                     timeHours: 0,
                     timeMinutes: 0,
+                    availableSeats: 0,
+                    totalSeats: 0
                 }
             ]
         }

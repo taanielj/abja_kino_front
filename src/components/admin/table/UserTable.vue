@@ -1,11 +1,5 @@
 <template>
     <table class="table">
-        <colgroup>
-            <col style="width: 30%">
-            <col style="width: 30%">
-            <col style="width: 20%">
-            <col style="width: 20%">
-        </colgroup>
         <thead>
         <tr>
             <th scope="col">Kasutaja nimi</th>
