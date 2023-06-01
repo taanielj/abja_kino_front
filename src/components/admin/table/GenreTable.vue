@@ -192,7 +192,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .input-field {
     border-radius: 5px;
 }
