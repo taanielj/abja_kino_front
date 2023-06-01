@@ -5,7 +5,7 @@
             <span class="list-group  col-9">
                 {{ ticketType.name }}
             </span>
-            <span class="list-group col">
+            <span class="list-group col col-2">
                 {{ ticketType.formattedPrice }}
             </span>
             <span class="list-group col ">

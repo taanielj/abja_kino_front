@@ -8,11 +8,11 @@
             <PosterImage class="portrait-card-picture" :image-data-base64="image" ref="posterImage"/>
 
         </div>
-        <div class="row row-text  ratio-1x1">
-            <div class="portrait-card-title justify-content-start hoverable-link">
+        <div class="row row-text mt-1  ratio-1x1">
+            <div class="portrait-card-title jus justify-content-start hoverable-link">
                 <a @click="gotoMovie(movieId)">{{ movieInfo.title }}</a>
             </div>
-            <div class=" portrait-card-text">
+            <div class="portrait-card-text">
                 {{ formattedGenreName }} | {{ runtimeHours }}h {{ runtimeMinutes }}min
             </div>
             <div class="portrait-card-text" >

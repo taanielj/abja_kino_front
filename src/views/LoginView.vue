@@ -15,7 +15,7 @@
                     <input id="password" v-model="loginRequest.password" class="form-control" type="password">
                 </div>
                 <div class="mb-3">
-                    <router-link to="/register">Registreeri</router-link>
+                    <router-link class="text-reg" to="/register">Registreeri</router-link>
                 </div>
                 <button class="btn button btn-outline-secondary custom-button me-3" type="submit" @click="login">Logi sisse</button>
             </div>
@@ -84,4 +84,11 @@ export default {
     }
 }
 </script>
-
+<style scooped>
+.text-reg{
+    color: #b98342;
+}
+.text-reg:hover{
+    color:rgba(170, 27, 45, 1);
+}
+</style>
