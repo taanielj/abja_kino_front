@@ -90,6 +90,7 @@ export default {
     font-size: 3vw;
     font-weight: bold;
     padding: 0.01vh;
+    color: rgba(170, 27, 45, 0.8);
 }
 
 nav {
@@ -111,7 +112,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-    color: #b98342;
+    color: rgba(170, 27, 45, 0.8);
 }
 
 .content {
