@@ -19,3 +19,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.alert{
+    width: auto;
+    padding: 0 2rem;
+}
+</style>

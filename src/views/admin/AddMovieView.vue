@@ -70,6 +70,12 @@ export default {
         }
     },
     methods: {
+        validateYoutubeLink(link){
+            //example: https://www.youtube.com/embed/6CxKrva6NU8, use regex to validate:
+            const regex = new RegExp("^(https:\/\/www\.youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})$");
+            return regex.test(link);
+
+        },
 
         setImageData(imageDataBase64) {
             this.image = imageDataBase64;
@@ -109,6 +115,12 @@ export default {
                 this.setErrorMessage("Täida kõik väljad!")
                 return;
             }
+
+            if(!this.validateYoutubeLink(this.movieInfo.youtubeLink)){
+                this.setErrorMessage("Youtube link ei ole õiges formaadis\nhttps://www.youtube.com/embed/xxxxxxxxxxx")
+                return;
+            }
+
             this.movieInfo.posterImage = this.image;
 
             this.$http.post("/api/v1/movie/add", this.movieInfo, {headers: getAuthHeader()}
@@ -133,6 +145,15 @@ export default {
             }, 5000);
         },
 
+        putMovie() {
+            this.$http.put("/api/v1/movie/" + this.movieId, this.movieInfo, {headers: getAuthHeader()})
+                .then(() => {
+                    this.setSuccessMessage("Film muudetud!")
+                    this.getMovie();
+                })
+                .catch(error => this.errorMessage = error.response.data.message);
+        },
+
         editMovie() {
             this.resetMessageFields();
 
@@ -140,10 +161,13 @@ export default {
                 this.setErrorMessage("Täida kõik väljad!")
                 return;
             }
+            if(!this.validateYoutubeLink(this.movieInfo.youtubeLink)){
+                this.setErrorMessage("Youtube link ei ole õiges formaadis!, näide: https://www.youtube.com/embed/xxxxxxxxxxx")
+                return;
+            }
+
             this.movieInfo.posterImage = this.image;
-            this.$http.put("/api/v1/movie/" + this.movieId, this.movieInfo, {headers: getAuthHeader()})
-                .then(() => this.setSuccessMessage("Film muudetud!"))
-                .catch(error => this.errorMessage = error.response.data.message);
+            this.putMovie();
         },
 
         resetMessageFields() {

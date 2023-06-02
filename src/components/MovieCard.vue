@@ -32,7 +32,7 @@
                 <div class="row">
                     <button type="button"
                             class="btn btn-outline-secondary custom-button-wide"
-                            @click="gotoSeanceSection(movieId)">
+                            @click="gotoSeanceSection(movieInfo.id)">
                         Vali seanss
                     </button>
                 </div>

@@ -1,5 +1,5 @@
 <template>
-  <h1>Vabandame! Tulge hiljem tagasi</h1>
+  <h1 class="custom-card w-50 m-auto">Vabandame! Tulge hiljem tagasi</h1>
     <font-awesome-icon :icon="['fas', 'dinosaur']" />
 </template>
 

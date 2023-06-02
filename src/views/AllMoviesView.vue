@@ -1,5 +1,5 @@
 <template>
-    <div class="all-movies">
+    <div v-if="show" class="all-movies">
         <div class="row justify-content-center">
             <div class="d-flex flex-wrap justify-content-start ">
                 <div v-if="show" v-for="movieInfo in allMovies" class="m-1">
@@ -7,6 +7,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div v-if="showNoMovies" class="custom-card w-50 mx-auto">
+        Ühtegi filmi ei ole, võtke ühendust administraatoriga.
     </div>
 </template>
 
@@ -20,6 +23,7 @@ export default defineComponent({
     data() {
         return {
             show: false,
+            showNoMovies: false,
             allMovies: [
                 {
                     id: 0,
@@ -41,6 +45,11 @@ export default defineComponent({
             this.$http.get("/api/v1/movie/all")
                 .then(response => {
                     this.allMovies = response.data;
+
+                    if (this.allMovies.length === 0) {
+                        this.showNoMovies = true;
+                        return;
+                    }
                     this.show = true;
                 })
                 .catch(error => {

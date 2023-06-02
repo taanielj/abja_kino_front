@@ -13,7 +13,11 @@
             </div>
         </div>
     </div>
+    <div v-if="showNoSeances" class="custom-card w-50 mx-auto">
+        Ühtegi seanssi ei ole, võtke ühendust administraatoriga.
+    </div>
 </div>
+
 </template>
 
 <script>
@@ -29,6 +33,7 @@ export default {
 
         return {
             show: false,
+            showNoSeances: false,
             journey: "schedule",
             allSeances: [
                 {
@@ -55,6 +60,9 @@ export default {
                 .then(response => {
                     this.allSeances = response.data;
                     this.show = true;
+                    if (this.allSeances.length === 0) {
+                        this.showNoSeances = true;
+                    }
                 })
                 .catch(error => {
                     console.log(error);
