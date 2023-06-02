@@ -59,9 +59,9 @@ export default {
     name: "SeanceMovieCard",
     components: {TrailerModal, ScheduleView, PosterImage},
     props: {
-        seanceId: 0,
         journey: "",
         seanceInfo: {
+            seanceId: 0,
             movieId: 0,
             movieTitle: "",
             movieRuntime: 0,
@@ -124,7 +124,7 @@ export default {
                 return;
             }
 
-            router.push({path: '/choose-ticket/' + this.seanceId})
+            router.push({path: '/choose-ticket/' + this.seanceInfo.seanceId})
         }
     },
 

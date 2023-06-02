@@ -1,6 +1,5 @@
 <template>
     <PurchaseConfirmModal
-            v-if="show"
             :formattedSum="formattedSum"
             @purchase-confirmed="postTickets"
             ref="confirmModalRef"
@@ -14,16 +13,15 @@
                     </div>
                     <div class="col seance-card">
                         <SeanceMovieCard
-                                :seanceId="seanceId"
+                                :seanceInfo="seanceInfo"
                                 @event-seance-loaded="loadRestOfPage($event)"
                         />
                     </div>
                     <PurchasedTickets
-                            v-if="showRest"
                             @tickets-loaded="formattedSum = $event"
                     />
                     <div class="col col-6 mt-3 mb-xxl-5">
-                        <div class="row" v-if="showRest">
+                        <div class="row">
                             <div class="col">
                                 <button href="#" @click="cancelPurchase" class="custom-button">
                                     Tühista
@@ -57,7 +55,6 @@ export default {
         return {
             show: false,
             formattedSum: "",
-            showRest: false,
             journey: "purchase",
             seanceId: 0,
             userTickets: [
@@ -72,6 +69,22 @@ export default {
                     priceFormatted: "",
                 }
             ],
+            seanceInfo: {
+                seanceId: 0,
+                movieId: 0,
+                movieTitle: "",
+                movieRuntime: 0,
+                moviePosterImage: "",
+                movieGenreName: "",
+                dateTime: "",
+                subtitles: "",
+                language: "",
+                roomName: "",
+                movieYoutubeLink: "",
+                availableSeats: 0,
+                totalSeats: 0,
+
+            },
 
 
         }
@@ -81,9 +94,6 @@ export default {
     components: {PurchaseConfirmModal, PurchasedTickets, PurchaseJourneyCard, SeanceMovieCard, SeanceTicketCard},
     methods: {
 
-        loadRestOfPage() {
-            this.showRest = true;
-        },
 
         openConfirmModal() {
             this.$refs.confirmModalRef.$refs.modalRef.openModal();
@@ -103,6 +113,17 @@ export default {
             sessionStorage.removeItem("userTickets");
             router.push({path: "/"})
         },
+        getSeanceInfo() {
+            this.$http.get("/api/v1/seance/" + this.seanceId)
+                .then(response => {
+                    this.seanceInfo = response.data;
+                    this.show = true;
+                })
+                .catch(() => {
+                    router.push({path: '/error'})
+                })
+        }
+
     },
 
     beforeMount() {
@@ -111,7 +132,7 @@ export default {
         } else {
             this.userTickets = JSON.parse(sessionStorage.getItem("userTickets"));
             this.seanceId = this.userTickets[0].seanceId;
-            this.show = true;
+            this.getSeanceInfo();
         }
     }
 }

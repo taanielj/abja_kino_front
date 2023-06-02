@@ -65,17 +65,17 @@
         </div>
     </div>
     <div class="seances row justify-content-center" ref="seanceSelector">
-        <div v-if="allMovieSeanceIds.length !== 0" class="custom-card title">
+        <div v-if="allMovieSeances.length !== 0" class="custom-card title">
             Vali seanss
         </div>
-        <div v-if="allMovieSeanceIds.length !== 0" class="schedule-container">
+        <div v-if="allMovieSeances.length !== 0" class="schedule-container">
             <div class="row justify-content-center">
                 <div class="col col-12 p-2">
                     <div class="d-flex flex-wrap">
-                        <div v-for="seanceId in allMovieSeanceIds" :key="seanceId" class="col col-md-5 seance-card">
+                        <div v-for="seanceInfo in allMovieSeances" :key="seanceInfo" class="col col-md-5 seance-card">
                             <SeanceMovieCard
                                     class="seance-card"
-                                    :seanceId="seanceId"
+                                    :seanceInfo="seanceInfo"
                                     :journey="journey"
                             />
                         </div>
@@ -118,8 +118,22 @@ export default {
             image: "",
             runtimeHours: 0,
             runtimeMinutes: 0,
-            allMovieSeanceIds: [
-                0
+            allMovieSeances: [
+                {
+                    movieId: 0,
+                    movieTitle: "",
+                    movieRuntime: 0,
+                    moviePosterImage: "",
+                    movieGenreName: "",
+                    dateTime: "",
+                    subtitles: "",
+                    language: "",
+                    roomName: "",
+                    movieYoutubeLink: "",
+                    availableSeats: 0,
+                    totalSeats: 0,
+
+                },
             ],
         }
     },
@@ -145,10 +159,10 @@ export default {
                 })
         },
 
-        getAllMovieSeanceIds() {
+        getAllMovieSeances() {
             this.$http.get("/api/v1/seance/all-future/" + this.movieId)
                 .then(response => {
-                    this.allMovieSeanceIds = response.data;
+                    this.allMovieSeances = response.data;
 
 
                     if (this.$route.query.scrollTo === 'seances') {
@@ -181,7 +195,7 @@ export default {
     mounted() {
         if (this.movieId !== 0) {
             this.getMovie();
-            this.getAllMovieSeanceIds();
+            this.getAllMovieSeances();
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div v-if="show" class="container">
         <AlertModal
                 :message="errorMessage"
                 ref="alertModalRef"
@@ -12,10 +12,9 @@
                     </div>
                     <div class="col seance-card">
                         <SeanceMovieCard
-                                :seanceId="seanceId"
+                                :seanceInfo="seanceInfo"
                                 :journey="journey"
-                                @event-seance-loaded="show = true"
-                                @event-available-seats="availableSeats = $event"
+                                @event-available-seats="seanceInfo.availableSeats = $event"
                                 @event-seance-id="seanceId = $event"
                         />
                     </div>
@@ -23,8 +22,7 @@
                         <div class="col">
                             <SeanceTicketCard
                                     ref="seanceTicketCard"
-                                    :seanceId="seanceId"
-                                    :availableSeats="availableSeats"
+                                    :availableSeats="seanceInfo.availableSeats"
                                     @event-ticket-types-changed="ticketTypes = $event"
                                     :show="show"
                             />
@@ -47,15 +45,31 @@ import SeanceMovieCard from "@/components/SeanceMovieCard.vue";
 import SeanceTicketCard from "@/components/SeanceTicketCard.vue";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertModal from "@/components/modal/AlertModal.vue";
+import router from "@/router";
 
 export default {
     data() {
         return {
             errorMessage: "",
-            availableSeats: 0,
             show: false,
             journey: "tickets",
             seanceId: this.$route.params.seanceId,
+            seanceInfo: {
+                seanceId: 0,
+                movieId: 0,
+                movieTitle: "",
+                movieRuntime: 0,
+                moviePosterImage: "",
+                movieGenreName: "",
+                dateTime: "",
+                subtitles: "",
+                language: "",
+                roomName: "",
+                movieYoutubeLink: "",
+                availableSeats: 0,
+                totalSeats: 0,
+
+            },
             ticketTypes: [
                 {
                     name: "",
@@ -78,7 +92,7 @@ export default {
             }
             sessionStorage.setItem("ticketTypes", JSON.stringify(ticketTypes));
             //check if total tickets is less than available seats
-            if (ticketTypes.reduce((a, b) => a + b.amount, 0) > this.availableSeats) {
+            if (ticketTypes.reduce((a, b) => a + b.amount, 0) > this.seanceInfo.availableSeats) {
                 this.openAlertModal("Saalis pole piisavalt vabu kohti!")
                 return;
             }
@@ -89,7 +103,20 @@ export default {
             this.errorMessage = message;
             this.$refs.alertModalRef.openModal();
         },
+        getSeanceInfo() {
+            this.$http.get("/api/v1/seance/" + this.seanceId)
+                .then(response => {
+                    this.seanceInfo = response.data;
+                    this.show = true;
+                })
+                .catch(() => {
+                    router.push({path: '/error'})
+                })
+        }
     },
+    mounted() {
+        this.getSeanceInfo()
+    }
 }
 
 </script>
