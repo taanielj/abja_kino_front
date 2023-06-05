@@ -1,10 +1,10 @@
 <template>
-    <div class="seance-card">
+    <div class="d-flex flex-row seance-card">
         <TrailerModal
                 ref="trailerModalRef"
                 :youtube-link="seanceInfo.movieYoutubeLink"
         />
-        <div class="d-flex flex-row ">
+
             <PosterImage
                     class="custom-image"
                     :class="{'hoverable-link': linkActive}"
@@ -45,7 +45,7 @@
                     Vabukohti: {{ seanceInfo.availableSeats }}/ {{ seanceInfo.totalSeats }}
                 </div>
             </div>
-        </div>
+
     </div>
 </template>
 
@@ -141,36 +141,41 @@ export default {
 
 <style scoped>
 .card-title {
-    font-size: 3.5vh;
+    font-size: 150%;
     height: 10vh;
 }
 
 .seance-card {
-    width: 77vh;
-    margin: 2vw;
+    width: 95%;
+    aspect-ratio: 2.1;
+    margin: 1%;
     overflow: clip;
     position: relative;
-    border-radius: 0.5vh;
+    border-radius: 1%;
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .custom-image {
     object-fit: contain;
-    height: 35vh !important;
+    height: 100%
 }
 
 .seance-info {
-    margin-left: 1vh;
+    margin-left: 1%;
     width: 100%;
 }
 
 .text {
     /*align-start*/
     text-align: start;
-    font-size: 2.2vh;
-    margin-bottom: 1vh;
-    padding-right: 3vh;
+    font-size: 80%;
+    margin-bottom: 1%;
+    padding-right: 3%;
+}
+
+.custom-button {
+    font-size: 70%;
 }
 </style>
 
