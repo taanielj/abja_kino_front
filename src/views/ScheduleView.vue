@@ -3,7 +3,7 @@
     <div v-if="allSeances.length !== 0" class="row justify-content-center">
         <div class="col col-12 p-2">
             <div class="d-flex flex-wrap">
-                <div v-for="seanceInfo in allSeances" :key="seanceInfo" class="col col-md-5 seance-card">
+                <div v-for="seanceInfo in allSeances" :key="seanceInfo" class="col col-5 seance-card">
                     <SeanceMovieCard
                             class="seance-card"
                             :seanceInfo="seanceInfo"

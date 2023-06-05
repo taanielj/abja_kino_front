@@ -146,8 +146,8 @@ export default {
 }
 
 .seance-card {
-    height: 35vh;
-    aspect-ratio: 2.2;
+    width: 77vh;
+    margin: 2vw;
     overflow: clip;
     position: relative;
     border-radius: 0.5vh;

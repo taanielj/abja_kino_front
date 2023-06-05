@@ -131,8 +131,8 @@
     aspect-ratio: 2.2;
     font-size: 1.7vh;
     font-weight: bold;
-    border-radius: 1.5vh;
-    border-color: #000000;
+    border-radius: 1vh;
+    border: #1a202c solid 0.2vh;
     color: #000000;
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 1vh 0 rgba(132, 27, 45, 0.5);
