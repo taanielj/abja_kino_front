@@ -1,6 +1,13 @@
 # abja_kino_front
 
-## Project setup
+This repository contains the frontend for the Abja Kino cinema application which includes a Vue.js application.
+
+# Requirements
+node.js >= 18
+
+# Development
+
+## Install dependencies with npm
 ```
 npm install
 ```
@@ -10,10 +17,8 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Deploy to production
+Go to http://www.github.com/taanielj/abja_kino_deployment for deployment instructions.
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
