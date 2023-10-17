@@ -94,13 +94,13 @@ export default defineComponent({
 
 <style scoped>
 .text-block {
-    font-size: 3.5vh;
+    font-size: 3.5rem;
     font-weight: bold;
-    margin-bottom: 1vh;
+    margin-bottom: 1rem;
 }
 
 .text-heading {
-    margin-bottom: 5vh;
+    margin-bottom: 5rem;
 }
 
 .text {

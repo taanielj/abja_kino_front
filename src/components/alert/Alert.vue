@@ -21,7 +21,7 @@ export default {
 
 <style scoped>
     .alert-body {
-        height: 4vh;
+        height: 4rem;
 
     }
 </style>

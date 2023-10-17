@@ -139,7 +139,7 @@ export default {
 }
 
 .custom-card {
-    margin-top: 4vh;
-    padding: 1.5vh 5vh;
+    margin-top: 4rem;
+    padding: 1.5rem 5rem;
 }
 </style>

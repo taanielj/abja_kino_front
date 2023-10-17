@@ -110,77 +110,77 @@ export default defineComponent({
 <style scoped>
 .portrait-card-picture {
     object-fit: contain;
-    height: 35vh !important;
-    box-shadow: 0 0 1vh 0 rgba(0, 0, 0, 0.5);
-    border-radius: 1vh;
-    padding: 1vh;
-    margin-bottom: 1vh;
-    margin-top: 1vh;
+    height: 450px;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
     aspect-ratio: 0.5;
 
 }
 
 .portrait-card {
-    width: 40vh;
-    min-height: 73vh;
+    width: 30rem;
+    height: 65rem;
     display: flex;
     align-items: center;
     text-align: start;
     background-color: rgba(255, 240, 225, 0.8);
-    box-shadow: 0 0 1vh 0 rgba(0, 0, 0, 0.5);
-    border-radius: 1vh;
-    padding: 0.01vh;
-    margin: 1vh;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+    padding: 0.01rem;
+    margin: 1rem;
 }
 
 .portrait-card-title {
-    padding-top: 0.8vh;
-    min-height: 11vh;
-    font-size: 3.3vh;
+    padding-top: 0.8rem;
+    height: 11rem;
+    font-size: 2.5rem;
     font-weight: bold;
     text-align: left;
 }
 
 .portrait-card-text {
-    font-size: 2vh;
+    font-size: 2rem;
     text-align: left;
     aspect-ratio: auto;
 }
 
 .custom-button-wide {
-    margin: 1vh;
-    width: 30vh;
-    height: 5vh;
-    padding: 0.1vh;
+    margin: 1rem;
+    width: 25rem;
+    height: 5rem;
+    padding: 1rem;
     aspect-ratio: 0.5;
-    font-size: 2vh;
-    border-radius: 0.5vh;
+    font-size: 2rem;
+    border-radius: 0.5rem;
     border-color: #000000;
     color: #000000;
     background-color: rgba(255, 240, 225, 0.8);
-    box-shadow: 0 0 1vh 0 rgba(132, 27, 45, 0.5);
+    box-shadow: 0 0 1rem 0 rgba(132, 27, 45, 0.5);
     justify-content: center;
 
 }
 
 .custom-button-wide:hover {
     background-color: rgba(170, 27, 45, 0.8);
-    box-shadow: 0 0 1vh 0 rgba(132, 27, 45, 0.5);
+    box-shadow: 0 0 1rem 0 rgba(132, 27, 45, 0.5);
     color: #000000;
     border-color: #000000;
     transition: all 0.4s ease-in-out;
 }
 
 .row-poster {
-    height: 37vh;
-    width: 29vh;
+    height: 37rem;
+    width: 24rem;
     aspect-ratio: 1;
-    padding: 0.01vh;
+    padding: 0.01rem;
 }
 
 .row-text {
-    height: 18vh;
-    width: 35vh;
+    height: 18rem;
+    width: 28rem;
     aspect-ratio: 0.5;
 }
 </style>

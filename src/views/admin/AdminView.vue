@@ -111,13 +111,13 @@ export default {
 <style scoped>
 .admin-table {
     background-color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    font-size: 2.5vh;
+    font-size: 2,5rem;
 }
 
 .title {
-    font-size: 4.5vh;
+    font-size: 4.5rem;
     font-weight: bold;
     color: #1a202c;
     text-align: center;

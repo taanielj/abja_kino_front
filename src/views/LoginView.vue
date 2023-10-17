@@ -1,16 +1,16 @@
 <template>
     <div class="text-center">
-        <div class="row justify-content-center " @keydown.enter="login">
-            <div class="col col-2 mt-5 admin-table p-4 ">
+        <div class="row justify-content-center" @keydown.enter="login">
+            <div class="col col-2 mt-5 admin-table p-4">
                 <AlertModal
                     :message="errorMessage"
                     ref="alertModalRef"
                 />
-                <div class="mb-3 px-5">
+                <div class="mb-3 px-5 text">
                     <label class="form-label" for="username">Kasutajanimi</label>
-                    <input id="username" v-model="loginRequest.username" class="form-control " type="text">
+                    <input id="username" v-model="loginRequest.username" class="form-control" type="text">
                 </div>
-                <div class="mb-3 px-5">
+                <div class="mb-3 px-5 text">
                     <label class="form-label" for="password">Salasõna</label>
                     <input id="password" v-model="loginRequest.password" class="form-control" type="password">
                 </div>
@@ -26,7 +26,6 @@
 <script>
 import router from "@/router";
 import AlertDanger from "@/components/alert/AlertDanger.vue";
-import Cookies from 'js-cookie';
 import AlertModal from "@/components/modal/AlertModal.vue";
 
 export default {
@@ -89,8 +88,25 @@ export default {
 <style scooped>
 .text-reg{
     color: #b98342;
+    font-size: 1.4rem;
 }
 .text-reg:hover{
     color:rgba(170, 27, 45, 1);
 }
+
+
+.admin-table {
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.2);
+    font-size: 3.5rem;
+    height: 30rem;
+    width: 500px !important;
+    padding: 2rem;
+}
+
+.custom-button {
+    width: 20rem;
+}
+
 </style>

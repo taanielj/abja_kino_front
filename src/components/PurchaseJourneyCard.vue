@@ -40,8 +40,8 @@ export default defineComponent({
 <style scoped>
 .purchase-journey {
     border: none;
-    border-radius: 0.5vh;
-    margin-bottom: 2vh;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
     width: 100%;
     box-shadow: 0 0 1vh 0 rgba(0, 0, 0, 0.5);
     background-color: rgba(255, 240, 225, 0.8);
@@ -49,9 +49,9 @@ export default defineComponent({
 }
 
 .journey-button {
-    border-radius: 0.5vh;
-    margin: 1vh;
-    padding: 1vh 2vh;
+    border-radius: 0.5rem;
+    margin: 1rem;
+    padding: 1rem 2rem;
 }
 
 .journey-active {

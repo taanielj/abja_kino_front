@@ -141,41 +141,43 @@ export default {
 
 <style scoped>
 .card-title {
-    font-size: 150%;
-    height: 10vh;
+    font-size: 3rem;
+    height: 10rem;
 }
 
 .seance-card {
-    width: 95%;
-    aspect-ratio: 2.1;
-    margin: 1%;
+    height: 500px;
+    width: 900px;
+    margin: 1rem;
     overflow: clip;
     position: relative;
-    border-radius: 1%;
+    border-radius: 1rem;
     background-color: rgba(255, 240, 225, 0.8);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .custom-image {
     object-fit: contain;
-    height: 100%
+    height: 500px;
+
 }
 
+
 .seance-info {
-    margin-left: 1%;
-    width: 100%;
+    margin-left: 1rem;
+    width: 50rem;
 }
 
 .text {
     /*align-start*/
     text-align: start;
-    font-size: 80%;
-    margin-bottom: 1%;
-    padding-right: 3%;
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+    padding-right: 3rem;
 }
 
 .custom-button {
-    font-size: 70%;
+    font-size: 1.5rem;
 }
 </style>
 
