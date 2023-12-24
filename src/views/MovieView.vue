@@ -64,21 +64,24 @@
             </div>
         </div>
     </div>
-    <div class="seances row justify-content-center">
-    <div v-if="allMovieSeances.length !== 0" class="custom-card title">
-        Vali seanss
-    </div>
-    <div v-if="allMovieSeances.length !== 0" class="schedule-container">
-        <!-- Change starts here -->
-        <div class="seance-wrapper">
-            <div v-for="seanceInfo in allMovieSeances" :key="seanceInfo" class="seance-card-item">
-                <SeanceMovieCard
-                        class="seance-card"
-                        :seanceInfo="seanceInfo"
-                        :journey="journey"
-                />
-            </div>
+    <div class="seances row justify-content-center" ref="seanceSelector">
+        <div v-if="allMovieSeances.length !== 0" class="custom-card title">
+            Vali seanss
         </div>
+        <div v-if="allMovieSeances.length !== 0" class="schedule-container">
+            <div class="row justify-content-center">
+                <div class="col col-12 p-2">
+                    <div class="d-flex flex-wrap">
+                        <div v-for="seanceInfo in allMovieSeances" :key="seanceInfo" class="col col-md-5 seance-card">
+                            <SeanceMovieCard
+                                    class="seance-card"
+                                    :seanceInfo="seanceInfo"
+                                    :journey="journey"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div v-else class="custom-card title">
             Filmil ei ole seansse
@@ -201,9 +204,9 @@ export default {
 
 <style scoped>
 .title {
-    height: 6rem;
-    width: 73rem;
-    font-size: 4rem;
+    height: 6vh;
+    width: 73%;
+    font-size: 4vh;
     font-weight: bold;
 }
 
@@ -212,40 +215,25 @@ export default {
     background-color: rgba(255, 240, 225, 0.8);
 }
 
+.seances {
+    min-height: 70vh;
+}
+
 .schedule-container {
-    max-width: 90vw;
+    width: 90vw;
     margin: 0 auto;
+
 }
 
-.custom-card {
-    width: 120rem;
+.seance-card {
+    margin-left: 5vh;
+    margin-top: 1vh;
 }
-
-.seance-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* centers the items */
-    align-items: center; /* optional, but helps vertically center if needed */
-}
-
-.seance-card-item {
-    flex: 0 0 calc(50% - 2rem); /* consider 1rem as margin on each side */
-    box-sizing: border-box;
-    margin: 1rem; 
-}
-
-@media (max-width: 768px) {
-    .seance-card-item {
-        flex: 0 0 100%;
-        margin: 1rem 0; 
-    }
-}
-
 .text-movie-description {
-    font-size: 2rem;
+    font-size: 2vh;
 }
 .text-movie-body {
-    font-size: 2.3rem;
+    font-size: 2.3vh;
 }
 
 </style>

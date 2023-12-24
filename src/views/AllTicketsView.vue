@@ -18,7 +18,7 @@
             </div>
             <div class="card-footer bg-transparent border-success">
                 <div class="d-grid gap-2 text-bold">
-                    <button class="btn btn-primary custom-button" type="button">Prindi kõik</button>
+                    <button class="btn btn-primary" type="button">Prindi kõik</button>
                 </div>
             </div>
         </div>
@@ -119,14 +119,8 @@ export default {
 
 <style scoped>
 .custom-card {
-    margin: 2rem;
-    padding: 2rem;
+    margin: 2vh;
+    padding: 2vh;
 }
-
-.custom-button {
-    width: 85%;
-    margin: 0 auto;
-}
-
 </style>
 

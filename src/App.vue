@@ -71,7 +71,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    font-size: 2.5rem;
+    font-size: 2.5vh;
     background-image: url('./assets/background_picture.jpg');
     background-position: center;
     background-attachment: fixed;
@@ -79,39 +79,27 @@ export default {
     height: 100vh;
     width: 100vw;
     overflow-x: hidden;
-    padding-bottom: 25%;
 }
 
-
-
 #cinema-name {
-    font-size: 6rem;
+    font-size: 3vw;
     font-weight: bold;
-    padding: 0.01rem;
+    padding: 0.01vh;
     color: rgba(170, 27, 45, 0.8);
 }
 
 nav {
     position: fixed;
     background-color: rgba(255, 240, 225, 1);
-    padding: 0.01rem;
-    font-size: 2.6rem;
+    padding: 0.01vh;
+    font-size: 2vw;
     width: 100%;
     transition: top 0.3s;
     z-index: 9999;
     box-shadow: 0 0.2vw 0.8vw rgba(0, 0, 0, 0.2); /* changed from px to vw */
-    height: 13rem;
-    margin: 0.01rem;
+    height: 16vh;
+    margin: 0.01vh;
 }
-
-
-@media (max-width: 768px) {
-    nav {
-        font-size: 1.5rem;
-        height: 10rem;
-    }
-}
-
 
 nav a {
     font-weight: bold;
@@ -126,10 +114,10 @@ nav a.router-link-exact-active {
 }
 
 .content {
-    padding-top: 25rem;
+    padding-top: 25vh;
 }
 
 router-link{
-    padding: 0.01rem;
+    padding: 0.01vh;
 }
 </style>

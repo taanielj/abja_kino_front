@@ -1,14 +1,23 @@
 <template>
-  <div v-if="show" class="schedule-container">
-    <div v-if="allSeances.length !== 0" class="seance-wrapper">
-      <div v-for="seanceInfo in allSeances" :key="seanceInfo" class="seance-card-item">
-        <SeanceMovieCard :seanceInfo="seanceInfo" :journey="journey" />
-      </div>
+<div v-if="show" class="schedule-container">
+    <div v-if="allSeances.length !== 0" class="row justify-content-center">
+        <div class="col col-12 p-2">
+            <div class="d-flex flex-wrap">
+                <div v-for="seanceInfo in allSeances" :key="seanceInfo" class="col col-5 seance-card">
+                    <SeanceMovieCard
+                            class="seance-card"
+                            :seanceInfo="seanceInfo"
+                            :journey="journey"
+                    />
+                </div>
+            </div>
+        </div>
     </div>
-    <div v-if="showNoSeances" class="custom-card text-center mx-auto w-50">
-      Ühtegi seanssi ei ole, võtke ühendust administraatoriga.
+    <div v-if="showNoSeances" class="custom-card w-50 mx-auto">
+        Ühtegi seanssi ei ole, võtke ühendust administraatoriga.
     </div>
-  </div>
+</div>
+
 </template>
 
 <script>
@@ -68,29 +77,15 @@ export default {
 </script>
 
 <style scoped>
+
 .schedule-container {
-    max-width: 90vw;
+    width: 90vw;
     margin: 0 auto;
 }
 
-.seance-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* centers the items */
-    align-items: center; /* optional, but helps vertically center if needed */
-}
-
-.seance-card-item {
-    flex: 0 0 calc(50% - 2rem); /* consider 1rem as margin on each side */
-    box-sizing: border-box;
-    margin: 1rem; 
-}
-
-@media (max-width: 768px) {
-    .seance-card-item {
-        flex: 0 0 100%;
-        margin: 1rem 0; 
-    }
+.seance-card {
+    margin-left: 5vh;
+    margin-top: 1vh;
 }
 
 </style>

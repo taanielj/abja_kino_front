@@ -150,12 +150,12 @@ export default {
 
 .seance-card {
     width: 100%;
-    margin-bottom: 5rem;
+    margin-bottom: 5vh;
 }
 
 .custom-button {
     border: transparent;
-    font-size: 2.6rem;
+    font-size: 2.6vh;
 }
 
 </style>
