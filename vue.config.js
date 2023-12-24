@@ -3,7 +3,8 @@ module.exports = {
     devServer: {
         allowedHosts: [
             'localhost',
-            'abjakino.duckdns.org'
+            'abjakino.duckdns.org',
+            'abja.jakobsons.net'
         ],
         proxy: API_URL
 
